@@ -370,10 +370,11 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ── Dashboard card animations ── */
 .dash-card{animation:dashGlow 4s ease-in-out infinite alternate}
 @keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
-.dash-customer-wrap{position:relative;height:48px;overflow:hidden}
+.dash-customer-wrap{position:relative;overflow:hidden}
 .dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:all .45s cubic-bezier(.22,1,.36,1)}
-.dash-toast.out{opacity:0;transform:translateX(40px)}
-.dash-toast.in{opacity:0;transform:translateX(-40px)}
+.dash-toast.out{opacity:0;transform:translateX(100%)}
+.dash-toast.entering{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(-100%)}
+.dash-toast.enter{opacity:1;transform:translateX(0)}
 .dash-toast-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .dash-toast-info{flex:1;min-width:0}
 .dash-toast-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -749,8 +750,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           <div class="dash-toast show" id="dashCustomer">
             <div class="dash-toast-dot" style="background:#22c55e"></div>
             <div class="dash-toast-info">
-              <div class="dash-toast-name">Sarah Mitchell <span class="hc-new-badge">New</span></div>
-              <div class="dash-toast-addr">14 Park Lane, EH6 4QJ</div>
+              <div class="dash-toast-name">Lucy Mackenzie <span class="hc-new-badge">New</span></div>
+              <div class="dash-toast-addr">22 Victoria Street, EH1 2JL</div>
             </div>
             <div class="dash-toast-price">&pound;18</div>
           </div>
@@ -770,7 +771,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         <div class="dash-tip" id="dashTip">Get instant alerts on your phone every time a new customer is delivered. No checking emails or dashboards — you'll know the second a booking lands.</div>
       </div>
 
-      <a href="/dashboard" class="btn btn-dark rv rv-d4" style="margin-top:32px">
+      <a href="/dashboard" class="btn btn-dark rv rv-d3" style="margin-top:32px">
         Explore the Dashboard
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1053,20 +1054,24 @@ if (!matchMedia('(max-width:768px)').matches) {
     /* Badge fade in after bar completes */
     var badge = card.querySelector('.dash-badge-anim');
     if (badge) setTimeout(function() { badge.classList.add('show'); }, 2000);
-    /* Customer cards — show a few new arrivals then stop */
+    /* Customer cards — show new arrivals then stop */
     var newCustomers = [
-      { name: 'Mark Henderson', addr: '27 Ashfield Road, EH14 5RP', price: 16, dot: '#3b82f6' },
-      { name: 'Claire Donovan', addr: '5 Kingsway Crescent, G43 2LN', price: 22, dot: '#22c55e' },
-      { name: 'Tom Gallagher', addr: '11 Riverside Walk, FK1 4QE', price: 19, dot: '#3b82f6' }
+      { name: 'Jamie Crawford', addr: '3 Birchwood Drive, G61 4SL', price: 20, dot: '#3b82f6' },
+      { name: 'Fiona Baxter', addr: '41 Queens Road, EH9 2BX', price: 24, dot: '#22c55e' },
+      { name: 'Ewan Brodie', addr: '17 Harbour View, KY11 2ND', price: 16, dot: '#3b82f6' },
+      { name: 'Isla Drummond', addr: '9 Castle Terrace, FK8 1RS', price: 22, dot: '#22c55e' },
+      { name: 'Ross Campbell', addr: '26 Glenburn Road, PA2 7LQ', price: 18, dot: '#3b82f6' }
     ];
+    var custWrap = document.querySelector('.dash-customer-wrap');
     var custEl = document.getElementById('dashCustomer');
-    var monthlyEl = card.querySelector('[data-dash-target="864"]');
-    var annualEl = card.querySelector('[data-dash-target="10400"]');
-    var customersEl = card.querySelector('[data-dash-target="48"]');
+    var statEls = card.querySelectorAll('.dash-counter');
+    var monthlyEl = statEls[1];
+    var annualEl = statEls[2];
+    var customersEl = statEls[0];
     var runningMonthly = 815;
     var runningAnnual = 9780;
     var runningCustomers = 48;
-    if (custEl && newCustomers.length) {
+    if (custEl && custWrap && newCustomers.length) {
       var idx = 0;
       function bumpStat(el, from, to, prefix, suffix, divide) {
         var dur = 800, start = performance.now();
@@ -1082,34 +1087,46 @@ if (!matchMedia('(max-width:768px)').matches) {
           if (p < 1) requestAnimationFrame(tick);
         })(start);
       }
+      function makeCard(c) {
+        var div = document.createElement('div');
+        div.className = 'dash-toast entering';
+        div.innerHTML = '<div class="dash-toast-dot" style="background:' + c.dot + '"></div>'
+          + '<div class="dash-toast-info"><div class="dash-toast-name">' + c.name + ' <span class="hc-new-badge">New</span></div>'
+          + '<div class="dash-toast-addr">' + c.addr + '</div></div>'
+          + '<div class="dash-toast-price">\u00a3' + c.price + '</div>';
+        return div;
+      }
       function showNext() {
         if (idx >= newCustomers.length) return;
         var delay = 3500 + Math.random() * 2500;
         setTimeout(function() {
-          custEl.classList.add('out');
+          var c = newCustomers[idx];
+          idx++;
+          var oldEl = custWrap.querySelector('.dash-toast');
+          var newEl = makeCard(c);
+          custWrap.appendChild(newEl);
+          /* Force layout then animate both simultaneously */
+          newEl.offsetHeight;
+          oldEl.classList.add('out');
+          newEl.classList.remove('entering');
+          newEl.classList.add('enter');
+          /* Clean up old card after transition */
           setTimeout(function() {
-            var c = newCustomers[idx];
-            idx++;
-            custEl.querySelector('.dash-toast-dot').style.background = c.dot;
-            custEl.querySelector('.dash-toast-name').innerHTML = c.name + ' <span class="hc-new-badge">New</span>';
-            custEl.querySelector('.dash-toast-addr').textContent = c.addr;
-            custEl.querySelector('.dash-toast-price').textContent = '\u00a3' + c.price;
-            custEl.classList.remove('out');
-            custEl.classList.add('in');
-            custEl.offsetHeight;
-            custEl.classList.remove('in');
-            /* Bump stats */
-            var prevMonthly = runningMonthly;
-            var prevAnnual = runningAnnual;
-            var prevCustomers = runningCustomers;
-            runningMonthly += c.price;
-            runningAnnual += c.price * 12;
-            runningCustomers += 1;
-            if (monthlyEl) bumpStat(monthlyEl, prevMonthly, runningMonthly, '\u00a3', '', 0);
-            if (annualEl) bumpStat(annualEl, prevAnnual, runningAnnual, '\u00a3', 'k', 1000);
-            if (customersEl) bumpStat(customersEl, prevCustomers, runningCustomers, '', '', 0);
-            showNext();
-          }, 450);
+            if (oldEl.parentNode) oldEl.parentNode.removeChild(oldEl);
+            newEl.classList.remove('enter');
+            newEl.id = 'dashCustomer';
+          }, 500);
+          /* Bump stats */
+          var prevMonthly = runningMonthly;
+          var prevAnnual = runningAnnual;
+          var prevCustomers = runningCustomers;
+          runningMonthly += c.price;
+          runningAnnual += c.price * 12;
+          runningCustomers += 1;
+          if (monthlyEl) bumpStat(monthlyEl, prevMonthly, runningMonthly, '\u00a3', '', 0);
+          if (annualEl) bumpStat(annualEl, prevAnnual, runningAnnual, '\u00a3', 'k', 1000);
+          if (customersEl) bumpStat(customersEl, prevCustomers, runningCustomers, '', '', 0);
+          showNext();
         }, delay);
       }
       showNext();
