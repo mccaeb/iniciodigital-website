@@ -112,7 +112,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .hc-bar{height:7px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden}
 .hc-bar-fill{height:100%;border-radius:4px;transition:width 2s cubic-bezier(.22,1,.36,1)}
 
-.hero-leads{overflow:hidden;position:relative}
+.hero-leads{overflow:hidden;position:relative;max-height:162px}
 .hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;transition:all .5s cubic-bezier(.22,1,.36,1)}
 .hc-lead-top{border-color:rgba(34,197,94,.4)}
 .hc-lead.hc-lead-entering{opacity:0;transform:translateY(-100%);margin-bottom:-50px}
@@ -437,24 +437,18 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <!-- Hero mock card — shows what clients actually see -->
   <div class="hero-card-wrap hs hs-4">
     <div class="hero-card">
-      <div class="hc-stats">
+      <div class="hc-stats" style="grid-template-columns:1fr 1fr 1fr">
         <div class="hc-stat">
-          <div class="hc-stat-l">Customers Delivered</div>
-          <div class="hc-stat-v">380</div>
+          <div class="hc-stat-l">Customers</div>
+          <div class="hc-stat-v" id="heroCustomers">380</div>
+        </div>
+        <div class="hc-stat">
+          <div class="hc-stat-l">Monthly</div>
+          <div class="hc-stat-v" id="heroMonthly">&pound;6.2k</div>
         </div>
         <div class="hc-stat accent">
-          <div class="hc-stat-l">Annual Revenue</div>
-          <div class="hc-stat-v">&pound;75k+</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px">
-        <div class="hc-stat">
-          <div class="hc-stat-l">Monthly Revenue</div>
-          <div class="hc-stat-v">&pound;6.2k</div>
-        </div>
-        <div class="hc-stat">
-          <div class="hc-stat-l">Active Services</div>
-          <div class="hc-stat-v">2</div>
+          <div class="hc-stat-l">Annual</div>
+          <div class="hc-stat-v" id="heroAnnual">&pound;75k+</div>
         </div>
       </div>
       <div style="padding:0 5%">
@@ -913,6 +907,11 @@ requestAnimationFrame(() => {
 (function() {
   var container = document.getElementById('heroLeads');
   if (!container) return;
+  var heroBar = document.getElementById('heroBar');
+  var heroCustomersEl = document.getElementById('heroCustomers');
+  var heroMonthlyEl = document.getElementById('heroMonthly');
+  var heroAnnualEl = document.getElementById('heroAnnual');
+  var runCust = 380, runMonthly = 6200, runAnnual = 75000, runBatch = 68;
   var newLeads = [
     { name: 'Sarah Mitchell', addr: '14 Park Lane, EH6 4QJ', price: 18, dot: '#3b82f6' },
     { name: 'David Kerr', addr: '33 Broomhill Avenue, G11 7AB', price: 21, dot: '#22c55e' },
@@ -920,6 +919,20 @@ requestAnimationFrame(() => {
     { name: 'Graeme Murray', addr: '52 Elm Row, EH7 4AH', price: 20, dot: '#22c55e' },
     { name: 'Nicola Fraser', addr: '19 Loch Road, FK3 8QP', price: 17, dot: '#3b82f6' }
   ];
+  function heroBump(el, from, to, prefix, suffix, divide) {
+    var dur = 800, start = performance.now();
+    (function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      var val = from + (to - from) * ease;
+      if (divide) {
+        el.textContent = prefix + (val / divide).toFixed(1) + (suffix || '');
+      } else {
+        el.textContent = prefix + Math.round(val).toLocaleString();
+      }
+      if (p < 1) requestAnimationFrame(tick);
+    })(start);
+  }
   var idx = 0;
   function makeLead(c) {
     var div = document.createElement('div');
@@ -934,11 +947,12 @@ requestAnimationFrame(() => {
     if (idx >= newLeads.length) return;
     var delay = idx === 0 ? 3000 : 5000 + Math.random() * 4000;
     setTimeout(function() {
+      var c = newLeads[idx];
       var leads = container.querySelectorAll('.hc-lead');
       /* Remove top highlight from current top */
       if (leads[0]) leads[0].classList.remove('hc-lead-top');
       /* Create new lead at top */
-      var newEl = makeLead(newLeads[idx]);
+      var newEl = makeLead(c);
       container.insertBefore(newEl, leads[0]);
       /* Animate bottom one out */
       var bottom = container.querySelectorAll('.hc-lead');
@@ -950,6 +964,16 @@ requestAnimationFrame(() => {
       /* Animate new one in */
       newEl.offsetHeight;
       newEl.classList.remove('hc-lead-entering');
+      /* Bump stats */
+      var prevCust = runCust, prevMonthly = runMonthly, prevAnnual = runAnnual;
+      runCust += 1;
+      runMonthly += c.price;
+      runAnnual += c.price * 12;
+      runBatch = Math.min(runBatch + 3, 95);
+      if (heroCustomersEl) heroBump(heroCustomersEl, prevCust, runCust, '', '', 0);
+      if (heroMonthlyEl) heroBump(heroMonthlyEl, prevMonthly, runMonthly, '\u00a3', 'k', 1000);
+      if (heroAnnualEl) heroBump(heroAnnualEl, prevAnnual, runAnnual, '\u00a3', 'k', 1000);
+      if (heroBar) heroBar.style.width = runBatch + '%';
       idx++;
       cycleHeroLead();
     }, delay);
