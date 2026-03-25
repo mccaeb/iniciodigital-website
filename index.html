@@ -370,10 +370,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ── Dashboard card animations ── */
 .dash-card{animation:dashGlow 4s ease-in-out infinite alternate}
 @keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
-.dash-customer-wrap{position:relative;height:48px}
-.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateY(0);transition:all .45s cubic-bezier(.22,1,.36,1)}
-.dash-toast.out{opacity:0;transform:translateY(-12px) scale(.97)}
-.dash-toast.in{opacity:0;transform:translateY(12px) scale(.97)}
+.dash-customer-wrap{position:relative;height:48px;overflow:hidden}
+.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:all .45s cubic-bezier(.22,1,.36,1)}
+.dash-toast.out{opacity:0;transform:translateX(40px)}
+.dash-toast.in{opacity:0;transform:translateX(-40px)}
 .dash-toast-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .dash-toast-info{flex:1;min-width:0}
 .dash-toast-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -718,7 +718,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       <div class="hero-card rv rv-d3 dash-card" style="padding:28px 24px;text-align:left">
 
         <!-- Stat row -->
-        <div class="hc-stats rv" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:18px">
+        <div class="hc-stats rv" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:10px">
           <div class="hc-stat">
             <div class="hc-stat-l">Customers</div>
             <div class="hc-stat-v dash-counter" data-dash-target="48">0</div>
@@ -734,7 +734,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
 
         <!-- Batch progress preview -->
-        <div class="rv rv-d1" style="padding:0 5%;margin-bottom:18px">
+        <div class="rv rv-d1" style="padding:0 5%;margin-bottom:10px">
           <div class="hc-progress">
             <div class="hc-progress-top">
               <span class="hc-progress-title">Batch 1</span>
@@ -745,7 +745,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
 
         <!-- Customer card (cycles through 5) -->
-        <div class="dash-customer-wrap" style="padding:0 10%;margin-bottom:18px">
+        <div class="dash-customer-wrap" style="padding:0 10%;margin-bottom:10px">
           <div class="dash-toast show" id="dashCustomer">
             <div class="dash-toast-dot" style="background:#22c55e"></div>
             <div class="dash-toast-info">
@@ -757,7 +757,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
 
         <!-- Feature hint -->
-        <div class="dash-tip-hint rv rv-d2" style="margin-bottom:10px;color:#fff">Built-in tools that make running your round effortless</div>
+        <div class="dash-tip-hint rv rv-d2" style="margin-top:22px;margin-bottom:18px;color:#fff">Built-in tools that make running your round effortless</div>
 
         <!-- Feature pills -->
         <div class="dash-pills rv rv-d2">
