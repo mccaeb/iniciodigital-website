@@ -362,9 +362,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .dash-pills{display:flex;flex-wrap:wrap;gap:0;justify-content:center;position:relative}
 .dash-pill{font-size:12px;font-weight:700;padding:8px 16px;border-radius:10px 10px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:none;background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);cursor:pointer;transition:all .3s ease;-webkit-appearance:none;outline:none;font-family:inherit;margin:0 2px;position:relative;bottom:-1px}
 .dash-pill:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.06)}
-.dash-pill--active{border-color:rgba(26,107,74,.25)!important;background:rgba(26,107,74,.08)!important;color:#4ade80!important;z-index:1}
-.dash-tip{padding:16px 20px;border-radius:14px;background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.18);color:rgba(255,255,255,.65);font-size:13px;font-weight:500;line-height:1.65;text-align:center;margin-top:0;animation:tipIn .3s ease}
-.dash-tip .dash-tip-hint{display:block;margin-top:8px;font-size:11px;color:rgba(255,255,255,.3);font-weight:600;letter-spacing:.03em}
+.dash-pill--active{border-color:rgba(26,107,74,.25)!important;background:rgba(26,107,74,.08)!important;color:#4ade80!important;z-index:1;border-bottom-color:rgba(26,107,74,.06)!important}
+.dash-tip{padding:16px 20px;border-radius:0 0 14px 14px;background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.18);border-top:none;color:rgba(255,255,255,.65);font-size:13px;font-weight:500;line-height:1.65;text-align:center;margin-top:0;animation:tipIn .3s ease}
+.dash-tip-hint{display:block;font-size:13px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.03em;text-align:center}
 @keyframes tipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Touch ── */
@@ -700,7 +700,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       <div class="section-sub rv rv-d2" style="margin-bottom:48px">Your own branded dashboard with real-time tracking, push notifications, and one-click exports. Nothing else in the industry comes close.</div>
 
       <!-- Mini dark preview card -->
-      <div class="rv rv-d3" style="background:linear-gradient(160deg,#2a2a2a,#222222);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:28px 24px;color:#fff;position:relative;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.08),0 40px 80px rgba(0,0,0,0.1);text-align:left">
+      <div class="rv rv-d3" style="background:linear-gradient(160deg,#2a2a2a,#222222);border:1px solid rgba(34,197,94,.35);border-radius:22px;padding:28px 24px;color:#fff;position:relative;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.08),0 40px 80px rgba(0,0,0,0.1),0 0 0 1px rgba(34,197,94,.15);text-align:left">
         <!-- Glow -->
         <div style="position:absolute;bottom:-40%;left:10%;width:80%;height:60%;background:radial-gradient(ellipse,rgba(26,107,74,.14),transparent 60%);pointer-events:none;filter:blur(50px)"></div>
         <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.2),transparent)"></div>
@@ -722,22 +722,18 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
 
         <!-- Batch progress preview -->
-        <div class="rv rv-d1" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px">
+        <div class="rv rv-d1" style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:18px">
           <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-              <span style="font-size:13px;font-weight:800;color:#fff">Batch 3</span>
+              <span style="font-size:13px;font-weight:800;color:#fff">Batch 1</span>
               <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
             </div>
             <div style="height:6px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden"><div style="height:100%;width:100%;border-radius:3px;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
           </div>
-          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-              <span style="font-size:13px;font-weight:800;color:#fff">Batch 4</span>
-              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(217,119,6,.12);color:#fbbf24">Building</span>
-            </div>
-            <div style="height:6px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden"><div style="height:100%;width:68%;border-radius:3px;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
-          </div>
         </div>
+
+        <!-- Feature hint -->
+        <div class="dash-tip-hint rv rv-d2" style="margin-bottom:10px">Click each feature below to learn more</div>
 
         <!-- Feature pills -->
         <div class="dash-pills rv rv-d2">
@@ -747,7 +743,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           <button class="dash-pill" data-tip="Sort and filter customers by status, batch, area, or value. Find exactly what you need without scrolling through your entire list.">Filters</button>
           <button class="dash-pill" data-tip="Every customer is pinned on an interactive map so you can see your round at a glance and plan the most efficient route.">Google Maps</button>
         </div>
-        <div class="dash-tip" id="dashTip">Get instant alerts on your phone every time a new customer is delivered. No checking emails or dashboards — you'll know the second a booking lands.<span class="dash-tip-hint">Click each feature above to learn more</span></div>
+        <div class="dash-tip" id="dashTip">Get instant alerts on your phone every time a new customer is delivered. No checking emails or dashboards — you'll know the second a booking lands.</div>
       </div>
 
       <a href="/dashboard" class="btn btn-dark rv rv-d4" style="margin-top:32px">
@@ -983,13 +979,12 @@ if (!matchMedia('(max-width:768px)').matches) {
   var pills = document.querySelectorAll('.dash-pill');
   var tip = document.getElementById('dashTip');
   if (!pills.length || !tip) return;
-  var hint = '<span class="dash-tip-hint">Click each feature above to learn more</span>';
   pills.forEach(function(pill) {
     pill.addEventListener('click', function() {
       if (pill.classList.contains('dash-pill--active')) return;
       pills.forEach(function(p) { p.classList.remove('dash-pill--active'); });
       pill.classList.add('dash-pill--active');
-      tip.innerHTML = pill.getAttribute('data-tip') + hint;
+      tip.innerHTML = pill.getAttribute('data-tip');
       tip.style.animation = 'none';
       tip.offsetHeight;
       tip.style.animation = 'tipIn .3s ease';
