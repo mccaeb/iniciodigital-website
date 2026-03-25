@@ -372,9 +372,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
 .dash-customer-wrap{position:relative;overflow:hidden}
 .dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:all .45s cubic-bezier(.22,1,.36,1)}
-.dash-toast.out{opacity:0;transform:translateX(100%)}
+.dash-toast.out{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(100%)}
 .dash-toast.entering{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(-100%)}
-.dash-toast.enter{opacity:1;transform:translateX(0)}
+.dash-toast.enter{position:relative;opacity:1;transform:translateX(0)}
 .dash-toast-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .dash-toast-info{flex:1;min-width:0}
 .dash-toast-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
