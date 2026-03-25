@@ -130,6 +130,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .hs{opacity:0;transform:translateY(20px);animation:hsIn .8s cubic-bezier(.22,1,.36,1) both}
 .hs-1{animation-delay:.05s}.hs-2{animation-delay:.15s}.hs-3{animation-delay:.28s}.hs-4{animation-delay:.42s}.hs-5{animation-delay:.35s;transform:translateY(28px) scale(.97)}
 @keyframes hsIn{to{opacity:1;transform:translateY(0) scale(1) rotateX(0)}}
+@media(max-width:768px){.hs{opacity:1!important;transform:none!important;animation:none!important}}
 
 .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:auto;padding-top:32px;color:#ccc;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 .scroll-cue-line{width:1px;height:32px;background:linear-gradient(to bottom,#ccc,transparent);animation:scrollPulse 2.2s ease infinite}
@@ -862,8 +863,14 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 
 <script>
 /* ── Scroll Reveal (IntersectionObserver) ── */
+var isMobile = window.innerWidth <= 768;
 var rvEls = [].slice.call(document.querySelectorAll('.rv'));
 rvEls.forEach(function(el) {
+  /* On mobile, show above-fold content instantly */
+  if (isMobile && el.getBoundingClientRect().top < window.innerHeight) {
+    el.classList.add('vis');
+    return;
+  }
   el.style.opacity = '0';
   el.style.transform = 'translateY(24px)';
 });
