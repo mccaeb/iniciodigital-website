@@ -749,7 +749,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           <div class="dash-toast show" id="dashCustomer">
             <div class="dash-toast-dot" style="background:#22c55e"></div>
             <div class="dash-toast-info">
-              <div class="dash-toast-name">Sarah Mitchell</div>
+              <div class="dash-toast-name">Sarah Mitchell <span class="hc-new-badge">New</span></div>
               <div class="dash-toast-addr">14 Park Lane, EH6 4QJ</div>
             </div>
             <div class="dash-toast-price">&pound;18</div>
@@ -1056,29 +1056,34 @@ if (!matchMedia('(max-width:768px)').matches) {
     /* Cycle customer cards */
     var customers = [
       { name: 'Sarah Mitchell', addr: '14 Park Lane, EH6 4QJ', price: '18', dot: '#22c55e' },
-      { name: 'Mark Henderson', addr: '27 Ashfield Road, EH14 5RP', price: '16', dot: '#3b82f6' },
-      { name: 'Claire Donovan', addr: '5 Kingsway Crescent, G43 2LN', price: '24', dot: '#22c55e' },
-      { name: 'Tom Gallagher', addr: '11 Riverside Walk, FK1 4QE', price: '19', dot: '#3b82f6' },
-      { name: 'Emma Robertson', addr: '8 Meadow Court, EH12 7BN', price: '22', dot: '#22c55e' }
+      { name: 'Mark Henderson', addr: '27 Ashfield Road, EH14 5RP', price: '20', dot: '#3b82f6' },
+      { name: 'Claire Donovan', addr: '5 Kingsway Crescent, G43 2LN', price: '22', dot: '#22c55e' },
+      { name: 'Tom Gallagher', addr: '11 Riverside Walk, FK1 4QE', price: '24', dot: '#3b82f6' },
+      { name: 'Emma Robertson', addr: '8 Meadow Court, EH12 7BN', price: '28', dot: '#22c55e' }
     ];
     var custEl = document.getElementById('dashCustomer');
     if (custEl) {
       var idx = 0;
-      setInterval(function() {
-        custEl.classList.add('out');
+      function nextCustomer() {
+        var delay = 3500 + Math.random() * 3000;
         setTimeout(function() {
-          idx = (idx + 1) % customers.length;
-          var c = customers[idx];
-          custEl.querySelector('.dash-toast-dot').style.background = c.dot;
-          custEl.querySelector('.dash-toast-name').textContent = c.name;
-          custEl.querySelector('.dash-toast-addr').textContent = c.addr;
-          custEl.querySelector('.dash-toast-price').textContent = '£' + c.price;
-          custEl.classList.remove('out');
-          custEl.classList.add('in');
-          custEl.offsetHeight;
-          custEl.classList.remove('in');
-        }, 450);
-      }, 3000);
+          custEl.classList.add('out');
+          setTimeout(function() {
+            idx = (idx + 1) % customers.length;
+            var c = customers[idx];
+            custEl.querySelector('.dash-toast-dot').style.background = c.dot;
+            custEl.querySelector('.dash-toast-name').innerHTML = c.name + ' <span class="hc-new-badge">New</span>';
+            custEl.querySelector('.dash-toast-addr').textContent = c.addr;
+            custEl.querySelector('.dash-toast-price').textContent = '\u00a3' + c.price;
+            custEl.classList.remove('out');
+            custEl.classList.add('in');
+            custEl.offsetHeight;
+            custEl.classList.remove('in');
+          }, 450);
+          nextCustomer();
+        }, delay);
+      }
+      nextCustomer();
     }
   }
   var obs = new IntersectionObserver(function(entries) {
