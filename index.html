@@ -367,6 +367,19 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .dash-tip-hint{display:block;font-size:13px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.03em;text-align:center}
 @keyframes tipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
+/* ── Dashboard card animations ── */
+.dash-card{animation:dashGlow 4s ease-in-out infinite alternate}
+@keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
+.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;margin:0 5% 18px;opacity:0;transform:translateY(10px) scale(.97);transition:all .5s cubic-bezier(.22,1,.36,1)}
+.dash-toast.show{opacity:1;transform:translateY(0) scale(1)}
+.dash-toast-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
+.dash-toast-info{flex:1;min-width:0}
+.dash-toast-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.dash-toast-addr{font-size:12px;color:rgba(255,255,255,.4);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-toast-price{font-size:12px;font-weight:800;background:#1a6b4a;color:#fff;padding:4px 9px;border-radius:7px;flex-shrink:0}
+.dash-badge-anim{opacity:0;transition:opacity .4s ease}
+.dash-badge-anim.show{opacity:1}
+
 /* ── Touch ── */
 @media(hover:none){.bc:active{transform:scale(.98)!important;transition-duration:.15s}.impact-card:active{transform:scale(.98)!important}.step:active{transform:scale(.98)!important}.pc:active{transform:scale(.98)!important}}
 
@@ -700,21 +713,21 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       <div class="section-sub rv rv-d2" style="margin-bottom:48px">Your own branded dashboard with real-time tracking, push notifications, and one-click exports. Nothing else in the industry comes close.</div>
 
       <!-- Mini dark preview card -->
-      <div class="hero-card rv rv-d3" style="padding:28px 24px;text-align:left">
+      <div class="hero-card rv rv-d3 dash-card" style="padding:28px 24px;text-align:left">
 
         <!-- Stat row -->
         <div class="hc-stats rv" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:18px">
           <div class="hc-stat">
             <div class="hc-stat-l">Customers</div>
-            <div class="hc-stat-v">48</div>
+            <div class="hc-stat-v dash-counter" data-dash-target="48">0</div>
           </div>
           <div class="hc-stat">
             <div class="hc-stat-l">Monthly</div>
-            <div class="hc-stat-v">&pound;864</div>
+            <div class="hc-stat-v dash-counter" data-dash-target="864" data-dash-prefix="£">£0</div>
           </div>
           <div class="hc-stat accent">
             <div class="hc-stat-l">Annual</div>
-            <div class="hc-stat-v">&pound;10.4k</div>
+            <div class="hc-stat-v dash-counter" data-dash-target="10400" data-dash-prefix="£" data-dash-suffix="k" data-dash-divide="1000" data-dash-decimal="1">£0</div>
           </div>
         </div>
 
@@ -723,10 +736,20 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           <div class="hc-progress">
             <div class="hc-progress-top">
               <span class="hc-progress-title">Batch 1</span>
-              <span class="hc-badge" style="background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
+              <span class="hc-badge dash-badge-anim" style="background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
             </div>
-            <div class="hc-bar"><div class="hc-bar-fill" style="width:100%;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
+            <div class="hc-bar"><div class="hc-bar-fill" id="dashBar" style="width:0;background:linear-gradient(90deg,#22c55e,#1a6b4a);transition:width 1.8s cubic-bezier(.22,1,.36,1)"></div></div>
           </div>
+        </div>
+
+        <!-- Live notification toast -->
+        <div class="dash-toast" id="dashToast">
+          <div class="dash-toast-dot"></div>
+          <div class="dash-toast-info">
+            <div class="dash-toast-name">New Customer <span class="hc-new-badge">New</span></div>
+            <div class="dash-toast-addr">Sarah Mitchell — 14 Park Lane, EH6 4QJ</div>
+          </div>
+          <div class="dash-toast-price">&pound;18</div>
         </div>
 
         <!-- Feature hint -->
@@ -987,6 +1010,53 @@ if (!matchMedia('(max-width:768px)').matches) {
       tip.style.animation = 'tipIn .3s ease';
     });
   });
+})();
+
+/* ── Dashboard card animations ── */
+(function() {
+  var card = document.querySelector('.dash-card');
+  if (!card) return;
+  var fired = false;
+  function animate() {
+    if (fired) return;
+    fired = true;
+    /* Count-up numbers */
+    var counters = card.querySelectorAll('.dash-counter');
+    counters.forEach(function(el) {
+      var target = +el.dataset.dashTarget;
+      var prefix = el.dataset.dashPrefix || '';
+      var suffix = el.dataset.dashSuffix || '';
+      var divide = +el.dataset.dashDivide || 0;
+      var decimal = +el.dataset.dashDecimal || 0;
+      var dur = 2000, start = performance.now();
+      (function tick(now) {
+        var p = Math.min((now - start) / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 4);
+        var val = ease * target;
+        if (divide) {
+          el.textContent = prefix + (val / divide).toFixed(p < 1 ? 1 : decimal);
+          if (suffix && p >= 1) el.textContent += suffix;
+          else if (suffix && val / divide >= 1) el.textContent += suffix;
+        } else {
+          el.textContent = prefix + Math.round(val).toLocaleString();
+        }
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    });
+    /* Progress bar fill */
+    var bar = document.getElementById('dashBar');
+    if (bar) setTimeout(function() { bar.style.width = '100%'; }, 300);
+    /* Badge fade in after bar completes */
+    var badge = card.querySelector('.dash-badge-anim');
+    if (badge) setTimeout(function() { badge.classList.add('show'); }, 2000);
+    /* Toast slide in */
+    var toast = document.getElementById('dashToast');
+    if (toast) setTimeout(function() { toast.classList.add('show'); }, 2600);
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { animate(); obs.disconnect(); }
+  }, { threshold: 0.3 });
+  obs.observe(card);
 })();
 </script>
 </body>
