@@ -370,8 +370,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ── Dashboard card animations ── */
 .dash-card{animation:dashGlow 4s ease-in-out infinite alternate}
 @keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
-.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;margin:0 5% 18px;opacity:0;transform:translateY(10px) scale(.97);transition:all .5s cubic-bezier(.22,1,.36,1)}
-.dash-toast.show{opacity:1;transform:translateY(0) scale(1)}
+.dash-customer-wrap{position:relative;height:48px}
+.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateY(0);transition:all .45s cubic-bezier(.22,1,.36,1)}
+.dash-toast.out{opacity:0;transform:translateY(-12px) scale(.97)}
+.dash-toast.in{opacity:0;transform:translateY(12px) scale(.97)}
 .dash-toast-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .dash-toast-info{flex:1;min-width:0}
 .dash-toast-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -742,18 +744,20 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           </div>
         </div>
 
-        <!-- Live notification toast -->
-        <div class="dash-toast" id="dashToast">
-          <div class="dash-toast-dot"></div>
-          <div class="dash-toast-info">
-            <div class="dash-toast-name">New Customer <span class="hc-new-badge">New</span></div>
-            <div class="dash-toast-addr">Sarah Mitchell — 14 Park Lane, EH6 4QJ</div>
+        <!-- Customer card (cycles through 5) -->
+        <div class="dash-customer-wrap" style="padding:0 10%;margin-bottom:18px">
+          <div class="dash-toast show" id="dashCustomer">
+            <div class="dash-toast-dot" style="background:#22c55e"></div>
+            <div class="dash-toast-info">
+              <div class="dash-toast-name">Sarah Mitchell</div>
+              <div class="dash-toast-addr">14 Park Lane, EH6 4QJ</div>
+            </div>
+            <div class="dash-toast-price">&pound;18</div>
           </div>
-          <div class="dash-toast-price">&pound;18</div>
         </div>
 
         <!-- Feature hint -->
-        <div class="dash-tip-hint rv rv-d2" style="margin-bottom:10px">Click each feature below to learn more</div>
+        <div class="dash-tip-hint rv rv-d2" style="margin-bottom:10px;color:#fff">Built-in tools that make running your round effortless</div>
 
         <!-- Feature pills -->
         <div class="dash-pills rv rv-d2">
@@ -1049,9 +1053,33 @@ if (!matchMedia('(max-width:768px)').matches) {
     /* Badge fade in after bar completes */
     var badge = card.querySelector('.dash-badge-anim');
     if (badge) setTimeout(function() { badge.classList.add('show'); }, 2000);
-    /* Toast slide in */
-    var toast = document.getElementById('dashToast');
-    if (toast) setTimeout(function() { toast.classList.add('show'); }, 2600);
+    /* Cycle customer cards */
+    var customers = [
+      { name: 'Sarah Mitchell', addr: '14 Park Lane, EH6 4QJ', price: '18', dot: '#22c55e' },
+      { name: 'Mark Henderson', addr: '27 Ashfield Road, EH14 5RP', price: '16', dot: '#3b82f6' },
+      { name: 'Claire Donovan', addr: '5 Kingsway Crescent, G43 2LN', price: '24', dot: '#22c55e' },
+      { name: 'Tom Gallagher', addr: '11 Riverside Walk, FK1 4QE', price: '19', dot: '#3b82f6' },
+      { name: 'Emma Robertson', addr: '8 Meadow Court, EH12 7BN', price: '22', dot: '#22c55e' }
+    ];
+    var custEl = document.getElementById('dashCustomer');
+    if (custEl) {
+      var idx = 0;
+      setInterval(function() {
+        custEl.classList.add('out');
+        setTimeout(function() {
+          idx = (idx + 1) % customers.length;
+          var c = customers[idx];
+          custEl.querySelector('.dash-toast-dot').style.background = c.dot;
+          custEl.querySelector('.dash-toast-name').textContent = c.name;
+          custEl.querySelector('.dash-toast-addr').textContent = c.addr;
+          custEl.querySelector('.dash-toast-price').textContent = '£' + c.price;
+          custEl.classList.remove('out');
+          custEl.classList.add('in');
+          custEl.offsetHeight;
+          custEl.classList.remove('in');
+        }, 450);
+      }, 3000);
+    }
   }
   var obs = new IntersectionObserver(function(entries) {
     if (entries[0].isIntersecting) { animate(); obs.disconnect(); }
