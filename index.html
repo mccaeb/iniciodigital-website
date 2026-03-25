@@ -112,7 +112,11 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .hc-bar{height:7px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden}
 .hc-bar-fill{height:100%;border-radius:4px;transition:width 2s cubic-bezier(.22,1,.36,1)}
 
-.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0}
+.hero-leads{overflow:hidden;position:relative}
+.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;transition:all .5s cubic-bezier(.22,1,.36,1)}
+.hc-lead-top{border-color:rgba(34,197,94,.4)}
+.hc-lead.hc-lead-entering{opacity:0;transform:translateY(-100%);margin-bottom:-50px}
+.hc-lead.hc-lead-exiting{opacity:0;transform:translateY(20px);margin-top:-50px}
 .hc-lead-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .hc-lead-info{flex:1;min-width:0}
 .hc-lead-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -469,20 +473,22 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           <div class="hc-bar"><div class="hc-bar-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
         </div>
       </div>
-      <div class="hc-lead hc-lead-new">
-        <div class="hc-lead-dot" style="background:#22c55e"></div>
-        <div class="hc-lead-info"><div class="hc-lead-name">Mark Henderson <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, EH14 5RP</div></div>
-        <div class="hc-lead-price">&pound;16</div>
-      </div>
-      <div class="hc-lead hc-lead-new">
-        <div class="hc-lead-dot" style="background:#3b82f6"></div>
-        <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
-        <div class="hc-lead-price">&pound;24</div>
-      </div>
-      <div class="hc-lead hc-lead-new">
-        <div class="hc-lead-dot" style="background:#22c55e"></div>
-        <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
-        <div class="hc-lead-price">&pound;19</div>
+      <div class="hero-leads" id="heroLeads">
+        <div class="hc-lead hc-lead-new hc-lead-top">
+          <div class="hc-lead-dot" style="background:#22c55e"></div>
+          <div class="hc-lead-info"><div class="hc-lead-name">Mark Henderson <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, EH14 5RP</div></div>
+          <div class="hc-lead-price">&pound;16</div>
+        </div>
+        <div class="hc-lead hc-lead-new">
+          <div class="hc-lead-dot" style="background:#3b82f6"></div>
+          <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
+          <div class="hc-lead-price">&pound;24</div>
+        </div>
+        <div class="hc-lead hc-lead-new">
+          <div class="hc-lead-dot" style="background:#22c55e"></div>
+          <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
+          <div class="hc-lead-price">&pound;19</div>
+        </div>
       </div>
     </div>
   </div>
@@ -902,6 +908,54 @@ requestAnimationFrame(() => {
     if (bar) bar.style.width = '68%';
   }, 600);
 });
+
+/* ── Hero customer cycling ── */
+(function() {
+  var container = document.getElementById('heroLeads');
+  if (!container) return;
+  var newLeads = [
+    { name: 'Sarah Mitchell', addr: '14 Park Lane, EH6 4QJ', price: 18, dot: '#3b82f6' },
+    { name: 'David Kerr', addr: '33 Broomhill Avenue, G11 7AB', price: 21, dot: '#22c55e' },
+    { name: 'Kirsty Wallace', addr: '7 Harbour Street, KY1 1BN', price: 15, dot: '#3b82f6' },
+    { name: 'Graeme Murray', addr: '52 Elm Row, EH7 4AH', price: 20, dot: '#22c55e' },
+    { name: 'Nicola Fraser', addr: '19 Loch Road, FK3 8QP', price: 17, dot: '#3b82f6' }
+  ];
+  var idx = 0;
+  function makeLead(c) {
+    var div = document.createElement('div');
+    div.className = 'hc-lead hc-lead-new hc-lead-top hc-lead-entering';
+    div.innerHTML = '<div class="hc-lead-dot" style="background:' + c.dot + '"></div>'
+      + '<div class="hc-lead-info"><div class="hc-lead-name">' + c.name + ' <span class="hc-new-badge">New</span></div>'
+      + '<div class="hc-lead-addr">' + c.addr + '</div></div>'
+      + '<div class="hc-lead-price">\u00a3' + c.price + '</div>';
+    return div;
+  }
+  function cycleHeroLead() {
+    if (idx >= newLeads.length) return;
+    var delay = idx === 0 ? 3000 : 5000 + Math.random() * 4000;
+    setTimeout(function() {
+      var leads = container.querySelectorAll('.hc-lead');
+      /* Remove top highlight from current top */
+      if (leads[0]) leads[0].classList.remove('hc-lead-top');
+      /* Create new lead at top */
+      var newEl = makeLead(newLeads[idx]);
+      container.insertBefore(newEl, leads[0]);
+      /* Animate bottom one out */
+      var bottom = container.querySelectorAll('.hc-lead');
+      if (bottom.length > 3) {
+        var last = bottom[bottom.length - 1];
+        last.classList.add('hc-lead-exiting');
+        setTimeout(function() { if (last.parentNode) last.parentNode.removeChild(last); }, 500);
+      }
+      /* Animate new one in */
+      newEl.offsetHeight;
+      newEl.classList.remove('hc-lead-entering');
+      idx++;
+      cycleHeroLead();
+    }, delay);
+  }
+  cycleHeroLead();
+})();
 
 /* ── Animated Counters ── */
 function animateCounter(el) {
