@@ -963,14 +963,21 @@ requestAnimationFrame(() => {
       var leads = container.querySelectorAll('.hc-lead');
       /* Remove top highlight from current top */
       if (leads[0]) leads[0].classList.remove('hc-lead-top');
-      /* Remove bottom card immediately to keep 3 max */
+      /* Remove bottom card with fade */
       if (leads.length >= 3) {
         var last = leads[leads.length - 1];
-        if (last.parentNode) last.parentNode.removeChild(last);
+        last.style.opacity = '0';
+        setTimeout(function() { if (last.parentNode) last.parentNode.removeChild(last); }, 300);
       }
-      /* Create new lead at top — simple swap */
+      /* Create new lead at top with fade in */
       var newEl = makeLead(c);
+      newEl.classList.add('hc-lead-entering');
       container.insertBefore(newEl, container.firstChild);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          newEl.classList.remove('hc-lead-entering');
+        });
+      });
       /* Bump stats */
       var prevCust = runCust, prevMonthly = runMonthly, prevAnnual = runAnnual;
       runCust += 1;
