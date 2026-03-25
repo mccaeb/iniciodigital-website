@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Window Cleaning Customers On Tap — Inicio Digital</title>
+<meta name="description" content="Done-for-you customer acquisition for window cleaners. We deliver recurring customers who've accepted your quote and are ready to book in. No retainers. No setup fees. Pay per batch.">
+<meta name="theme-color" content="#f5f5f3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   INICIO DIGITAL — Homepage
+   Style: matches dashboard-landing.html exactly
+   ════════════════════════════════════════════════════════════ */
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#111;overflow-x:hidden;-webkit-text-size-adjust:100%}
+
+/* ── Container ── */
+.ctr{max-width:1140px;margin:0 auto;padding:0 28px}
+@media(max-width:768px){.ctr{padding:0 20px}}
+
+::selection{background:rgba(26,107,74,.15);color:#111}
+
+/* ════════════════════
+   NAV
+   ════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
+.nav.scrolled{background:rgba(245,245,243,0.92);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);box-shadow:0 1px 0 rgba(0,0,0,0.06)}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.nav.scrolled{background:rgba(245,245,243,0.97)}}
+.nav-logo{font-size:19px;font-weight:900;color:#111;letter-spacing:-.03em;display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .3s}
+.nav-logo:active{opacity:.6}
+.nav-logo-mark{width:30px;height:30px;border-radius:9px;background:#1a6b4a;display:flex;align-items:center;justify-content:center}
+.nav-mid{display:flex;align-items:center;gap:2px;background:rgba(0,0,0,0.04);border-radius:11px;padding:3px}
+.nav-mid a{font-size:14px;font-weight:600;color:#999;padding:7px 16px;border-radius:9px;text-decoration:none;transition:all .3s cubic-bezier(.22,1,.36,1);-webkit-tap-highlight-color:transparent}
+.nav-mid a:hover{color:#444;background:rgba(0,0,0,0.03)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-wa{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#999;text-decoration:none;padding:7px 14px;border-radius:9px;transition:all .3s}
+.nav-wa:hover{color:#25d366;background:rgba(37,211,102,.06)}
+@media(max-width:768px){.nav{padding:0 20px;height:56px}.nav-mid{display:none}.nav-wa span{display:none}.nav.scrolled{background:rgba(245,245,243,0.96)}}
+
+/* ════════════════════
+   HERO
+   ════════════════════ */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:80px 20px 40px;-webkit-transform:translateZ(0);transform:translateZ(0)}
+@media(max-width:768px){.hero{padding:72px 20px 32px;justify-content:flex-start;padding-top:100px}}
+
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;filter:blur(120px);opacity:.18;pointer-events:none;top:-30%;left:50%;transform:translateX(-50%);background:radial-gradient(circle,#1a6b4a 0%,#0d3a28 60%,transparent 100%)}
+@media(max-width:768px){.hero-glow{width:400px;height:400px;top:-10%;opacity:.22}}
+/* ── Section glows ── */
+.section-glow{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;background:radial-gradient(circle,#1a6b4a,transparent 70%)}
+.section-glow-l{width:500px;height:500px;opacity:.08;left:-15%;top:10%}
+.section-glow-r{width:450px;height:450px;opacity:.07;right:-12%;bottom:5%}
+.section-glow-c{width:550px;height:550px;opacity:.1;left:50%;top:50%;transform:translate(-50%,-50%)}
+@media(max-width:768px){.section-glow-l,.section-glow-r{width:300px;height:300px;opacity:.1}.section-glow-c{width:350px;height:350px;opacity:.12}}
+
+.hero h1{font-size:clamp(44px,8vw,86px);font-weight:900;letter-spacing:-.055em;line-height:1.15;color:#111;margin-bottom:20px}
+@media(max-width:768px){.hero h1{font-size:clamp(38px,10vw,52px);margin-bottom:16px;letter-spacing:-.05em}}
+.mob-br{display:none}
+@media(max-width:768px){.mob-br{display:block}}
+
+/* ── Slot machine spinner ── */
+.slot-wrap{display:block;position:relative;overflow:hidden;vertical-align:bottom;width:100%;height:1.15em}
+.slot-track{display:flex;flex-direction:column;transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+.slot-item{display:flex;align-items:center;justify-content:center;flex-shrink:0;white-space:nowrap}
+
+.hero-sub{font-size:clamp(15px,1.6vw,18px);color:#888;margin:0 auto 40px;line-height:1.65;font-weight:500;letter-spacing:-.01em;text-align:center;max-width:none}
+@media(max-width:768px){.hero-sub{font-size:14px;margin-bottom:28px;line-height:1.6;max-width:340px}}
+
+.hero-btns{display:flex;gap:10px;justify-content:center;margin-bottom:56px;flex-wrap:wrap}
+@media(max-width:768px){.hero-btns{margin-bottom:36px;gap:8px}.hero-btns .btn{padding:13px 22px;font-size:14px}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;padding:14px 28px;border-radius:14px;text-decoration:none;font-family:inherit;cursor:pointer;border:none;transition:all .5s cubic-bezier(.22,1,.36,1);-webkit-tap-highlight-color:transparent;letter-spacing:-.01em}
+.btn-dark{background:linear-gradient(135deg,#252525,#1a1a1a);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,.06)}
+.btn-dark:hover{background:linear-gradient(135deg,#2e2e2e,#202020);transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,0.16),inset 0 1px 0 rgba(255,255,255,.08)}
+.btn-dark:active{transform:translateY(0);box-shadow:none}
+.btn-ghost{background:transparent;color:#777;border:1px solid rgba(0,0,0,0.1)}
+.btn-ghost:hover{color:#111;border-color:rgba(0,0,0,0.2);background:rgba(0,0,0,0.02)}
+.btn-ghost:active{background:rgba(0,0,0,0.04)}
+
+/* ── Hero Mock Card ── */
+.hero-card-wrap{width:100%;max-width:520px;perspective:800px}
+@media(max-width:768px){.hero-card-wrap{max-width:100%}}
+.hero-card{background:linear-gradient(160deg,#1e1e1e,#161616);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:18px;color:#fff;box-shadow:0 2px 4px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.08),0 40px 80px rgba(0,0,0,0.1);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-50%;right:-30%;width:160%;height:160%;background:radial-gradient(circle at 35% 35%,rgba(26,107,74,.12),transparent 50%);pointer-events:none}
+.hero-card::after{content:'';position:absolute;bottom:-40%;left:10%;width:80%;height:60%;background:radial-gradient(ellipse,rgba(26,107,74,.08),transparent 60%);pointer-events:none;filter:blur(40px)}
+@media(max-width:768px){.hero-card{padding:14px;border-radius:18px}}
+
+.hc-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
+.hc-stat{background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 12px;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);position:relative;overflow:hidden}
+.hc-stat::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);animation:cardShimmer 4s ease-in-out infinite}
+@keyframes cardShimmer{0%{left:-100%}50%,100%{left:150%}}
+.hc-stat.accent{background:linear-gradient(135deg,#1a6b4a,#15583d);border-color:transparent;box-shadow:0 4px 16px rgba(26,107,74,.2),inset 0 1px 0 rgba(255,255,255,.08)}
+.hc-stat-l{font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.hc-stat.accent .hc-stat-l{color:rgba(255,255,255,.55)}
+.hc-stat.accent{position:relative;overflow:hidden}
+.hc-stat.accent::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);animation:accentShimmer 3s ease-in-out infinite}
+@keyframes accentShimmer{0%{left:-100%}50%,100%{left:150%}}
+.hc-new-badge{font-size:10px;font-weight:800;color:#22c55e;background:rgba(34,197,94,.15);padding:2px 7px;border-radius:5px;margin-left:6px;letter-spacing:.02em;animation:newPulse 2s ease-in-out infinite}
+@keyframes newPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.hc-lead-new{border-color:rgba(34,197,94,.25)}
+.hc-stat-v{font-size:24px;font-weight:900;letter-spacing:-.03em;color:#fff}
+@media(max-width:768px){.hc-stat{padding:12px 10px}.hc-stat-v{font-size:21px}}
+
+.hc-progress{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:13px 14px;margin-bottom:8px}
+.hc-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.hc-progress-title{font-size:14px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.hc-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px}
+.hc-bar{height:7px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden}
+.hc-bar-fill{height:100%;border-radius:4px;transition:width 2s cubic-bezier(.22,1,.36,1)}
+
+.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0}
+.hc-lead-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.hc-lead-info{flex:1;min-width:0}
+.hc-lead-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.hc-lead-addr{font-size:12px;color:rgba(255,255,255,.4);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc-lead-price{font-size:12px;font-weight:800;background:#1a6b4a;color:#fff;padding:4px 9px;border-radius:7px;flex-shrink:0}
+/* ── Hero Entrance ── */
+.hs{opacity:0;transform:translateY(20px);animation:hsIn .8s cubic-bezier(.22,1,.36,1) both}
+.hs-1{animation-delay:.05s}.hs-2{animation-delay:.15s}.hs-3{animation-delay:.28s}.hs-4{animation-delay:.42s}.hs-5{animation-delay:.35s;transform:translateY(28px) scale(.97)}
+@keyframes hsIn{to{opacity:1;transform:translateY(0) scale(1) rotateX(0)}}
+
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:auto;padding-top:32px;color:#ccc;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.scroll-cue-line{width:1px;height:32px;background:linear-gradient(to bottom,#ccc,transparent);animation:scrollPulse 2.2s ease infinite}
+@keyframes scrollPulse{0%{opacity:0;transform:translateY(-14px)}50%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+@media(max-width:768px){.scroll-cue{display:none}}
+
+/* ════════════════════
+   SECTION BASE
+   ════════════════════ */
+.section{padding:120px 0;position:relative}
+@media(max-width:768px){.section{padding:72px 0}}
+.section-header{text-align:center;margin-bottom:52px}
+@media(max-width:768px){.section-header{margin-bottom:36px}}
+.section-label{font-size:13px;font-weight:700;color:#1a6b4a;text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px}
+.section-title{font-size:clamp(30px,4.5vw,50px);font-weight:900;letter-spacing:-.045em;line-height:1.08;margin-bottom:14px;color:#111}
+@media(max-width:768px){.section-title{letter-spacing:-.04em}}
+.dash-title br:first-of-type{display:none}
+@media(max-width:768px){.dash-title br:first-of-type{display:block}}
+.section-sub{font-size:clamp(16px,1.8vw,19px);color:#888;line-height:1.65;max-width:560px;margin:0 auto;font-weight:500}
+
+/* ── Divider ── */
+.divider{height:1px;background:linear-gradient(90deg,transparent 5%,rgba(0,0,0,0.04) 20%,rgba(26,107,74,.08) 50%,rgba(0,0,0,0.04) 80%,transparent 95%);margin:0 auto;max-width:800px}
+
+/* ════════════════════
+   IMPACT STATS
+   ════════════════════ */
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+@media(max-width:900px){.impact-grid{grid-template-columns:1fr 1fr;gap:10px}}
+@media(max-width:480px){.impact-grid{grid-template-columns:1fr;gap:10px}}
+.impact-card{background:linear-gradient(150deg,#1e1e1e,#161616);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:36px 24px;color:#fff;text-align:center;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.impact-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
+@media(max-width:768px){.impact-card{padding:28px 20px;border-radius:18px}.impact-card:hover{transform:none;border-color:rgba(255,255,255,.05)}}
+.impact-card::before{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.35),transparent);opacity:0;transition:opacity .5s}
+.impact-card:hover::before{opacity:1}
+.impact-card::after{content:'';position:absolute;bottom:-30%;left:20%;width:60%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.06),transparent 60%);pointer-events:none;filter:blur(30px)}
+.impact-num{font-size:clamp(36px,5vw,52px);font-weight:900;letter-spacing:-.05em;line-height:1;margin-bottom:8px;background:linear-gradient(145deg,#fff 20%,rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent}
+.impact-desc{font-size:16px;color:rgba(255,255,255,.6);font-weight:500;line-height:1.5}
+
+/* ════════════════════
+   PIPELINE / HOW IT WORKS
+   ════════════════════ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:44px}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.steps{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:12px;padding:0 0 16px;scrollbar-width:none;-ms-overflow-style:none}.steps::-webkit-scrollbar{display:none}}
+.step{background:linear-gradient(150deg,#1e1e1e,#161616);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px 22px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.step:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
+@media(max-width:768px){.step{padding:20px 16px;border-radius:16px}.step:hover{transform:none;border-color:rgba(255,255,255,.05)}}
+@media(max-width:600px){.step{min-width:75%;max-width:75%;flex-shrink:0;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px}}
+.step-num{font-size:64px;font-weight:900;color:rgba(255,255,255,.12);position:absolute;top:8px;right:14px;letter-spacing:-.04em;line-height:1}
+.step h3{font-size:18px;font-weight:800;margin-bottom:8px;position:relative;color:#fff;letter-spacing:-.01em}
+@media(max-width:600px){.step h3{font-size:20px;margin-bottom:10px}}
+.step p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.6;font-weight:500;position:relative}
+@media(max-width:600px){.step p{font-size:17px;line-height:1.55}}
+.step-wide{grid-column:1 / -1;background:linear-gradient(135deg,#1e1e1e 0%,#162019 50%,#161616 100%);border-color:rgba(26,107,74,.12)}
+@media(max-width:600px){.step-wide{grid-column:auto;min-width:75%;max-width:75%}}
+.step-wide::after{content:'';position:absolute;bottom:-30%;left:10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.08),transparent 60%);pointer-events:none;filter:blur(40px)}
+/* ── Swipe indicator dots ── */
+.swipe-hint{display:none;justify-content:center;gap:6px;margin-top:12px}
+@media(max-width:600px){.swipe-hint{display:flex}}
+.swipe-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.1);transition:all .3s}
+.swipe-dot.active{background:#1a6b4a;width:18px;border-radius:3px}
+
+/* ════════════════════
+   BENTO — Dashboard Features
+   ════════════════════ */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:auto;gap:12px}
+@media(max-width:900px){.bento{grid-template-columns:1fr 1fr;gap:10px}}
+@media(max-width:600px){.bento{grid-template-columns:1fr;gap:10px}}
+.bento-wide{grid-column:span 2}
+@media(max-width:600px){.bento-wide{grid-column:span 1}}
+.bento-tall{grid-row:span 2}
+@media(max-width:600px){.bento-tall{grid-row:span 1}}
+
+.bc{background:linear-gradient(145deg,#1e1e1e,#171717);border:1px solid rgba(255,255,255,0.09);border-radius:22px;padding:26px 22px;color:#fff;position:relative;overflow:hidden;transition:transform .6s cubic-bezier(.22,1,.36,1),box-shadow .6s cubic-bezier(.22,1,.36,1),border-color .6s;box-shadow:0 2px 8px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,.03)}
+.bc:hover{transform:translateY(-3px);box-shadow:0 20px 52px rgba(0,0,0,0.12),inset 0 1px 0 rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+@media(max-width:768px){.bc{padding:22px 18px;border-radius:18px}.bc:hover{transform:none;box-shadow:0 2px 8px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,.03);border-color:rgba(255,255,255,.05)}}
+
+.bc.glow{position:relative}
+.bc.glow::after{content:'';position:absolute;bottom:-40%;left:5%;width:90%;height:70%;background:radial-gradient(ellipse,rgba(26,107,74,.14),transparent 60%);pointer-events:none;filter:blur(50px)}
+.bc.glow::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.2),transparent)}
+
+.bc-label{font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.bc-label-dot{width:5px;height:5px;border-radius:50%;background:#4ade80}
+.bc h3{font-size:20px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px;color:#fff}
+@media(max-width:768px){.bc h3{font-size:18px}}
+.bc p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:500}
+
+.abar-track{height:6px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;margin-top:10px}
+.abar{height:100%;border-radius:3px;background:linear-gradient(90deg,#22c55e,#1a6b4a);width:0;transition:width 2.2s cubic-bezier(.22,1,.36,1)}
+.vis .abar{width:var(--w,0%)}
+
+.achart{height:44px;margin-top:14px}
+.achart svg{width:100%;height:100%}
+.achart-line{stroke-dasharray:300;stroke-dashoffset:300;transition:stroke-dashoffset 2.8s cubic-bezier(.22,1,.36,1)}
+.vis .achart-line{stroke-dashoffset:0}
+.acounter{font-size:clamp(34px,5vw,52px);font-weight:900;letter-spacing:-.04em;color:#fff;line-height:1}
+
+.act-row{display:flex;gap:6px;margin-top:12px}
+.act-btn{flex:1;padding:10px 8px;border-radius:9px;border:1px solid rgba(26,107,74,.25);background:rgba(26,107,74,.05);color:#4ade80;font-size:14px;font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .3s cubic-bezier(.22,1,.36,1)}
+.act-btn:hover{background:rgba(26,107,74,.12);border-color:rgba(26,107,74,.4)}
+
+.tag{font-size:14px;font-weight:700;padding:7px 14px;border-radius:8px;display:inline-block}
+
+/* ════════════════════
+   PRICING
+   ════════════════════ */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:44px}
+@media(max-width:768px){.price-grid{grid-template-columns:1fr;gap:10px}}
+.pc{background:linear-gradient(150deg,#1e1e1e,#171717);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:32px 24px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.pc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
+@media(max-width:768px){.pc{padding:26px 20px;border-radius:18px}.pc:hover{transform:none;border-color:rgba(255,255,255,.05)}}
+.pc.feat::after{content:'';position:absolute;bottom:-30%;left:5%;width:90%;height:60%;background:radial-gradient(ellipse,rgba(26,107,74,.12),transparent 60%);pointer-events:none;filter:blur(50px)}
+.pc.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.25),transparent)}
+.pc-label{font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.pc-label-dot{width:5px;height:5px;border-radius:50%;background:#4ade80}
+.pc h3{font-size:22px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
+.pc p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:500;margin-bottom:18px}
+.pc-price{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:18px;margin-bottom:18px}
+.pc-price-val{font-size:clamp(28px,4vw,38px);font-weight:900;letter-spacing:-.04em;background:linear-gradient(145deg,#fff 20%,rgba(255,255,255,.5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;margin-bottom:6px}
+.pc-price-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.55;font-weight:500}
+.pc-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.pc-list li{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:600;color:rgba(255,255,255,.65)}
+.pc-list li svg{flex-shrink:0}
+.pc-example{background:rgba(26,107,74,.12);border:1px solid rgba(26,107,74,.2);border-radius:12px;padding:16px;margin-top:18px}
+.pc-example-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.pc-example-row{display:flex;justify-content:space-between;padding:5px 0;font-size:15px;font-weight:600}
+.pc-example-row span:first-child{color:rgba(255,255,255,.65)}
+.pc-example-row span:last-child{color:#fff}
+.pc-example-row.total{border-top:1px solid rgba(255,255,255,.06);padding-top:10px;margin-top:6px}
+.pc-example-row.total span:last-child{color:#4ade80;font-weight:800}
+
+/* ════════════════════
+   TESTIMONIAL
+   ════════════════════ */
+.testimonial{max-width:680px;margin:0 auto;text-align:center;padding:100px 28px;position:relative}
+@media(max-width:768px){.testimonial{padding:64px 20px}}
+.testimonial blockquote{font-size:clamp(17px,2.2vw,22px);font-weight:600;color:#444;line-height:1.7;letter-spacing:-.01em;font-style:normal;margin-bottom:28px;position:relative}
+.testimonial blockquote::before{content:'\201C';position:absolute;top:-.5em;left:50%;transform:translateX(-50%);font-size:80px;font-weight:900;color:rgba(0,0,0,.15);line-height:1;pointer-events:none}
+.testimonial::after{content:'';position:absolute;top:50%;left:50%;width:300px;height:300px;background:radial-gradient(circle,rgba(26,107,74,.04),transparent 60%);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;filter:blur(60px)}
+.t-author{display:flex;align-items:center;justify-content:center;gap:12px}
+.t-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#252525,#1a1a1a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;letter-spacing:-.02em;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.t-meta{text-align:left}
+.t-name{font-size:15px;font-weight:700;color:#111;letter-spacing:-.01em}
+.t-role{font-size:13px;color:#aaa;font-weight:500}
+
+/* ════════════════════
+   EXPANSION
+   ════════════════════ */
+.expand-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:32px}
+.e-tag{font-size:13px;font-weight:700;padding:9px 20px;border-radius:10px;border:1px solid rgba(0,0,0,.06);color:#999;transition:all .3s cubic-bezier(.22,1,.36,1)}
+.e-tag:hover{border-color:rgba(26,107,74,.2);color:#1a6b4a;background:rgba(26,107,74,.04)}
+.e-tag.live{border-color:rgba(26,107,74,.2);color:#1a6b4a;background:rgba(26,107,74,.06);font-weight:800}
+
+/* ════════════════════
+   CTA
+   ════════════════════ */
+.cta{padding:120px 0 80px;text-align:center;position:relative;overflow:hidden}
+@media(max-width:768px){.cta{padding:80px 0 64px}}
+.cta-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,#1a6b4a,transparent 70%);filter:blur(120px);opacity:.15;top:-10%;left:50%;transform:translateX(-50%);pointer-events:none}
+.cta h2{font-size:clamp(34px,5vw,60px);font-weight:900;letter-spacing:-.05em;line-height:1.06;margin-bottom:14px;color:#111;position:relative}
+@media(max-width:768px){.cta h2{font-size:clamp(30px,8vw,44px)}}
+.cta-sub{font-size:clamp(15px,1.6vw,18px);color:#999;margin-bottom:36px;font-weight:500;position:relative}
+.cta-form{max-width:480px;margin:0 auto;background:linear-gradient(150deg,#1e1e1e,#161616);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:36px 28px;color:#fff;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.cta-form::after{content:'';position:absolute;bottom:-30%;left:10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.1),transparent 60%);pointer-events:none;filter:blur(40px)}
+.cta-form p{font-size:15px;color:rgba(255,255,255,.55);font-weight:500;position:relative}
+.cta-wa{display:inline-flex;align-items:center;gap:8px;color:#1a6b4a;font-size:15px;font-weight:700;text-decoration:none;margin-top:20px;transition:color .3s;position:relative}
+.cta-wa:hover{color:#22804f}
+
+/* ════════════════════
+   FOOTER
+   ════════════════════ */
+.footer{padding:64px 0 36px;text-align:center;overflow:hidden}
+.footer-brand{font-size:clamp(56px,13vw,170px);font-weight:900;letter-spacing:-.06em;line-height:.9;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.02));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;margin-bottom:36px;user-select:none}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:20px;flex-wrap:wrap}
+.footer-links a{font-size:14px;font-weight:600;color:#aaa;text-decoration:none;transition:color .3s;-webkit-tap-highlight-color:transparent}
+.footer-links a:hover{color:#555}
+.footer-copy{font-size:13px;color:#bbb;font-weight:500;letter-spacing:.01em}
+.footer-copy a{color:#1a6b4a;text-decoration:none;font-weight:700;transition:color .3s}
+.footer-copy a:hover{color:#22804f}
+
+/* ── Animations ── */
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.9)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* ════════════════════
+   VALUE CARDS — What You Get
+   ════════════════════ */
+.value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:44px}
+@media(max-width:768px){.value-grid{grid-template-columns:1fr;gap:10px}}
+.value-card{background:linear-gradient(150deg,#1e1e1e,#171717);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:32px 24px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.value-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
+@media(max-width:768px){.value-card{padding:26px 20px;border-radius:18px}.value-card:hover{transform:none;border-color:rgba(255,255,255,.05)}}
+.value-card.featured{grid-column:1/-1;background:linear-gradient(135deg,#1e1e1e 0%,#172019 50%,#161616 100%);border-color:rgba(26,107,74,.14)}
+.value-card.featured::after{content:'';position:absolute;bottom:-30%;left:10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.1),transparent 60%);pointer-events:none;filter:blur(40px)}
+.value-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.25),transparent)}
+@media(max-width:768px){.value-card.featured{grid-column:span 1}}
+.value-icon{width:44px;height:44px;border-radius:12px;background:rgba(26,107,74,.12);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+.value-card h3{font-size:20px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px;color:#fff}
+.value-card p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:500}
+
+/* ════════════════════
+   SINGLE PRICING — centered box
+   ════════════════════ */
+.price-single{max-width:640px;margin:44px auto 0}
+
+/* ════════════════════
+   OBJECTIONS / FAQ
+   ════════════════════ */
+.objection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:52px}
+@media(max-width:900px){.objection-grid{grid-template-columns:1fr 1fr;gap:10px}}
+@media(max-width:600px){.objection-grid{grid-template-columns:1fr;gap:10px}}
+.objection-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:28px 22px;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.objection-card:hover{transform:translateY(-2px)}
+@media(max-width:768px){.objection-card{padding:22px 18px;border-radius:16px}.objection-card:hover{transform:none}}
+.objection-q{font-size:16px;font-weight:800;color:#111;letter-spacing:-.01em;margin-bottom:8px}
+.objection-a{font-size:15px;color:#888;line-height:1.65;font-weight:500}
+
+/* ════════════════════
+   PAIN / PROBLEM CARDS
+   ════════════════════ */
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:44px}
+@media(max-width:900px){.pain-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.pain-grid{grid-template-columns:1fr;gap:10px}}
+.pain-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:32px 24px;color:#111;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.pain-card:hover{transform:translateY(-2px);border-color:rgba(0,0,0,.1)}
+@media(max-width:768px){.pain-card{padding:24px 20px;border-radius:18px}.pain-card:hover{transform:none;border-color:rgba(0,0,0,.06)}}
+.pain-x{position:absolute;top:16px;right:18px;font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.1em}
+.pain-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.pain-card h3{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px;color:#111}
+.pain-card p{font-size:15px;color:#888;line-height:1.65;font-weight:500}
+
+.diff-box{background:transparent!important;border:none!important;border-radius:0!important;padding:36px 32px;margin-top:16px;font-size:clamp(18px,2.2vw,26px);font-weight:600;line-height:1.55;text-align:center;position:relative;box-shadow:none!important}
+.diff-box p{color:#111;font-size:clamp(18px,2.2vw,26px);font-weight:800;line-height:1.55}
+.diff-box span{color:#1a6b4a;font-weight:800}
+@media(max-width:768px){.diff-box{padding:28px 24px;border-radius:18px}}
+
+/* ── Touch ── */
+@media(hover:none){.bc:active{transform:scale(.98)!important;transition-duration:.15s}.impact-card:active{transform:scale(.98)!important}.step:active{transform:scale(.98)!important}.pc:active{transform:scale(.98)!important}}
+
+/* ── Safe areas ── */
+@supports(padding:env(safe-area-inset-bottom)){.footer{padding-bottom:calc(36px + env(safe-area-inset-bottom))}.nav{padding-left:calc(28px + env(safe-area-inset-left));padding-right:calc(28px + env(safe-area-inset-right))}}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ NAV ════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAF+0lEQVR42u1bz29UVRQ+5977Zlo709LpVMSFC7TVJoZoaMKCTce0mpiocUGjKdhChYlxAfwB+uaREiaDIRDcTAgESMSk2NiCcaWZcSXE1iA7DIEWDT804Udn2vnx7rvHBTNlWqaUad9rX2Vu0k1nmt7vO+f7znfvvAGorup6pheW+yURYTKZ5ElI/i9AdkAHJJNJZRiGqpb8SR1ARIiIdHL025drmvnm9OQUISCuZoASiBrq6/D2pZuX9nyw53IRY/F1UfrmSDLCAUAqby7kDTQey0MWGOerusLCsqAmoEFOyxwAgMtFjGUJKC4FlJt6kJLZqayc7z2rqQmmOAqFarosQeV1gQiA4knvWWVKF0DAyr3CnnUTrBJQJaBKQJWAKgFVAqoEVAmoEvD4pcCzQUDZnM8BABnMc12y9PM3MgSlyBUklyXAzCkUUoHKS4bMZpUwBMtUWUDwcMEZEbmHACNkWAAA6b8ejNCDutdTuSniJretD8grRD4tU8jz7ze3BQ8qIgACBuieDiAAgL0f7r0PAPed+Iex7/ZvDra98IXiwFXeAlzhCycxjwGiDro9O4sABDYFtN3v7s5Fv4++E3gteA48zGNN5Qn5yl+3iXmcigwwbBFnIpEQoVAoFxs+0NnU2jQMGnrM6bxCjq4YwY5uogBeRof2dwVam8+Dh9XIrKWQoWvyB1sO8M1tz59DD9bIrFTI3BW+HLnvi8fjWigUMqND0a5gW/AceLBGZizXtL2jBMRHd2nh9rAZG451NrUGHoLPSleCt52ARCIhQu0hMzoS7Qq0BFxdedsJKGo+NhzrbGppdH3lbTXB2W4fsNXtiYgQUKFDcXHJGywYnowORW13e1JEXHBEjkxJSU6kxiVtMj4a18LhsBkdKbq9jZW3iIRXgMpZavy38ai0rCzjzPYTJFtK24fbw2Z0KNrV3NJka+WVIhJeQUwh3rpy+6OriT8Ocy5qlVLu6IAZw/sh1ulE5TWPIFTAxn+/tl3fop9dv+nVdWQpd3hAEfxXQ9GupvWB805UHhWwibHrvcbHAyd10pnMS9MVU2DG7UeiXWuKCc+uyqtHlZ8Yu95r9AycPvLjEa+Bzj7WwioxvBm3bwnar3mPICgBHx+Na3cv3jXB4fVUm09QwfBGSrK9A5q/UQI+3B52HPxTJcFEIiFCGJKHhmOdDaUJzwbwSinSvBqBIjYxNt5r9AycTlBChDC0LOAX7IBSzdcXE17GTs1rhcrPAi9dEYUfxds5mud2ap5maX65wc8rgcHBQV6sfLDFAc3PjLrxZdf8ggTopLNu7LYOjRx8a01rYIQ0rJFZ07a2L875a2PXewdWGPxjBOikMwMNdXjk8Ab/K76fSYCSGdOWIy0V2r44590A/jECDDBI13WGa3EcLXbaW+v9JJ1Py6UemlQh5JTO+eV2+6eTAAJFKAKIOAkAvScun1D+YH1f6t6kRESx2MrPTXgFw1tx8GWnACISESERsR0bdmzP/DN9yh/wCwAwF9v2c91+pdt+wTFYeJiYtgwO8v43+vsydzKnfI1+rRISyHqk+RsucPuKk2ChE1SEdNaP/X3HLx0H31pfb/peygRArdKE50bwC0bhAgkQoQhDxL5jY8eE/8X6ntS9lAkA2kIJb6Xira2HoaIcdNLZzo07t07/O33K1+grKwc1M+pWPuHZehpERIpAhIiI9W/o75u+mT4zlwQ1y+3d3faLug8odgIRsU837tqWvpk642/0awQklVV+1LkdfMU3QiVygF0bw9vuT9wd8jX4hFYrpJPgOecED7/lIQGowh+QQCQBQS3qPqAcCbquo046fIafdx/99ehww7rG965e/HPrvp6Bb5wwPFOheK6hTmi1GpBFFT28paQSvkY/oOJ1thAAAGAYhtJBZwCgLnx9YetLb7e+eaB33y+DNMjtNDzDePiQhpW1/r915c6XmpcjVBrMCdRkwyTLTJs/AQBAEmy9Y8TSgxSswrXUD0eJiLD77FlmYLfl4D5RT+i8Azoq/sMkJKGjowOSkeoXJ6urusqs/wDjGswIlqZdYwAAAABJRU5ErkJggg==" width="16" height="16" alt="" style="display:block">
+    </div>
+    INICIO
+  </a>
+  <div class="nav-mid">
+    <a href="#problem">Why Us</a>
+    <a href="#how">How It Works</a>
+    <a href="#value">What You Get</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/dashboard" target="_blank">Dashboard</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://wa.me/447000000000?text=Hi%20Ryan%2C%20I%27m%20interested%20in%20Inicio%20Digital" target="_blank" rel="noopener noreferrer" class="nav-wa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ════════════════════════ HERO ════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <h1 class="hs hs-1"><span class="slot-wrap" id="slotWrap"><span class="slot-track" id="slotTrack"><span class="slot-item">Window Cleaning</span><span class="slot-item">Gutter Cleaning</span><span class="slot-item">Carpet Cleaning</span><span class="slot-item">More Soon&hellip;</span></span></span><br>Customers<br>On Tap</h1>
+  <p class="hero-sub hs hs-2">We run the ads, close the sale, and hand you customers ready to book in.<br><span style="color:#111;font-weight:700">You just clean and get paid.</span></p>
+
+  <div class="hero-btns hs hs-3">
+    <a href="#start" class="btn btn-dark">
+      Order Now
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <a href="#how" class="btn btn-ghost">See How It Works</a>
+  </div>
+
+  <!-- Hero mock card — shows what clients actually see -->
+  <div class="hero-card-wrap hs hs-4">
+    <div class="hero-card">
+      <div class="hc-stats">
+        <div class="hc-stat">
+          <div class="hc-stat-l">Customers Delivered</div>
+          <div class="hc-stat-v">380</div>
+        </div>
+        <div class="hc-stat accent">
+          <div class="hc-stat-l">Annual Revenue</div>
+          <div class="hc-stat-v">&pound;75k+</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px">
+        <div class="hc-stat">
+          <div class="hc-stat-l">Monthly Revenue</div>
+          <div class="hc-stat-v">&pound;6.2k</div>
+        </div>
+        <div class="hc-stat">
+          <div class="hc-stat-l">Active Services</div>
+          <div class="hc-stat-v">2</div>
+        </div>
+      </div>
+      <div style="padding:0 5%">
+        <div class="hc-progress">
+          <div class="hc-progress-top">
+            <span class="hc-progress-title">Batch 3</span>
+            <span class="hc-badge" style="background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
+          </div>
+          <div class="hc-bar"><div class="hc-bar-fill" style="width:100%;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
+        </div>
+        <div class="hc-progress">
+          <div class="hc-progress-top">
+            <span class="hc-progress-title">Batch 4</span>
+            <span class="hc-badge" style="background:rgba(217,119,6,.12);color:#fbbf24">Building</span>
+          </div>
+          <div class="hc-bar"><div class="hc-bar-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
+        </div>
+      </div>
+      <div class="hc-lead hc-lead-new">
+        <div class="hc-lead-dot" style="background:#22c55e"></div>
+        <div class="hc-lead-info"><div class="hc-lead-name">Mark Henderson <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, EH14 5RP</div></div>
+        <div class="hc-lead-price">&pound;16</div>
+      </div>
+      <div class="hc-lead hc-lead-new">
+        <div class="hc-lead-dot" style="background:#3b82f6"></div>
+        <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
+        <div class="hc-lead-price">&pound;24</div>
+      </div>
+      <div class="hc-lead hc-lead-new">
+        <div class="hc-lead-dot" style="background:#22c55e"></div>
+        <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
+        <div class="hc-lead-price">&pound;19</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    Scroll
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ THE PROBLEM ════════════════════════ -->
+<section class="section" id="problem" style="overflow:hidden">
+  <div class="section-glow section-glow-r"></div>
+  <div class="ctr">
+    <div class="section-header rv">
+      <div class="section-label">The Problem</div>
+      <div class="section-title">Most marketing sells you<br>leads. Not customers.</div>
+      <div class="section-sub">You already know the drill. You pay upfront, chase people who never reply, and end up with a folder full of dead numbers.</div>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card rv rv-d1">
+        <span class="pain-x">Not us</span>
+        <div class="pain-icon" style="background:rgba(239,68,68,.08)">&#128176;</div>
+        <h3>Monthly retainers</h3>
+        <p>Paying thousands every month whether you get customers or not. The agency gets paid either way — you carry all the risk and hope something comes through.</p>
+      </div>
+      <div class="pain-card rv rv-d2">
+        <span class="pain-x">Not us</span>
+        <div class="pain-icon" style="background:rgba(249,115,22,.08)">&#128221;</div>
+        <h3>Dead leads</h3>
+        <p>Buying "leads" that are just enquiries. Half don't answer, the rest want a free quote and disappear. You're left chasing people who were never serious.</p>
+      </div>
+      <div class="pain-card rv rv-d3">
+        <span class="pain-x">Not us</span>
+        <div class="pain-icon" style="background:rgba(168,85,247,.08)">&#128247;</div>
+        <h3>No visibility</h3>
+        <p>You hand over money and hope for the best. No dashboard, no tracking, no idea what you're actually getting. Just an invoice and a promise.</p>
+      </div>
+    </div>
+    <div class="diff-box rv rv-d4" style="background:transparent;border:none;border-radius:0;box-shadow:none;color:#111">
+      <p style="color:#111;font-weight:800">We don't sell leads.</p>
+      <p style="margin-top:6px;color:#111;font-weight:800">We deliver <span style="color:#1a6b4a">actual customers</span> who've already accepted your quote and are waiting to be booked in.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ IMPACT — Proof Bar ════════════════════════ -->
+<section class="section" id="impact" style="overflow:hidden">
+  <div class="section-glow section-glow-l"></div>
+  <div class="ctr">
+    <div class="section-header rv">
+      <div class="section-label">Real Results</div>
+      <div class="section-title">Proof, not promises</div>
+      <div class="section-sub">Real numbers from real clients. Every customer tracked, every penny accounted for.</div>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card rv rv-d1">
+        <div class="impact-num" data-target="769">0</div>
+        <div class="impact-desc">Recurring customers delivered</div>
+      </div>
+      <div class="impact-card rv rv-d2">
+        <div class="impact-num">&pound;152k+</div>
+        <div class="impact-desc">Annual revenue generated</div>
+      </div>
+      <div class="impact-card rv rv-d3">
+        <div class="impact-num" data-target="14">0</div>
+        <div class="impact-desc">Active cleaning businesses</div>
+      </div>
+      <div class="impact-card rv rv-d4">
+        <div class="impact-num">&pound;0</div>
+        <div class="impact-desc">Pay until customers are delivered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ HOW IT WORKS ════════════════════════ -->
+<section class="section" id="how" style="overflow:hidden">
+  <div class="section-glow section-glow-r"></div>
+  <div class="ctr">
+    <div class="section-header rv">
+      <div class="section-label">How It Works</div>
+      <div class="section-title">From ad to booked customer.<br>We handle everything.</div>
+      <div class="section-sub">You don't lift a finger until there's a customer ready to book into your round. Here's the full process.</div>
+    </div>
+    <div class="steps">
+      <div class="step rv rv-d1">
+        <div class="step-num">01</div>
+        <h3>Targeted ads</h3>
+        <p>We run Meta ads in your service area targeting homeowners who need window cleaning. You don't touch a thing.</p>
+      </div>
+      <div class="step rv rv-d2">
+        <div class="step-num">02</div>
+        <h3>AI qualification</h3>
+        <p>Our AI closer handles all conversations — qualifying, quoting, and overcoming objections automatically.</p>
+      </div>
+      <div class="step rv rv-d3">
+        <div class="step-num">03</div>
+        <h3>Customer closed</h3>
+        <p>By the time you hear about it, the customer has already agreed to the price and frequency.</p>
+      </div>
+      <div class="step rv rv-d4">
+        <div class="step-num">04</div>
+        <h3>Dashboard delivery</h3>
+        <p>Every customer lands in your personal dashboard with name, address, quote value, and service details.</p>
+      </div>
+      <div class="step step-wide rv rv-d5">
+        <div class="step-num">05</div>
+        <h3>You clean</h3>
+        <p>Add them to your round and start earning. Export straight to Squeegee or CleanerPlanner.</p>
+      </div>
+    </div>
+    <div class="swipe-hint" id="swipeDots">
+      <div class="swipe-dot active"></div>
+      <div class="swipe-dot"></div>
+      <div class="swipe-dot"></div>
+      <div class="swipe-dot"></div>
+      <div class="swipe-dot"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ WHAT YOU GET ════════════════════════ -->
+<section class="section" id="value" style="overflow:hidden">
+  <div class="section-glow section-glow-c"></div>
+  <div class="ctr">
+    <div class="section-header rv">
+      <div class="section-label">What You Get</div>
+      <div class="section-title">Customers, not leads.</div>
+      <div class="section-sub">Every other marketing company sells you leads and wishes you luck. We deliver people who've already said yes.</div>
+    </div>
+    <div class="value-grid">
+      <div class="value-card featured rv rv-d1">
+        <div class="value-icon">&#128273;</div>
+        <h3>Pre-sold, exclusive, recurring customers</h3>
+        <p>Every customer is exclusive to you, pre-agreed on price and frequency, and committed to a recurring clean. No cold calling, no chasing, no competing with other companies for the same lead. They're yours.</p>
+      </div>
+      <div class="value-card rv rv-d2">
+        <div class="value-icon">&#129302;</div>
+        <h3>AI-powered sales closer</h3>
+        <p>Our Conversation AI handles quoting, objections, and closing automatically via SMS — with human oversight for area availability checks. It works 24/7 so you don't have to.</p>
+      </div>
+      <div class="value-card rv rv-d3">
+        <div class="value-icon">&#128241;</div>
+        <h3>Your own delivery dashboard</h3>
+        <p>Real-time tracking of every customer, every batch, and your total revenue. Search, filter, export. Dark mode. Push notifications. Built for you.</p>
+        <a href="/dashboard" target="_blank" style="color:#1a6b4a;font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:12px">See the dashboard &rarr;</a>
+      </div>
+      <div class="value-card rv rv-d4">
+        <div class="value-icon">&#128203;</div>
+        <h3>One-click round export</h3>
+        <p>Export your customers directly into Squeegee or CleanerPlanner format. No manual data entry. Just download, import, and you're set.</p>
+      </div>
+      <div class="value-card rv rv-d5">
+        <div class="value-icon">&#128737;</div>
+        <h3>Zero risk until delivery</h3>
+        <p>You don't pay a penny until customers are actually delivered to your dashboard. No setup fees, no retainers, no ad spend to cover. We take the risk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ PRICING ════════════════════════ -->
+<section class="section" id="pricing" style="overflow:hidden">
+  <div class="section-glow section-glow-l"></div>
+  <div class="ctr">
+    <div class="section-header rv">
+      <div class="section-label">Pricing</div>
+      <div class="section-title">Pay once,<br>earn for life.</div>
+      <div class="section-sub">One payment per batch. Every clean after that is pure profit in your pocket, forever.</div>
+    </div>
+    <div class="price-single">
+      <div class="pc feat rv rv-d1">
+        <div class="pc-label"><span class="pc-label-dot"></span> Simple Pricing</div>
+        <div class="pc-price" style="text-align:center;margin-bottom:24px">
+          <div class="pc-price-val" style="font-size:clamp(40px,6vw,56px)">2.5&times;</div>
+          <div class="pc-price-sub" style="font-size:16px">batch value</div>
+        </div>
+        <p style="text-align:center;margin-bottom:24px">You pay 2.5&times; the total recurring value of each batch of customers we deliver. That means you make your money back in under 3 months — then profit every clean after that.</p>
+        <div class="pc-example">
+          <div class="pc-example-title">Example — &pound;1,000 batch order</div>
+          <div class="pc-example-row"><span>Batch value per clean</span><span>&pound;1,000</span></div>
+          <div class="pc-example-row"><span>We deliver (+10% buffer)</span><span>&pound;1,100</span></div>
+          <div class="pc-example-row"><span>Your cost (2.5&times;)</span><span>&pound;2,500</span></div>
+          <div class="pc-example-row total"><span>Potential annual revenue (&times;12 cleans)</span><span>&pound;13,200</span></div>
+        </div>
+        <ul class="pc-list" style="margin-top:24px">
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> No setup fees</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> No monthly retainer</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> No ad spend to cover</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Pay only after delivery</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Customers are yours forever</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Decline within 7 days — no charge, replaced</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Cancel within 60 days — no charge, replaced</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ DASHBOARD TEASER ════════════════════════ -->
+<section class="section" id="dashboard" style="overflow:hidden">
+  <div class="section-glow section-glow-c"></div>
+  <div class="ctr">
+    <div style="max-width:640px;margin:0 auto;text-align:center">
+      <div class="section-label rv">Your Dashboard</div>
+      <div class="section-title rv rv-d1" style="margin-bottom:14px">See every customer.<br>Track every batch.</div>
+      <div class="section-sub rv rv-d2" style="margin-bottom:40px">Your own branded dashboard with real-time tracking, push notifications, and one-click exports. Nothing else in the industry comes close.</div>
+
+      <!-- Mini dark preview card -->
+      <div class="rv rv-d3" style="background:linear-gradient(160deg,#1e1e1e,#161616);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:28px 24px;color:#fff;position:relative;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.08),0 40px 80px rgba(0,0,0,0.1);text-align:left">
+        <!-- Glow -->
+        <div style="position:absolute;bottom:-40%;left:10%;width:80%;height:60%;background:radial-gradient(ellipse,rgba(26,107,74,.14),transparent 60%);pointer-events:none;filter:blur(50px)"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.2),transparent)"></div>
+
+        <!-- Stat row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">
+          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 12px;text-align:center">
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Customers</div>
+            <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">48</div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 12px;text-align:center">
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Monthly</div>
+            <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">&pound;6.2k</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#1a6b4a,#15583d);border:1px solid transparent;border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 4px 16px rgba(26,107,74,.2)">
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Annual</div>
+            <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">&pound;75k</div>
+          </div>
+        </div>
+
+        <!-- Batch progress preview -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px">
+          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+              <span style="font-size:13px;font-weight:800;color:#fff">Batch 3</span>
+              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden"><div style="height:100%;width:100%;border-radius:3px;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+              <span style="font-size:13px;font-weight:800;color:#fff">Batch 4</span>
+              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(217,119,6,.12);color:#fbbf24">Building</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden"><div style="height:100%;width:68%;border-radius:3px;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
+          </div>
+        </div>
+
+        <!-- Feature pills -->
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">
+          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(26,107,74,.25);background:rgba(26,107,74,.05);color:#4ade80">Push Notifications</span>
+          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">CSV Export</span>
+          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">Dark Mode</span>
+          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">Filters</span>
+          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">Google Maps</span>
+        </div>
+      </div>
+
+      <a href="/dashboard" class="btn btn-dark rv rv-d4" style="margin-top:32px">
+        Explore the Dashboard
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ GUARANTEE ════════════════════════ -->
+<div class="diff-box rv" style="max-width:680px;margin:0 auto 0">
+  <p style="color:#111;font-weight:800;font-size:clamp(18px,2.2vw,24px)">
+    Not the right fit? Cancels within 60 days?<br>
+    <span style="color:#1a6b4a">You don't pay. Simple.</span>
+  </p>
+  <p style="margin-top:10px;font-size:16px;font-weight:500;color:#888;line-height:1.6">
+    Unsuitable customers are flagged and replaced within 7 days at no charge.
+    Anyone who cancels within 60 days is removed from your batch value entirely.
+    We carry the risk — not you.
+  </p>
+</div>
+<div class="divider" style="margin:0 auto 120px"></div>
+
+<!-- ════════════════════════ TESTIMONIAL + OBJECTIONS ════════════════════════ -->
+<div class="testimonial rv">
+  <blockquote>The dashboard changed everything. I can see exactly what I'm paying for, track every customer, and plan my round without any spreadsheets. The customers come in ready to book — I just add them to my route.</blockquote>
+  <div class="t-author">
+    <div class="t-avatar">BW</div>
+    <div class="t-meta">
+      <div class="t-name">Brill Window Cleaning</div>
+      <div class="t-role">130 customers delivered in first month &middot; Inicio Digital client</div>
+    </div>
+  </div>
+</div>
+
+<section class="section" style="padding-top:0;overflow:hidden">
+  <div class="section-glow section-glow-r" style="top:20%"></div>
+  <div class="ctr">
+    <div class="objection-grid">
+      <div class="objection-card rv rv-d1">
+        <div class="objection-q">"What if the customers cancel?"</div>
+        <div class="objection-a">Some will — that's normal in any round. But these are pre-agreed recurring customers, not cold leads. Retention rates are strong because they've already committed before delivery.</div>
+      </div>
+      <div class="objection-card rv rv-d2">
+        <div class="objection-q">"How long does it take?"</div>
+        <div class="objection-a">Most clients start seeing customers land within the first 2 weeks. Batch completion depends on your area and order size, but we keep you updated every step of the way via your dashboard.</div>
+      </div>
+      <div class="objection-card rv rv-d3">
+        <div class="objection-q">"What areas do you cover?"</div>
+        <div class="objection-a">We deliver customers across the UK and Ireland. During your consultation we'll check availability in your specific area and confirm we can run ads there.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ CTA ════════════════════════ -->
+<section class="cta" id="start">
+  <div class="cta-glow"></div>
+  <div class="ctr">
+    <div class="rv">
+      <h2>Ready to fill<br>your round?</h2>
+    </div>
+    <div class="rv rv-d1">
+      <p class="cta-sub">Book a free consultation. We'll check availability in your area, walk through the numbers, and show you exactly what to expect.</p>
+    </div>
+    <!-- REPLACE WITH INICIO FORM EMBED CODE -->
+    <div class="cta-form rv rv-d2">
+      <p style="font-size:16px;font-weight:800;color:#fff;margin-bottom:6px">Inicio Form Goes Here</p>
+      <p>Replace this div with your Inicio form embed code</p>
+    </div>
+    <div class="rv rv-d3">
+      <a href="https://wa.me/447000000000?text=Hi%20Ryan%2C%20I%27m%20interested%20in%20Inicio%20Digital%20for%20my%20window%20cleaning%20business" target="_blank" rel="noopener noreferrer" class="cta-wa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Or message us on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ FOOTER ════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">INICIO</div>
+  <div class="footer-links">
+    <a href="#problem">Why Us</a>
+    <a href="#how">How It Works</a>
+    <a href="#value">What You Get</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/dashboard" target="_blank">Dashboard</a>
+    <a href="https://wa.me/447000000000" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <div class="footer-copy">Done-for-you customer acquisition for window cleaners &middot; <a href="https://iniciodigital.co.uk" target="_blank" rel="noopener">iniciodigital.co.uk</a></div>
+</footer>
+
+<script>
+/* ── Scroll Reveal (rAF + scroll — works in iframes / GHL) ── */
+var rvPending = [].slice.call(document.querySelectorAll('.rv'));
+rvPending.forEach(function(el) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(50px)';
+});
+var rvTicking = false;
+function rvCheck() {
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  var trigger = vh - 60;
+  for (var i = rvPending.length - 1; i >= 0; i--) {
+    var el = rvPending[i];
+    if (el.getBoundingClientRect().top < trigger) {
+      var m = el.className.match(/rv-d(\d)/);
+      var d = m ? m[1] * 0.1 : 0;
+      el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1) ' + d + 's, transform .8s cubic-bezier(.16,1,.3,1) ' + d + 's';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.classList.add('vis');
+      rvPending.splice(i, 1);
+    }
+  }
+  rvTicking = false;
+}
+function rvOnScroll() { if (!rvTicking) { rvTicking = true; requestAnimationFrame(rvCheck); } }
+window.addEventListener('scroll', rvOnScroll, { passive: true });
+window.addEventListener('resize', rvOnScroll, { passive: true });
+/* Initial check after paint */
+requestAnimationFrame(function() { setTimeout(rvCheck, 50); });
+
+/* ── Nav frost on scroll ── */
+const nav = document.getElementById('nav');
+let navScrolled = false;
+const checkNav = () => {
+  const should = scrollY > 32;
+  if (should !== navScrolled) { navScrolled = should; nav.classList.toggle('scrolled', should); }
+};
+addEventListener('scroll', checkNav, { passive: true });
+checkNav();
+
+/* ── Hero progress bar ── */
+requestAnimationFrame(() => {
+  setTimeout(() => {
+    const bar = document.getElementById('heroBar');
+    if (bar) bar.style.width = '68%';
+  }, 600);
+});
+
+/* ── Animated Counters ── */
+function animateCounter(el) {
+  if (el.dataset.counted) return;
+  el.dataset.counted = '1';
+  const target = +el.dataset.target, prefix = el.dataset.prefix || '';
+  const dur = 2200, start = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 4);
+    el.textContent = prefix + Math.round(ease * target).toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
+  })(start);
+}
+var counterPending = [].slice.call(document.querySelectorAll('.acounter[data-target], .impact-num[data-target]'));
+function counterCheck() {
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  for (var i = counterPending.length - 1; i >= 0; i--) {
+    if (counterPending[i].getBoundingClientRect().top < vh - 40) {
+      animateCounter(counterPending[i]);
+      counterPending.splice(i, 1);
+    }
+  }
+  if (counterPending.length) requestAnimationFrame(counterCheck);
+}
+window.addEventListener('scroll', function() { requestAnimationFrame(counterCheck); }, { passive: true });
+requestAnimationFrame(function() { setTimeout(counterCheck, 100); });
+
+/* ── Smooth anchor scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    try { const t = document.querySelector(href); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(err) {}
+  });
+});
+
+/* ── Swipe dots for How It Works ── */
+const stepsEl = document.querySelector('.steps');
+const dots = document.querySelectorAll('.swipe-dot');
+if (stepsEl && dots.length) {
+  stepsEl.addEventListener('scroll', () => {
+    const cards = stepsEl.querySelectorAll('.step');
+    const scrollLeft = stepsEl.scrollLeft;
+    const cardWidth = cards[0].offsetWidth + 14;
+    const idx = Math.round(scrollLeft / cardWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+}
+
+/* ── Slot machine hero text ── */
+const slotTrack = document.getElementById('slotTrack');
+const slotWrap = document.getElementById('slotWrap');
+if (slotTrack && slotWrap) {
+  const firstClone = slotTrack.children[0].cloneNode(true);
+  slotTrack.appendChild(firstClone);
+  const realCount = slotTrack.children.length - 1;
+  /* Use font-size * line-height for a tight slot height */
+  const h1 = slotWrap.closest('h1');
+  const cs = getComputedStyle(h1);
+  const fontSize = parseFloat(cs.fontSize);
+  const slotH = Math.ceil(fontSize * 1.15);
+  /* Set wrap + items to match */
+  slotWrap.style.height = slotH + 'px';
+  Array.from(slotTrack.children).forEach(c => { c.style.height = slotH + 'px'; c.style.lineHeight = slotH + 'px'; });
+  let idx = 0;
+  setInterval(() => {
+    idx++;
+    slotTrack.style.transition = 'transform .6s cubic-bezier(.34,1.56,.64,1)';
+    slotTrack.style.transform = `translateY(-${idx * slotH}px)`;
+    if (idx >= realCount) {
+      setTimeout(() => {
+        slotTrack.style.transition = 'none';
+        idx = 0;
+        slotTrack.style.transform = 'translateY(0)';
+      }, 650);
+    }
+  }, 3000);
+}
+
+/* ── Parallax glow (desktop) ── */
+if (!matchMedia('(max-width:768px)').matches) {
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = scrollY;
+        document.querySelectorAll('.hero-glow, .cta-glow').forEach((el, i) => {
+          el.style.transform = `translateX(-50%) translateY(${y * (i % 2 === 0 ? .03 : -.02)}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+</script>
+</body>
+</html>
