@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f5f5f3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet"></noscript>
 <style>
 /* ════════════════════════════════════════════════════════════
@@ -118,7 +118,6 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:480px){.hc-progress{padding:10px 12px}.hc-progress-title{font-size:12px}.hc-badge{font-size:10px;padding:2px 7px}}
 
 .hero-leads{overflow:hidden;position:relative}
-@media(max-width:768px){.hero-leads .hc-lead:nth-child(3){display:none}}
 .hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity}
 @media(max-width:480px){.hc-lead{margin:5px 3% 0;padding:9px 10px;gap:8px}.hc-lead-name{font-size:13px}.hc-lead-addr{font-size:11px}.hc-lead-price{font-size:11px;padding:3px 7px}}
 .hc-lead-top{border-color:rgba(34,197,94,.4)}
@@ -450,7 +449,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <!-- Hero mock card — shows what clients actually see -->
   <div class="hero-card-wrap hs hs-4">
     <div class="hero-card">
-      <div style="text-align:center;margin-bottom:10px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
+      <div style="text-align:center;margin-bottom:6px;padding-top:2px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
       <div class="hc-stats hc-stats-3">
         <div class="hc-stat">
           <div class="hc-stat-l">Customers</div>
@@ -872,7 +871,7 @@ setTimeout(function() {
       el.style.transform = 'none';
     }
   });
-}, 1500);
+}, 800);
 
 /* ── Scroll Reveal (IntersectionObserver with scroll fallback) ── */
 var rvEls = [].slice.call(document.querySelectorAll('.rv'));
@@ -903,10 +902,10 @@ if ('IntersectionObserver' in window) {
   /* Fallback: show everything immediately */
   rvEls.forEach(function(el) { rvShow(el); });
 }
-/* Safety: force-show all rv elements after 4s in case observer fails */
+/* Safety: force-show all rv elements after 2s in case observer fails */
 setTimeout(function() {
   rvEls.forEach(function(el) { rvShow(el); });
-}, 4000);
+}, 2000);
 
 /* ── Nav frost on scroll ── */
 const nav = document.getElementById('nav');
