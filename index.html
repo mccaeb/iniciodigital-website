@@ -118,6 +118,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:480px){.hc-progress{padding:10px 12px}.hc-progress-title{font-size:12px}.hc-badge{font-size:10px;padding:2px 7px}}
 
 .hero-leads{overflow:hidden;position:relative}
+@media(max-width:768px){.hero-leads .hc-lead:nth-child(3){display:none}}
 .hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity}
 @media(max-width:480px){.hc-lead{margin:5px 3% 0;padding:9px 10px;gap:8px}.hc-lead-name{font-size:13px}.hc-lead-addr{font-size:11px}.hc-lead-price{font-size:11px;padding:3px 7px}}
 .hc-lead-top{border-color:rgba(34,197,94,.4)}
@@ -182,9 +183,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:600px){.step{min-width:75%;max-width:75%;flex-shrink:0;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px}}
 .step-num{font-size:64px;font-weight:900;color:rgba(255,255,255,.12);position:absolute;top:8px;right:14px;letter-spacing:-.04em;line-height:1}
 .step h3{font-size:18px;font-weight:800;margin-bottom:8px;position:relative;color:#fff;letter-spacing:-.01em}
-@media(max-width:600px){.step h3{font-size:20px;margin-bottom:10px}}
+@media(max-width:600px){.step h3{font-size:16px;margin-bottom:10px}}
 .step p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.6;font-weight:500;position:relative}
-@media(max-width:600px){.step p{font-size:17px;line-height:1.55}}
+@media(max-width:600px){.step p{font-size:15px;line-height:1.55}}
 .step-wide{grid-column:2 / -1;background:linear-gradient(135deg,#2a2a2a 0%,#162019 50%,#222222 100%);border-color:rgba(26,107,74,.12)}
 @media(max-width:600px){.step-wide{grid-column:auto;min-width:75%;max-width:75%}}
 .step-wide::after{content:'';position:absolute;bottom:-30%;left:10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.08),transparent 60%);pointer-events:none;filter:blur(40px)}
@@ -259,6 +260,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .pc-example-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
 .pc-example-row{display:flex;justify-content:space-between;padding:5px 0;font-size:15px;font-weight:600}
 .pc-example-row span:first-child{color:rgba(255,255,255,.65)}
+@media(max-width:768px){.pc h3{font-size:20px}.pc p{font-size:15px}.pc-price-sub{font-size:14px}.pc-list li{font-size:14px}.pc-example-title{font-size:12px}.pc-example-row{font-size:14px}}
 .pc-example-row span:last-child{color:#fff}
 .pc-example-row.total{border-top:1px solid rgba(255,255,255,.06);padding-top:10px;margin-top:6px}
 .pc-example-row.total span:last-child{color:#4ade80;font-weight:800}
@@ -331,6 +333,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .value-icon{width:44px;height:44px;border-radius:12px;background:rgba(26,107,74,.12);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
 .value-card h3{font-size:20px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px;color:#fff}
 .value-card p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:500}
+@media(max-width:768px){.value-card h3{font-size:18px}.value-card p{font-size:15px}}
 
 /* ════════════════════
    SINGLE PRICING — centered box
@@ -348,6 +351,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:768px){.objection-card{padding:22px 18px;border-radius:16px}.objection-card:hover{transform:none}}
 .objection-q{font-size:16px;font-weight:800;color:#111;letter-spacing:-.01em;margin-bottom:8px}
 .objection-a{font-size:15px;color:#888;line-height:1.65;font-weight:500}
+@media(max-width:768px){.objection-q{font-size:15px}.objection-a{font-size:14px}}
 
 /* ════════════════════
    PAIN / PROBLEM CARDS
@@ -639,11 +643,6 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         <p>Every customer is exclusive to you, pre-agreed on price and frequency, and committed to a recurring clean. No cold calling, no chasing, no competing with other companies for the same lead. They're yours.</p>
       </div>
       <div class="value-card rv rv-d2">
-        <div class="value-icon">&#129302;</div>
-        <h3>AI-powered sales closer</h3>
-        <p>Our Conversation AI handles quoting, objections, and closing automatically via SMS — with human oversight for area availability checks. It works 24/7 so you don't have to.</p>
-      </div>
-      <div class="value-card rv rv-d3">
         <div class="value-icon">&#128241;</div>
         <h3>Your own delivery dashboard</h3>
         <p>Real-time tracking of every customer, every batch, and your total revenue. Watch your batch build in real time, then export and start cleaning.</p>
@@ -865,7 +864,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 </footer>
 
 <script>
-/* ── Safety: force-show hero if animations haven't fired after 2s ── */
+/* ── Safety: force-show hero if animations haven't fired after 1.5s ── */
 setTimeout(function() {
   document.querySelectorAll('.hs').forEach(function(el) {
     if (getComputedStyle(el).opacity === '0') {
@@ -873,39 +872,41 @@ setTimeout(function() {
       el.style.transform = 'none';
     }
   });
-}, 2000);
+}, 1500);
 
-/* ── Scroll Reveal (rAF + scroll — works in iframes / GHL) ── */
-var rvPending = [].slice.call(document.querySelectorAll('.rv'));
-rvPending.forEach(function(el) {
+/* ── Scroll Reveal (IntersectionObserver with scroll fallback) ── */
+var rvEls = [].slice.call(document.querySelectorAll('.rv'));
+rvEls.forEach(function(el) {
   el.style.opacity = '0';
-  el.style.transform = 'translateY(50px)';
+  el.style.transform = 'translateY(30px)';
 });
-var rvTicking = false;
-function rvCheck() {
-  var vh = window.innerHeight || document.documentElement.clientHeight;
-  var trigger = vh - 60;
-  for (var i = rvPending.length - 1; i >= 0; i--) {
-    var el = rvPending[i];
-    if (el.getBoundingClientRect().top < trigger) {
-      var m = el.className.match(/rv-d(\d)/);
-      var d = m ? m[1] * 0.1 : 0;
-      el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1) ' + d + 's, transform .8s cubic-bezier(.16,1,.3,1) ' + d + 's';
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-      el.classList.add('vis');
-      rvPending.splice(i, 1);
-    }
-  }
-  rvTicking = false;
+function rvShow(el) {
+  if (el.classList.contains('vis')) return;
+  var m = el.className.match(/rv-d(\d)/);
+  var d = m ? m[1] * 0.1 : 0;
+  el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1) ' + d + 's, transform .8s cubic-bezier(.16,1,.3,1) ' + d + 's';
+  el.style.opacity = '1';
+  el.style.transform = 'translateY(0)';
+  el.classList.add('vis');
 }
-function rvOnScroll() { if (!rvTicking) { rvTicking = true; requestAnimationFrame(rvCheck); } }
-window.addEventListener('scroll', rvOnScroll, { passive: true });
-window.addEventListener('resize', rvOnScroll, { passive: true });
-/* Initial check after paint — run immediately and again shortly after */
-rvCheck();
-requestAnimationFrame(rvCheck);
-setTimeout(rvCheck, 100);
+if ('IntersectionObserver' in window) {
+  var rvObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        rvShow(entry.target);
+        rvObs.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px 80px 0px' });
+  rvEls.forEach(function(el) { rvObs.observe(el); });
+} else {
+  /* Fallback: show everything immediately */
+  rvEls.forEach(function(el) { rvShow(el); });
+}
+/* Safety: force-show all rv elements after 4s in case observer fails */
+setTimeout(function() {
+  rvEls.forEach(function(el) { rvShow(el); });
+}, 4000);
 
 /* ── Nav frost on scroll ── */
 const nav = document.getElementById('nav');
