@@ -434,7 +434,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <div class="hero-glow"></div>
 
   <h1 class="hs hs-1"><span class="slot-wrap" id="slotWrap"><span class="slot-track" id="slotTrack"><span class="slot-item">Window Cleaning</span><span class="slot-item">Gutter Cleaning</span><span class="slot-item">Carpet Cleaning</span><span class="slot-item">More Soon&hellip;</span></span></span>Customers<br>On Tap</h1>
-  <p class="hero-sub hs hs-2">We handle everything. You just get customers.<br><span style="color:#111;font-weight:700">Book in, clean, get paid.</span></p>
+  <p class="hero-sub hs hs-2">We handle everything. You just get customers.<br><span style="color:#111;font-weight:700">Book in. Clean. Get paid.</span></p>
 
   <div class="hero-btns hs hs-3">
     <a href="#start" class="btn btn-dark">
@@ -447,7 +447,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <!-- Hero mock card — shows what clients actually see -->
   <div class="hero-card-wrap hs hs-4">
     <div class="hero-card">
-      <div style="text-align:center;margin-bottom:6px;padding-top:2px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
+      <div style="text-align:center;margin-bottom:6px;padding-top:2px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-left:.12em">Dashboard</span></div>
       <div class="hc-stats hc-stats-3">
         <div class="hc-stat">
           <div class="hc-stat-l">Customers</div>
@@ -487,12 +487,12 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
           </div>
           <div class="hc-lead hc-lead-new">
             <div class="hc-lead-dot" style="background:#3b82f6"></div>
-            <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
+            <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan</div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
             <div class="hc-lead-price">&pound;24</div>
           </div>
           <div class="hc-lead hc-lead-new">
             <div class="hc-lead-dot" style="background:#22c55e"></div>
-            <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
+            <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher</div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
             <div class="hc-lead-price">&pound;19</div>
           </div>
         </div>
@@ -971,8 +971,12 @@ requestAnimationFrame(() => {
     setTimeout(function() {
       var c = newLeads[idx];
       var leads = inner.querySelectorAll('.hc-lead');
-      /* Remove top highlight from current top */
-      if (leads[0]) leads[0].classList.remove('hc-lead-top');
+      /* Remove top highlight and New badge from current top */
+      if (leads[0]) {
+        leads[0].classList.remove('hc-lead-top');
+        var oldBadge = leads[0].querySelector('.hc-new-badge');
+        if (oldBadge) oldBadge.parentNode.removeChild(oldBadge);
+      }
       /* Insert new card above visible area */
       var newEl = makeLead(c);
       inner.insertBefore(newEl, inner.firstChild);
