@@ -358,6 +358,13 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .diff-box span{color:#1a6b4a;font-weight:800}
 @media(max-width:768px){.diff-box{padding:28px 24px;border-radius:18px}}
 
+/* ── Dashboard pills ── */
+.dash-pill{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;transition:all .3s ease;-webkit-appearance:none;outline:none;font-family:inherit}
+.dash-pill:hover{border-color:rgba(26,107,74,.3);color:rgba(255,255,255,.7)}
+.dash-pill--active{border-color:rgba(26,107,74,.25)!important;background:rgba(26,107,74,.05)!important;color:#4ade80!important}
+.dash-tip{margin-top:14px;padding:14px 18px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(26,107,74,.15);color:rgba(255,255,255,.7);font-size:14px;font-weight:500;line-height:1.6;text-align:center;animation:tipIn .3s ease}
+@keyframes tipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
 /* ── Touch ── */
 @media(hover:none){.bc:active{transform:scale(.98)!important;transition-duration:.15s}.impact-card:active{transform:scale(.98)!important}.step:active{transform:scale(.98)!important}.pc:active{transform:scale(.98)!important}}
 
@@ -697,7 +704,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.2),transparent)"></div>
 
         <!-- Stat row -->
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">
+        <div class="rv" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">
           <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 12px;text-align:center">
             <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Customers</div>
             <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">48</div>
@@ -713,7 +720,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
 
         <!-- Batch progress preview -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px">
+        <div class="rv rv-d1" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px">
           <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
               <span style="font-size:13px;font-weight:800;color:#fff">Batch 3</span>
@@ -731,13 +738,14 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
 
         <!-- Feature pills -->
-        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">
-          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(26,107,74,.25);background:rgba(26,107,74,.05);color:#4ade80">Push Notifications</span>
-          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">CSV Export</span>
-          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">Dark Mode</span>
-          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">Filters</span>
-          <span style="font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5)">Google Maps</span>
+        <div class="dash-pills rv rv-d2" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:relative">
+          <button class="dash-pill dash-pill--active" data-tip="Get instant alerts on your phone every time a new customer is delivered. No checking emails or dashboards — you'll know the second a booking lands.">Push Notifications</button>
+          <button class="dash-pill" data-tip="Export your full customer list in one click. Import straight into Squeegee, CleanerPlanner, or any spreadsheet to plan your rounds.">CSV Export</button>
+          <button class="dash-pill" data-tip="Easy on the eyes, day or night. Switch between light and dark themes so your dashboard is comfortable to use whenever you need it.">Dark Mode</button>
+          <button class="dash-pill" data-tip="Sort and filter customers by status, batch, area, or value. Find exactly what you need without scrolling through your entire list.">Filters</button>
+          <button class="dash-pill" data-tip="Every customer is pinned on an interactive map so you can see your round at a glance and plan the most efficient route.">Google Maps</button>
         </div>
+        <div class="dash-tip" id="dashTip" style="display:none"></div>
       </div>
 
       <a href="/dashboard" class="btn btn-dark rv rv-d4" style="margin-top:32px">
@@ -966,6 +974,29 @@ if (!matchMedia('(max-width:768px)').matches) {
     }
   }, { passive: true });
 }
+
+/* ── Dashboard feature pills ── */
+(function() {
+  var pills = document.querySelectorAll('.dash-pill');
+  var tip = document.getElementById('dashTip');
+  if (!pills.length || !tip) return;
+  pills.forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      var wasActive = pill.classList.contains('dash-pill--active');
+      pills.forEach(function(p) { p.classList.remove('dash-pill--active'); });
+      if (wasActive) {
+        tip.style.display = 'none';
+        return;
+      }
+      pill.classList.add('dash-pill--active');
+      tip.textContent = pill.getAttribute('data-tip');
+      tip.style.display = 'block';
+      tip.style.animation = 'none';
+      tip.offsetHeight;
+      tip.style.animation = 'tipIn .3s ease';
+    });
+  });
+})();
 </script>
 </body>
 </html>
