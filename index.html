@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f5f5f3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ════════════════════════════════════════════════════════════
    INICIO DIGITAL — Homepage
@@ -117,11 +117,11 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:480px){.hc-progress{padding:10px 12px}.hc-progress-title{font-size:12px}.hc-badge{font-size:10px;padding:2px 7px}}
 
 .hero-leads{overflow:hidden;position:relative}
-.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;transition:all .5s cubic-bezier(.22,1,.36,1);max-height:60px;overflow:hidden}
+.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity}
 @media(max-width:480px){.hc-lead{margin:5px 3% 0;padding:9px 10px;gap:8px}.hc-lead-name{font-size:13px}.hc-lead-addr{font-size:11px}.hc-lead-price{font-size:11px;padding:3px 7px}}
 .hc-lead-top{border-color:rgba(34,197,94,.4)}
-.hc-lead.hc-lead-entering{opacity:0;max-height:0;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;border-width:0}
-.hc-lead.hc-lead-exiting{opacity:0;max-height:0;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;border-width:0}
+.hc-lead.hc-lead-entering{opacity:0;transform:translateY(-20px)}
+.hc-lead.hc-lead-exiting{opacity:0;transform:translateY(20px)}
 .hc-lead-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .hc-lead-info{flex:1;min-width:0}
 .hc-lead-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -383,7 +383,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
 .dash-customer-wrap{position:relative;overflow:hidden}
 @media(max-width:480px){.dash-customer-wrap{padding:0 3%!important}}
-.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:all .45s cubic-bezier(.22,1,.36,1)}
+.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity}
 .dash-toast.out{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(100%)}
 .dash-toast.entering{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(-100%)}
 .dash-toast.enter{position:relative;opacity:1;transform:translateX(0)}
@@ -432,7 +432,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <div class="hero-glow"></div>
 
   <h1 class="hs hs-1"><span class="slot-wrap" id="slotWrap"><span class="slot-track" id="slotTrack"><span class="slot-item">Window Cleaning</span><span class="slot-item">Gutter Cleaning</span><span class="slot-item">Carpet Cleaning</span><span class="slot-item">More Soon&hellip;</span></span></span>Customers<br>On Tap</h1>
-  <p class="hero-sub hs hs-2">We run the ads, close the sale, and hand you customers ready to book in.<br><span style="color:#111;font-weight:700">You just clean and get paid.</span></p>
+  <p class="hero-sub hs hs-2">We handle everything. You just get customers.<br><span style="color:#111;font-weight:700">Book in, clean, get paid.</span></p>
 
   <div class="hero-btns hs hs-3">
     <a href="#start" class="btn btn-dark">
@@ -822,7 +822,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <blockquote>The dashboard changed everything. I can see exactly what I'm paying for, track every customer, and plan my round without any spreadsheets. The customers come in ready to book — I just add them to my route.</blockquote>
   <div class="t-author">
     <div class="t-meta">
-      <div class="t-name">Brill Window Cleaning</div>
+      <div class="t-name">Sam — <span style="font-weight:500;color:#888">Brill Window Cleaning</span></div>
       <div class="t-role">130 customers delivered in first month &middot; Inicio Digital client</div>
     </div>
   </div>
@@ -965,16 +965,14 @@ requestAnimationFrame(() => {
       var leads = container.querySelectorAll('.hc-lead');
       /* Remove top highlight from current top */
       if (leads[0]) leads[0].classList.remove('hc-lead-top');
+      /* Remove bottom card immediately to keep 3 max */
+      if (leads.length >= 3) {
+        var last = leads[leads.length - 1];
+        if (last.parentNode) last.parentNode.removeChild(last);
+      }
       /* Create new lead at top */
       var newEl = makeLead(c);
-      container.insertBefore(newEl, leads[0]);
-      /* Animate bottom one out */
-      var bottom = container.querySelectorAll('.hc-lead');
-      if (bottom.length > 3) {
-        var last = bottom[bottom.length - 1];
-        last.classList.add('hc-lead-exiting');
-        setTimeout(function() { if (last.parentNode) last.parentNode.removeChild(last); }, 500);
-      }
+      container.insertBefore(newEl, container.firstChild);
       /* Animate new one in */
       newEl.offsetHeight;
       newEl.classList.remove('hc-lead-entering');
