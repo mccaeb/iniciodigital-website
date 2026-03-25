@@ -360,10 +360,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 
 /* ── Dashboard pills ── */
 .dash-pills{display:flex;flex-wrap:wrap;gap:0;justify-content:center;position:relative}
-.dash-pill{font-size:12px;font-weight:700;padding:8px 16px;border-radius:10px 10px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:none;background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);cursor:pointer;transition:all .3s ease;-webkit-appearance:none;outline:none;font-family:inherit;margin:0 2px;position:relative;bottom:-1px}
+.dash-pill{font-size:12px;font-weight:700;padding:8px 16px;border-radius:10px 10px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(26,107,74,.18);background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);cursor:pointer;transition:all .3s ease;-webkit-appearance:none;outline:none;font-family:inherit;margin:0 2px;position:relative;bottom:-1px;z-index:1}
 .dash-pill:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.06)}
-.dash-pill--active{border-color:rgba(26,107,74,.25)!important;background:rgba(26,107,74,.08)!important;color:#4ade80!important;z-index:1;border-bottom-color:rgba(26,107,74,.06)!important}
-.dash-tip{padding:16px 20px;border-radius:0 0 14px 14px;background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.18);border-top:none;color:rgba(255,255,255,.65);font-size:13px;font-weight:500;line-height:1.65;text-align:center;margin-top:0;animation:tipIn .3s ease}
+.dash-pill--active{border-color:rgba(26,107,74,.25)!important;background:rgba(26,107,74,.06)!important;color:#4ade80!important;z-index:2;border-bottom-color:rgba(26,107,74,.06)!important}
+.dash-tip{padding:16px 20px;border-radius:0 0 14px 14px;background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.18);color:rgba(255,255,255,.65);font-size:13px;font-weight:500;line-height:1.65;text-align:center;margin-top:0;animation:tipIn .3s ease}
 .dash-tip-hint{display:block;font-size:13px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.03em;text-align:center}
 @keyframes tipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
@@ -700,35 +700,32 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       <div class="section-sub rv rv-d2" style="margin-bottom:48px">Your own branded dashboard with real-time tracking, push notifications, and one-click exports. Nothing else in the industry comes close.</div>
 
       <!-- Mini dark preview card -->
-      <div class="rv rv-d3" style="background:linear-gradient(160deg,#2a2a2a,#222222);border:1px solid rgba(34,197,94,.35);border-radius:22px;padding:28px 24px;color:#fff;position:relative;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.08),0 40px 80px rgba(0,0,0,0.1),0 0 0 1px rgba(34,197,94,.15);text-align:left">
-        <!-- Glow -->
-        <div style="position:absolute;bottom:-40%;left:10%;width:80%;height:60%;background:radial-gradient(ellipse,rgba(26,107,74,.14),transparent 60%);pointer-events:none;filter:blur(50px)"></div>
-        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.2),transparent)"></div>
+      <div class="hero-card rv rv-d3" style="padding:28px 24px;text-align:left">
 
         <!-- Stat row -->
-        <div class="rv" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">
-          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 12px;text-align:center">
-            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Customers</div>
-            <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">48</div>
+        <div class="hc-stats rv" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:18px">
+          <div class="hc-stat">
+            <div class="hc-stat-l">Customers</div>
+            <div class="hc-stat-v">48</div>
           </div>
-          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 12px;text-align:center">
-            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Monthly</div>
-            <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">&pound;864</div>
+          <div class="hc-stat">
+            <div class="hc-stat-l">Monthly</div>
+            <div class="hc-stat-v">&pound;864</div>
           </div>
-          <div style="background:linear-gradient(135deg,#1a6b4a,#15583d);border:1px solid transparent;border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 4px 16px rgba(26,107,74,.2)">
-            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Annual</div>
-            <div style="font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff">&pound;10.4k</div>
+          <div class="hc-stat accent">
+            <div class="hc-stat-l">Annual</div>
+            <div class="hc-stat-v">&pound;10.4k</div>
           </div>
         </div>
 
         <!-- Batch progress preview -->
-        <div class="rv rv-d1" style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:18px">
-          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-              <span style="font-size:13px;font-weight:800;color:#fff">Batch 1</span>
-              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
+        <div class="rv rv-d1" style="padding:0 5%;margin-bottom:18px">
+          <div class="hc-progress">
+            <div class="hc-progress-top">
+              <span class="hc-progress-title">Batch 1</span>
+              <span class="hc-badge" style="background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
             </div>
-            <div style="height:6px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden"><div style="height:100%;width:100%;border-radius:3px;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
+            <div class="hc-bar"><div class="hc-bar-fill" style="width:100%;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
           </div>
         </div>
 
