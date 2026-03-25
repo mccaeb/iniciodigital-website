@@ -115,10 +115,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:768px){.hc-progress{padding:11px 12px}.hc-progress-title{font-size:13px}.hc-badge{font-size:10px;padding:2px 7px}}
 
 .hero-leads{overflow:hidden;position:relative}
-.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0;opacity:1;transition:opacity .3s ease}
+.hero-leads-inner{transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0}
 @media(max-width:768px){.hc-lead{margin:5px 8% 0;padding:8px 10px;gap:8px}.hc-lead-name{font-size:12px}.hc-lead-addr{font-size:10px}.hc-lead-price{font-size:10px;padding:3px 7px}}
 .hc-lead-top{border-color:rgba(34,197,94,.4)}
-.hc-lead.hc-lead-entering{opacity:0}
 .hc-lead-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .hc-lead-info{flex:1;min-width:0}
 .hc-lead-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -479,20 +479,22 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
         </div>
       </div>
       <div class="hero-leads" id="heroLeads">
-        <div class="hc-lead hc-lead-new hc-lead-top">
-          <div class="hc-lead-dot" style="background:#22c55e"></div>
-          <div class="hc-lead-info"><div class="hc-lead-name">Mark Henderson <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, EH14 5RP</div></div>
-          <div class="hc-lead-price">&pound;16</div>
-        </div>
-        <div class="hc-lead hc-lead-new">
-          <div class="hc-lead-dot" style="background:#3b82f6"></div>
-          <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
-          <div class="hc-lead-price">&pound;24</div>
-        </div>
-        <div class="hc-lead hc-lead-new">
-          <div class="hc-lead-dot" style="background:#22c55e"></div>
-          <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
-          <div class="hc-lead-price">&pound;19</div>
+        <div class="hero-leads-inner" id="heroLeadsInner">
+          <div class="hc-lead hc-lead-new hc-lead-top">
+            <div class="hc-lead-dot" style="background:#22c55e"></div>
+            <div class="hc-lead-info"><div class="hc-lead-name">Mark Henderson <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, EH14 5RP</div></div>
+            <div class="hc-lead-price">&pound;16</div>
+          </div>
+          <div class="hc-lead hc-lead-new">
+            <div class="hc-lead-dot" style="background:#3b82f6"></div>
+            <div class="hc-lead-info"><div class="hc-lead-name">Claire Donovan <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">5 Kingsway Crescent, G43 2LN</div></div>
+            <div class="hc-lead-price">&pound;24</div>
+          </div>
+          <div class="hc-lead hc-lead-new">
+            <div class="hc-lead-dot" style="background:#22c55e"></div>
+            <div class="hc-lead-info"><div class="hc-lead-name">Tom Gallagher <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">11 Riverside Walk, FK1 4QE</div></div>
+            <div class="hc-lead-price">&pound;19</div>
+          </div>
         </div>
       </div>
     </div>
@@ -914,7 +916,8 @@ requestAnimationFrame(() => {
 /* ── Hero customer cycling ── */
 (function() {
   var container = document.getElementById('heroLeads');
-  if (!container) return;
+  var inner = document.getElementById('heroLeadsInner');
+  if (!container || !inner) return;
   var heroBar = document.getElementById('heroBar');
   var heroCustomersEl = document.getElementById('heroCustomers');
   var heroMonthlyEl = document.getElementById('heroMonthly');
@@ -956,24 +959,37 @@ requestAnimationFrame(() => {
       + '<div class="hc-lead-price">\u00a3' + c.price + '</div>';
     return div;
   }
+  /* Measure one card height (card + margin) */
+  var firstCard = inner.querySelector('.hc-lead');
+  var cardH = firstCard ? firstCard.offsetHeight + 7 : 50;
+  /* Set container to exactly 3 cards tall */
+  container.style.height = (cardH * 3 + 7) + 'px';
+
   function cycleHeroLead() {
     if (idx >= newLeads.length) return;
     var delay = idx === 0 ? 3000 : 5000 + Math.random() * 4000;
     setTimeout(function() {
       var c = newLeads[idx];
-      var leads = container.querySelectorAll('.hc-lead');
+      var leads = inner.querySelectorAll('.hc-lead');
       /* Remove top highlight from current top */
       if (leads[0]) leads[0].classList.remove('hc-lead-top');
-      /* Remove bottom card instantly */
-      if (leads.length >= 3) {
-        var last = leads[leads.length - 1];
-        last.parentNode.removeChild(last);
-      }
-      /* Create new lead at top with fade in */
+      /* Insert new card above visible area */
       var newEl = makeLead(c);
-      newEl.style.opacity = '0';
-      container.insertBefore(newEl, container.firstChild);
-      setTimeout(function() { newEl.style.opacity = '1'; }, 30);
+      inner.insertBefore(newEl, inner.firstChild);
+      /* Start shifted up so new card is hidden above */
+      inner.style.transition = 'none';
+      inner.style.transform = 'translateY(-' + cardH + 'px)';
+      /* Force reflow then animate down */
+      inner.offsetHeight;
+      inner.style.transition = 'transform .5s cubic-bezier(.22,1,.36,1)';
+      inner.style.transform = 'translateY(0)';
+      /* After animation: remove bottom card, reset */
+      setTimeout(function() {
+        var allLeads = inner.querySelectorAll('.hc-lead');
+        if (allLeads.length > 3) {
+          allLeads[allLeads.length - 1].parentNode.removeChild(allLeads[allLeads.length - 1]);
+        }
+      }, 550);
       /* Bump stats */
       var prevCust = runCust, prevMonthly = runMonthly, prevAnnual = runAnnual;
       runCust += 1;
