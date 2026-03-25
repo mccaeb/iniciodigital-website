@@ -57,13 +57,13 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .section-glow-c{width:550px;height:550px;opacity:.1;left:50%;top:50%;transform:translate(-50%,-50%)}
 @media(max-width:768px){.section-glow-l,.section-glow-r{width:300px;height:300px;opacity:.1}.section-glow-c{width:350px;height:350px;opacity:.12}}
 
-.hero h1{font-size:clamp(44px,8vw,86px);font-weight:900;letter-spacing:-.055em;line-height:1.15;color:#111;margin-bottom:20px}
-@media(max-width:768px){.hero h1{font-size:clamp(38px,10vw,52px);margin-bottom:16px;letter-spacing:-.05em}}
+.hero h1{font-size:clamp(44px,8vw,86px);font-weight:900;letter-spacing:-.045em;line-height:1.1;color:#111;margin-bottom:20px}
+@media(max-width:768px){.hero h1{font-size:clamp(38px,10vw,52px);margin-bottom:16px;letter-spacing:-.04em}}
 .mob-br{display:none}
 @media(max-width:768px){.mob-br{display:block}}
 
 /* ── Slot machine spinner ── */
-.slot-wrap{display:block;position:relative;overflow:hidden;vertical-align:bottom;width:100%;height:1.15em}
+.slot-wrap{display:block;position:relative;overflow:hidden;vertical-align:bottom;width:100%;height:1.2em;padding:0.05em 0}
 .slot-track{display:flex;flex-direction:column;transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
 .slot-item{display:flex;align-items:center;justify-content:center;flex-shrink:0;white-space:nowrap}
 
@@ -941,9 +941,10 @@ if (slotTrack && slotWrap) {
   const h1 = slotWrap.closest('h1');
   const cs = getComputedStyle(h1);
   const fontSize = parseFloat(cs.fontSize);
-  const slotH = Math.ceil(fontSize * 1.15);
+  const slotH = Math.ceil(fontSize * 1.2);
   /* Set wrap + items to match */
   slotWrap.style.height = slotH + 'px';
+  slotWrap.style.padding = '0';
   Array.from(slotTrack.children).forEach(c => { c.style.height = slotH + 'px'; c.style.lineHeight = slotH + 'px'; });
   let idx = 0;
   setInterval(() => {
