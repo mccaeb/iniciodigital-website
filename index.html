@@ -1098,7 +1098,7 @@ if (!matchMedia('(max-width:768px)').matches) {
       }
       function showNext() {
         if (idx >= newCustomers.length) return;
-        var delay = 3500 + Math.random() * 2500;
+        var delay = idx === 0 ? 2000 : 6000 + Math.random() * 4000;
         setTimeout(function() {
           var c = newCustomers[idx];
           idx++;
