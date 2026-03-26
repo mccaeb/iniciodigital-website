@@ -281,64 +281,68 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
   </div>
 </section>
 
-<!-- ═══════ SOCIAL PROOF BAR ═══════ -->
-<section class="proof" id="proof">
+<div class="divider"></div>
+
+<!-- ═══════ IMPACT — Proof Bar ═══════ -->
+<section class="section" id="impact" style="overflow:hidden">
+  <div class="section-glow section-glow-l"></div>
   <div class="ctr">
-    <div class="proof-grid">
-      <div class="proof-item rv">
-        <div class="proof-num"><span data-proof="90">0</span>+</div>
-        <div class="proof-label">Customers delivered</div>
+    <div class="section-header rv">
+      <div class="section-label">Real Results</div>
+      <div class="section-title">Proof, not promises</div>
+      <div class="section-sub">Real numbers from real clients. Every customer tracked, every penny accounted for.</div>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card rv rv-d1">
+        <div class="impact-num" data-target="90">0</div>
+        <div class="impact-desc">Customers delivered</div>
       </div>
-      <div class="proof-item rv rv-d1">
-        <div class="proof-num"><span data-proof="4">0</span></div>
-        <div class="proof-label">Batches completed</div>
+      <div class="impact-card rv rv-d2">
+        <div class="impact-num">&pound;5,400+</div>
+        <div class="impact-desc">Annual revenue generated</div>
       </div>
-      <div class="proof-item rv rv-d2">
-        <div class="proof-num">&pound;<span data-proof="5400">0</span>+</div>
-        <div class="proof-label">Annual revenue generated</div>
+      <div class="impact-card rv rv-d3">
+        <div class="impact-num" data-target="4">0</div>
+        <div class="impact-desc">Batches completed</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ THE PROBLEM ═══════ -->
-<section class="problem">
-  <div class="ctr">
-    <div class="problem-header rv">
-      <div class="problem-label">The old way is broken</div>
-      <h2 class="problem-title">You're still tracking leads <em>in a spreadsheet?</em></h2>
-    </div>
+<div class="divider"></div>
 
-    <div class="problem-grid">
-      <!-- Card 1 -->
-      <div class="problem-card rv">
-        <div class="problem-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-        </div>
+<!-- ═══════ THE PROBLEM ═══════ -->
+<section class="section" id="problem" style="overflow:hidden">
+  <div class="section-glow section-glow-r"></div>
+  <div class="ctr">
+    <div class="section-header rv">
+      <div class="section-label">The Problem</div>
+      <div class="section-title">Most marketing sells you<br>leads. Not customers.</div>
+      <div class="section-sub">You already know the drill. You pay upfront, chase people who never reply, and end up with a list full of dead numbers.</div>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card rv rv-d1">
+        <span class="pain-x">Not us</span>
+        <div class="pain-icon" style="background:rgba(239,68,68,.08)">&#128176;</div>
         <h3>Messy spreadsheets</h3>
         <p>Customer names, addresses, prices, statuses — all crammed into a Google Sheet that breaks every time you sort it.</p>
       </div>
-      <!-- Card 2 -->
-      <div class="problem-card rv rv-d1">
-        <div class="problem-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-        </div>
+      <div class="pain-card rv rv-d2">
+        <span class="pain-x">Not us</span>
+        <div class="pain-icon" style="background:rgba(249,115,22,.08)">&#128221;</div>
         <h3>Zero visibility</h3>
         <p>No idea how many customers accepted, which batch they came from, or what your actual revenue looks like this month.</p>
       </div>
-      <!-- Card 3 -->
-      <div class="problem-card rv rv-d2">
-        <div class="problem-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="9" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="15" y1="10" x2="15" y2="10"/></svg>
-        </div>
+      <div class="pain-card rv rv-d3">
+        <span class="pain-x">Not us</span>
+        <div class="pain-icon" style="background:rgba(168,85,247,.08)">&#128247;</div>
         <h3>Chasing updates</h3>
         <p>Constantly messaging to ask "did they book?" or "what happened with batch 3?" — wasting time you could spend cleaning.</p>
       </div>
     </div>
-
-    <!-- Transition -->
-    <div class="problem-transition rv">
-      <p>There's a <span>better way.</span></p>
+    <div class="diff-box rv rv-d4">
+      <p>We don't sell leads.</p>
+      <p style="margin-top:6px">We deliver <span>actual customers</span> who've already accepted your quote and are waiting to be booked in.</p>
     </div>
   </div>
 </section>
@@ -364,44 +368,39 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
 
-// ── Animated counter utility ──
-function animateCounter(el, attr) {
-  const target = parseInt(el.dataset[attr], 10);
-  const duration = 2000;
+// ── Animated counters ──
+function animateNum(el, target, duration) {
   const start = performance.now();
   function tick(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.round(target * eased).toLocaleString();
-    if (progress < 1) requestAnimationFrame(tick);
+    if (p < 1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 }
 
-// Trigger mockup counters
-const mockupObs = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('[data-count]').forEach(el => animateCounter(el, 'count'));
-      mockupObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-const mockup = document.getElementById('mockup');
-if (mockup) mockupObs.observe(mockup);
+// Generic observer for any section with [data-count] or [data-target]
+function observeCounters(selector, attr) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('[data-' + attr + ']').forEach(c => {
+          animateNum(c, parseInt(c.dataset[attr], 10), 2000);
+        });
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(el);
+}
+observeCounters('#mockup', 'count');
+observeCounters('#impact', 'target');
 
-// Trigger social proof counters
-const proofObs = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('[data-proof]').forEach(el => animateCounter(el, 'proof'));
-      proofObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.4 });
-const proof = document.getElementById('proof');
-if (proof) proofObs.observe(proof);
+// Animate hero progress bar
+setTimeout(() => { const b = document.getElementById('heroBar'); if (b) b.style.width = '62%'; }, 1200);
 </script>
 </body>
 </html>
