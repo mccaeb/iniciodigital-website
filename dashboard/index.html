@@ -82,7 +82,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 @media(max-width:768px){.hero-mockup{max-width:100%}}
 
 .mock{background:#eceee9;border-radius:20px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.06),0 12px 32px rgba(0,0,0,0.1),0 48px 80px rgba(0,0,0,0.12);display:grid;grid-template-columns:180px 1fr;min-height:420px;color:#111;font-size:12px}
-@media(max-width:768px){.mock{grid-template-columns:1fr;min-height:auto}.mock-side{display:none}}
+@media(max-width:768px){.mock{grid-template-columns:1fr;min-height:auto;border-radius:16px}.mock-side{display:none}}
 
 /* Sidebar */
 .mock-side{background:#fff;border-right:1px solid rgba(0,0,0,.06);padding:20px 14px;display:flex;flex-direction:column}
@@ -101,6 +101,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 
 /* Main content */
 .mock-main{padding:20px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+@media(max-width:768px){.mock-main{padding:14px;gap:10px}}
 
 /* Top bar */
 .mock-topbar{display:flex;justify-content:space-between;align-items:flex-start}
@@ -110,12 +111,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 
 /* Stats row */
 .mock-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-@media(max-width:768px){.mock-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.mock-stats{grid-template-columns:repeat(2,1fr);gap:6px}}
 .mock-stat{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:12px}
+@media(max-width:768px){.mock-stat{padding:10px;border-radius:10px}}
 .mock-stat.accent{background:linear-gradient(135deg,#1a6b4a,#15583d);border-color:transparent;color:#fff}
 .mock-stat-label{font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 .mock-stat.accent .mock-stat-label{color:rgba(255,255,255,.6)}
 .mock-stat-val{font-size:20px;font-weight:900;color:#111;letter-spacing:-.03em}
+@media(max-width:768px){.mock-stat-val{font-size:17px}}
 .mock-stat.accent .mock-stat-val{color:#fff}
 .mock-stat-sub{font-size:9px;color:#bbb;margin-top:2px;font-weight:500}
 .mock-stat.accent .mock-stat-sub{color:rgba(255,255,255,.5)}
@@ -125,20 +128,24 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .mock-search{flex:1;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:8px 12px;font-size:11px;color:#bbb;font-weight:500}
 .mock-filter-btn{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:8px 12px;font-size:10px;color:#888;font-weight:600;white-space:nowrap}
 .mock-export-btn{background:#1a6b4a;color:#fff;border-radius:10px;padding:8px 14px;font-size:10px;font-weight:700;white-space:nowrap}
+@media(max-width:768px){.mock-filter-btn{display:none}.mock-search{padding:7px 10px;font-size:10px}.mock-export-btn{padding:7px 10px;font-size:9px}}
 
 /* Batch card */
 .mock-batch{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px 16px}
+@media(max-width:768px){.mock-batch{padding:12px;border-radius:12px}}
 .mock-batch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .mock-batch-name{font-size:14px;font-weight:800;color:#111;letter-spacing:-.01em}
 .mock-batch-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:5px}
 .mock-batch-right{font-size:11px;color:#888;font-weight:500}
 .mock-batch-right strong{color:#111;font-size:14px;font-weight:800}
+@media(max-width:768px){.mock-batch-top{flex-direction:column;align-items:flex-start;gap:4px}.mock-batch-name{font-size:13px}.mock-batch-right{font-size:10px}.mock-batch-right strong{font-size:12px}}
 .mock-batch-bar{height:5px;background:rgba(0,0,0,.06);border-radius:3px;overflow:hidden;margin-bottom:6px}
 .mock-batch-fill{height:100%;border-radius:3px;transition:width 2s cubic-bezier(.22,1,.36,1)}
 .mock-batch-meta{font-size:10px;color:#bbb;font-weight:500}
 
 /* Customer rows */
 .mock-customer{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+@media(max-width:768px){.mock-customer{padding:10px;gap:8px;border-radius:10px}.mock-cust-check{display:none}.mock-cust-tags{display:none}.mock-cust-date{display:none}}
 .mock-cust-check{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(0,0,0,.12);flex-shrink:0}
 .mock-cust-info{flex:1;min-width:0}
 .mock-cust-name{font-size:12px;font-weight:700;color:#111}
@@ -298,22 +305,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
         <div class="mock-stats">
           <div class="mock-stat">
             <div class="mock-stat-label">Active Customers</div>
-            <div class="mock-stat-val" data-count="12">0</div>
-            <div class="mock-stat-sub">2 batches</div>
+            <div class="mock-stat-val" data-count="48">0</div>
+            <div class="mock-stat-sub">3 batches</div>
           </div>
           <div class="mock-stat">
             <div class="mock-stat-label">Total Delivered</div>
-            <div class="mock-stat-val">&pound;<span data-count="482">0</span></div>
+            <div class="mock-stat-val">&pound;<span data-count="1840">0</span></div>
             <div class="mock-stat-sub">All batches</div>
           </div>
           <div class="mock-stat">
             <div class="mock-stat-label">Monthly Revenue</div>
-            <div class="mock-stat-val">&pound;<span data-count="482">0</span></div>
+            <div class="mock-stat-val">&pound;<span data-count="1840">0</span></div>
             <div class="mock-stat-sub">Est. recurring</div>
           </div>
           <div class="mock-stat accent">
             <div class="mock-stat-label">Annual Revenue</div>
-            <div class="mock-stat-val">&pound;<span data-count="5784">0</span></div>
+            <div class="mock-stat-val">&pound;<span data-count="22080">0</span></div>
             <div class="mock-stat-sub">All active services</div>
           </div>
         </div>
@@ -330,10 +337,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
               <span class="mock-batch-name">Batch 1</span>
               <span class="mock-batch-badge" style="background:rgba(217,119,6,.1);color:#b45309">Building</span>
             </div>
-            <div class="mock-batch-right">4 leads&ensp;<strong>&pound;68</strong>&ensp;/ &pound;300</div>
+            <div class="mock-batch-right">12 leads&ensp;<strong>&pound;460</strong>&ensp;/ &pound;600</div>
           </div>
           <div class="mock-batch-bar"><div class="mock-batch-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
-          <div class="mock-batch-meta">23% of paid amount &middot; 4 leads</div>
+          <div class="mock-batch-meta">77% of paid amount &middot; 12 leads</div>
         </div>
         <!-- Customers -->
         <div class="mock-customer">
@@ -344,7 +351,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
           </div>
           <div class="mock-cust-tags"><span class="mock-cust-tag">Win</span></div>
           <div class="mock-cust-date">15 Mar</div>
-          <div class="mock-cust-price">&pound;16</div>
+          <div class="mock-cust-price">&pound;24</div>
         </div>
         <div class="mock-customer">
           <div class="mock-cust-check"></div>
@@ -486,7 +493,7 @@ observeCounters('#mockup', 'count');
 observeCounters('#impact', 'target');
 
 // Animate hero progress bar
-setTimeout(() => { const b = document.getElementById('heroBar'); if (b) b.style.width = '62%'; }, 1200);
+setTimeout(() => { const b = document.getElementById('heroBar'); if (b) b.style.width = '77%'; }, 1200);
 </script>
 </body>
 </html>
