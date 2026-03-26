@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Inicio Dashboard — Customers Delivered, Not Just Leads</title>
+<meta name="description" content="The command center built for window cleaning businesses. Track every customer, every batch, every penny — in one beautiful dashboard.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   INICIO DASHBOARD — Product Landing Page
+   Premium SaaS aesthetic. Dark. Cinematic. Expensive.
+   ════════════════════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden;-webkit-text-size-adjust:100%}
+
+/* ── Film Grain ── */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");backface-visibility:hidden;transform:translateZ(0)}
+
+/* ── Selection ── */
+::selection{background:rgba(26,107,74,.3);color:#fff}
+
+/* ── Container ── */
+.ctr{max-width:1200px;margin:0 auto;padding:0 32px}
+@media(max-width:768px){.ctr{padding:0 20px}}
+
+/* ════════════════════
+   NAV
+   ════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;transition:all .6s cubic-bezier(.22,1,.36,1)}
+.nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,0);transition:background .6s}
+.nav.scrolled{backdrop-filter:blur(24px) saturate(1.2);-webkit-backdrop-filter:blur(24px) saturate(1.2);background:rgba(10,10,10,0.85)}
+.nav.scrolled::after{background:rgba(255,255,255,0.06)}
+.nav-logo{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;text-decoration:none;transition:opacity .3s}
+.nav-logo:hover{opacity:.8}
+.nav-logo-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#1a6b4a,#15583d);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(26,107,74,.3)}
+.nav-logo-mark svg{width:16px;height:16px}
+.nav-links{display:flex;align-items:center;gap:8px}
+.nav-links a{font-size:13px;font-weight:600;color:rgba(255,255,255,.4);padding:8px 16px;border-radius:10px;text-decoration:none;transition:all .3s cubic-bezier(.22,1,.36,1)}
+.nav-links a:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.04)}
+.nav-cta{font-size:13px;font-weight:700;color:#fff;padding:8px 20px;border-radius:10px;text-decoration:none;background:linear-gradient(135deg,#1a6b4a,#15583d);transition:all .4s cubic-bezier(.22,1,.36,1);box-shadow:0 2px 12px rgba(26,107,74,.2)}
+.nav-cta:hover{box-shadow:0 4px 24px rgba(26,107,74,.35);transform:translateY(-1px)}
+@media(max-width:768px){.nav{padding:0 20px;height:56px}.nav-links{display:none}}
+
+/* ════════════════════
+   HERO
+   ════════════════════ */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;position:relative;overflow:hidden;padding:160px 32px 80px}
+@media(max-width:768px){.hero{padding:120px 20px 60px}}
+
+/* ── Grid Background ── */
+.hero-grid{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-grid::before{content:'';position:absolute;inset:0;background-image:
+  linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 50% at 50% 30%, black 20%, transparent 70%);-webkit-mask-image:radial-gradient(ellipse 70% 50% at 50% 30%, black 20%, transparent 70%)}
+.hero-grid::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%, rgba(26,107,74,.08) 0%, transparent 60%)}
+
+/* ── Ambient Glows ── */
+.hero-glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+.hero-glow--primary{width:700px;height:700px;background:radial-gradient(circle,rgba(26,107,74,.12) 0%,transparent 70%);top:-20%;left:50%;transform:translateX(-50%)}
+.hero-glow--secondary{width:400px;height:400px;background:radial-gradient(circle,rgba(26,107,74,.06) 0%,transparent 70%);top:40%;right:-10%}
+@media(max-width:768px){.hero-glow--primary{width:400px;height:400px;top:-10%}.hero-glow--secondary{display:none}}
+
+/* ── Badge ── */
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:100px;padding:6px 18px 6px 8px;margin-bottom:36px;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.01em;transition:all .4s}
+.hero-badge:hover{border-color:rgba(26,107,74,.3);background:rgba(26,107,74,.06)}
+.hero-badge-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(74,222,128,.4);animation:pulse 2.4s cubic-bezier(.4,0,.6,1) infinite}
+.hero-badge span{color:#4ade80;font-weight:700}
+
+/* ── Headline ── */
+.hero h1{font-size:clamp(42px,7.5vw,84px);font-weight:900;letter-spacing:-.055em;line-height:.96;margin-bottom:24px;max-width:900px}
+.hero h1 .txt-gradient{background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.95) 40%,rgba(74,222,128,.7) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+@media(max-width:768px){.hero h1{font-size:clamp(36px,10vw,52px);letter-spacing:-.05em;margin-bottom:20px}}
+
+/* ── Subtitle ── */
+.hero-sub{font-size:clamp(16px,1.8vw,20px);color:rgba(255,255,255,.4);max-width:540px;margin:0 auto 44px;line-height:1.65;font-weight:500;letter-spacing:-.01em}
+@media(max-width:768px){.hero-sub{font-size:15px;margin-bottom:32px;max-width:380px;line-height:1.6}}
+
+/* ── CTA Buttons ── */
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:72px}
+@media(max-width:768px){.hero-actions{margin-bottom:48px;gap:10px}}
+
+.btn-primary{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;padding:16px 32px;border-radius:14px;text-decoration:none;font-family:inherit;cursor:pointer;border:none;color:#fff;background:linear-gradient(135deg,#1a6b4a,#22805a);position:relative;overflow:hidden;transition:all .5s cubic-bezier(.22,1,.36,1);box-shadow:0 2px 12px rgba(26,107,74,.25),0 0 0 1px rgba(26,107,74,.3) inset;letter-spacing:-.01em}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);background-size:200% 100%;animation:shimmer 3s ease infinite}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(26,107,74,.35),0 0 0 1px rgba(26,107,74,.4) inset}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary svg{width:16px;height:16px;transition:transform .3s}
+.btn-primary:hover svg{transform:translateX(3px)}
+
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;padding:16px 28px;border-radius:14px;text-decoration:none;font-family:inherit;cursor:pointer;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);background:transparent;transition:all .4s cubic-bezier(.22,1,.36,1);letter-spacing:-.01em}
+.btn-secondary:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.03)}
+
+/* ── Dashboard Mockup ── */
+.hero-mockup{width:100%;max-width:960px;position:relative;perspective:1200px}
+.hero-mockup-glow{position:absolute;inset:-20%;background:radial-gradient(ellipse 50% 40% at 50% 60%,rgba(26,107,74,.1) 0%,transparent 60%);pointer-events:none;filter:blur(60px)}
+
+.mockup-window{background:linear-gradient(170deg,#131313 0%,#0c0c0c 100%);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.2),0 24px 64px rgba(0,0,0,.4),0 80px 140px rgba(0,0,0,.3);animation:mockFloat 8s cubic-bezier(.45,.05,.55,.95) infinite;position:relative}
+.mockup-window::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(170deg,rgba(255,255,255,.04) 0%,transparent 40%);pointer-events:none;z-index:1}
+@keyframes mockFloat{0%,100%{transform:translateY(0) rotateX(1.5deg)}50%{transform:translateY(-8px) rotateX(0.5deg)}}
+@media(max-width:768px){.mockup-window{border-radius:14px;animation:mockFloatMobile 8s cubic-bezier(.45,.05,.55,.95) infinite}@keyframes mockFloatMobile{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}}
+
+/* Titlebar */
+.mockup-titlebar{display:flex;align-items:center;gap:7px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:2}
+.mockup-dot{width:10px;height:10px;border-radius:50%}
+.mockup-dot--red{background:#ff5f57}
+.mockup-dot--yellow{background:#febc2e}
+.mockup-dot--green{background:#28c840}
+.mockup-titlebar-text{flex:1;text-align:center;font-size:11px;font-weight:600;color:rgba(255,255,255,.15);letter-spacing:.02em}
+
+/* Dashboard Body */
+.mockup-body{display:grid;grid-template-columns:200px 1fr;min-height:380px;position:relative;z-index:2}
+@media(max-width:768px){.mockup-body{grid-template-columns:1fr;min-height:280px}}
+
+/* Sidebar */
+.mockup-sidebar{border-right:1px solid rgba(255,255,255,.05);padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+@media(max-width:768px){.mockup-sidebar{display:none}}
+.mockup-nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;font-size:12px;font-weight:600;color:rgba(255,255,255,.25);transition:all .3s}
+.mockup-nav-item.active{background:rgba(26,107,74,.12);color:#4ade80}
+.mockup-nav-item.active .mockup-nav-dot{background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.3)}
+.mockup-nav-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15)}
+.mockup-nav-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.12);text-transform:uppercase;letter-spacing:.1em;padding:16px 12px 8px}
+
+/* Main Content */
+.mockup-main{padding:20px;display:flex;flex-direction:column;gap:14px}
+
+/* Stats Row */
+.mockup-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:768px){.mockup-stats{grid-template-columns:repeat(3,1fr);gap:6px}}
+.mockup-stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:16px 14px;position:relative;overflow:hidden}
+.mockup-stat::after{content:'';position:absolute;bottom:-20%;left:10%;width:80%;height:40%;border-radius:50%;filter:blur(20px);pointer-events:none}
+.mockup-stat.accent{border-color:rgba(26,107,74,.2)}
+.mockup-stat.accent::after{background:rgba(26,107,74,.06)}
+.mockup-stat-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.mockup-stat-value{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em}
+.mockup-stat.accent .mockup-stat-value{color:#4ade80}
+@media(max-width:768px){.mockup-stat{padding:12px 10px;border-radius:10px}.mockup-stat-value{font-size:18px}}
+
+/* Table */
+.mockup-table{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;overflow:hidden;flex:1}
+.mockup-table-header{display:grid;grid-template-columns:14px 1.5fr 1fr .8fr .6fr;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);font-size:9px;font-weight:700;color:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:768px){.mockup-table-header{grid-template-columns:14px 1.5fr 1fr .6fr;gap:8px;padding:8px 10px}.mockup-table-header span:nth-child(4){display:none}}
+.mockup-table-row{display:grid;grid-template-columns:14px 1.5fr 1fr .8fr .6fr;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.025);align-items:center;transition:background .3s}
+@media(max-width:768px){.mockup-table-row{grid-template-columns:14px 1.5fr 1fr .6fr;gap:8px;padding:8px 10px}.mockup-table-row span:nth-child(4){display:none}}
+.mockup-table-row:last-child{border-bottom:none}
+.mockup-row-dot{width:7px;height:7px;border-radius:50%;justify-self:center}
+.mockup-row-name{font-size:12px;font-weight:700;color:rgba(255,255,255,.7)}
+.mockup-row-addr{font-size:11px;color:rgba(255,255,255,.2);font-weight:500}
+.mockup-row-status{font-size:10px;font-weight:700;padding:4px 10px;border-radius:6px;text-align:center;width:fit-content}
+.mockup-row-price{font-size:11px;font-weight:800;color:#4ade80}
+
+/* Progress bar in mockup */
+.mockup-progress{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:14px}
+.mockup-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.mockup-progress-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.6)}
+.mockup-progress-pct{font-size:11px;font-weight:800;color:#4ade80}
+.mockup-progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.mockup-progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#1a6b4a,#4ade80);width:0;transition:width 2.5s cubic-bezier(.22,1,.36,1)}
+.vis .mockup-progress-fill{width:var(--w)}
+
+/* ── Hero Entrance Stagger ── */
+.hs{opacity:0;transform:translateY(28px);animation:hsIn .9s cubic-bezier(.22,1,.36,1) both}
+.hs-1{animation-delay:.1s}
+.hs-2{animation-delay:.2s}
+.hs-3{animation-delay:.35s}
+.hs-4{animation-delay:.5s}
+.hs-5{animation-delay:.65s;transform:translateY(40px) scale(.98)}
+@keyframes hsIn{to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* ── Scroll Reveal ── */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+
+/* ── Shimmer ── */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* ── Pulse ── */
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.8)}}
+
+/* ── Scroll cue ── */
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:auto;padding-top:48px;color:rgba(255,255,255,.2);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.scroll-cue-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,.2),transparent);animation:scrollPulse 2.2s ease infinite}
+@keyframes scrollPulse{0%{opacity:0;transform:translateY(-14px)}50%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+@media(max-width:768px){.scroll-cue{display:none}}
+
+/* ── Touch ── */
+@media(hover:none){.btn-primary:active{transform:scale(.97)!important;transition-duration:.15s}}
+/* ── Safe areas ── */
+@supports(padding:env(safe-area-inset-bottom)){.nav{padding-left:calc(32px + env(safe-area-inset-left));padding-right:calc(32px + env(safe-area-inset-right))}}
+</style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    Inicio
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/dashboard/">Features</a>
+    <a href="/dashboard-product/" class="nav-cta">Get Early Access</a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <!-- Grid background -->
+  <div class="hero-grid"></div>
+  <!-- Glows -->
+  <div class="hero-glow hero-glow--primary"></div>
+  <div class="hero-glow hero-glow--secondary"></div>
+
+  <!-- Badge -->
+  <div class="hero-badge hs hs-1">
+    <span class="hero-badge-dot"></span>
+    Now in beta &mdash; <span>&nbsp;join the waitlist</span>
+  </div>
+
+  <!-- Headline -->
+  <h1 class="hs hs-2">
+    We deliver<br><span class="txt-gradient">customers, not leads.</span>
+  </h1>
+
+  <!-- Subtitle -->
+  <p class="hero-sub hs hs-3">
+    One dashboard to track every customer, every batch, every penny.
+    Built for window cleaners who want growth without the guesswork.
+  </p>
+
+  <!-- CTAs -->
+  <div class="hero-actions hs hs-4">
+    <a href="#" class="btn-primary">
+      Get Early Access
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#features" class="btn-secondary">See how it works</a>
+  </div>
+
+  <!-- Dashboard Mockup -->
+  <div class="hero-mockup hs hs-5 rv" id="mockup">
+    <div class="hero-mockup-glow"></div>
+    <div class="mockup-window">
+      <!-- Titlebar -->
+      <div class="mockup-titlebar">
+        <span class="mockup-dot mockup-dot--red"></span>
+        <span class="mockup-dot mockup-dot--yellow"></span>
+        <span class="mockup-dot mockup-dot--green"></span>
+        <span class="mockup-titlebar-text">dashboard.iniciodigital.co.uk</span>
+      </div>
+      <!-- Body -->
+      <div class="mockup-body">
+        <!-- Sidebar -->
+        <div class="mockup-sidebar">
+          <div class="mockup-nav-label">Overview</div>
+          <div class="mockup-nav-item active">
+            <span class="mockup-nav-dot"></span>
+            Dashboard
+          </div>
+          <div class="mockup-nav-item">
+            <span class="mockup-nav-dot"></span>
+            Customers
+          </div>
+          <div class="mockup-nav-item">
+            <span class="mockup-nav-dot"></span>
+            Batches
+          </div>
+          <div class="mockup-nav-label">Management</div>
+          <div class="mockup-nav-item">
+            <span class="mockup-nav-dot"></span>
+            Invoices
+          </div>
+          <div class="mockup-nav-item">
+            <span class="mockup-nav-dot"></span>
+            Notifications
+          </div>
+          <div class="mockup-nav-item">
+            <span class="mockup-nav-dot"></span>
+            Settings
+          </div>
+        </div>
+        <!-- Main -->
+        <div class="mockup-main">
+          <!-- Stats -->
+          <div class="mockup-stats">
+            <div class="mockup-stat accent">
+              <div class="mockup-stat-label">Customers Delivered</div>
+              <div class="mockup-stat-value" data-count="47">0</div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Monthly Revenue</div>
+              <div class="mockup-stat-value">&pound;<span data-count="2840">0</span></div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Acceptance Rate</div>
+              <div class="mockup-stat-value"><span data-count="94">0</span>%</div>
+            </div>
+          </div>
+          <!-- Progress -->
+          <div class="mockup-progress">
+            <div class="mockup-progress-top">
+              <span class="mockup-progress-label">Batch #12 — Delivering</span>
+              <span class="mockup-progress-pct">78%</span>
+            </div>
+            <div class="mockup-progress-bar">
+              <div class="mockup-progress-fill" style="--w:78%"></div>
+            </div>
+          </div>
+          <!-- Table -->
+          <div class="mockup-table">
+            <div class="mockup-table-header">
+              <span></span>
+              <span>Customer</span>
+              <span>Area</span>
+              <span>Status</span>
+              <span>Value</span>
+            </div>
+            <div class="mockup-table-row">
+              <span class="mockup-row-dot" style="background:#4ade80"></span>
+              <span class="mockup-row-name">Sarah Mitchell</span>
+              <span class="mockup-row-addr">BS7, Bristol</span>
+              <span class="mockup-row-status" style="background:rgba(74,222,128,.1);color:#4ade80">Booked</span>
+              <span class="mockup-row-price">&pound;28/mo</span>
+            </div>
+            <div class="mockup-table-row">
+              <span class="mockup-row-dot" style="background:#4ade80"></span>
+              <span class="mockup-row-name">James Harper</span>
+              <span class="mockup-row-addr">BS9, Bristol</span>
+              <span class="mockup-row-status" style="background:rgba(74,222,128,.1);color:#4ade80">Booked</span>
+              <span class="mockup-row-price">&pound;32/mo</span>
+            </div>
+            <div class="mockup-table-row">
+              <span class="mockup-row-dot" style="background:#facc15"></span>
+              <span class="mockup-row-name">Emma Davies</span>
+              <span class="mockup-row-addr">BS6, Bristol</span>
+              <span class="mockup-row-status" style="background:rgba(250,204,21,.1);color:#facc15">Pending</span>
+              <span class="mockup-row-price">&pound;24/mo</span>
+            </div>
+            <div class="mockup-table-row">
+              <span class="mockup-row-dot" style="background:#4ade80"></span>
+              <span class="mockup-row-name">Tom Richardson</span>
+              <span class="mockup-row-addr">BS5, Bristol</span>
+              <span class="mockup-row-status" style="background:rgba(74,222,128,.1);color:#4ade80">Booked</span>
+              <span class="mockup-row-price">&pound;30/mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="scroll-cue hs hs-4">
+    Scroll
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script>
+// ── Nav scroll state ──
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ── IntersectionObserver for scroll reveals ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('vis');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
+
+// ── Animated counters ──
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    const duration = 2000;
+    const start = performance.now();
+
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+// Trigger counters when mockup enters view
+const mockupObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      mockupObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+const mockup = document.getElementById('mockup');
+if (mockup) mockupObs.observe(mockup);
+</script>
+</body>
+</html>
