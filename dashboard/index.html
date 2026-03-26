@@ -254,55 +254,107 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     <a href="#problem" class="btn btn-ghost">See How It Works</a>
   </div>
 
-  <!-- Dashboard Mock Card -->
+  <!-- Realistic Dashboard Mockup -->
   <div class="hero-mockup hs hs-4" id="mockup">
-    <div class="mockup-window">
-      <div style="text-align:center;margin-bottom:14px"><span style="font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
-      <div class="hc-stats hc-stats-3">
-        <div class="hc-stat">
-          <div class="hc-stat-l">Customers</div>
-          <div class="hc-stat-v" data-count="47">0</div>
-        </div>
-        <div class="hc-stat">
-          <div class="hc-stat-l">Monthly</div>
-          <div class="hc-stat-v">&pound;<span data-count="2840">0</span></div>
-        </div>
-        <div class="hc-stat accent">
-          <div class="hc-stat-l">Annual</div>
-          <div class="hc-stat-v">&pound;<span data-count="34">0</span>k+</div>
-        </div>
-      </div>
-      <div style="padding:0 5%">
-        <div class="hc-progress">
-          <div class="hc-progress-top">
-            <span class="hc-progress-title">Batch 3</span>
-            <span class="hc-badge" style="background:rgba(26,107,74,.1);color:#1a6b4a">Complete</span>
+    <div class="mock">
+      <!-- Sidebar -->
+      <div class="mock-side">
+        <div class="mock-greeting">Good afternoon,</div>
+        <div class="mock-name">Ryan!</div>
+        <div class="mock-nav-label">Navigation</div>
+        <div class="mock-nav">
+          <div class="mock-nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
           </div>
-          <div class="hc-bar"><div class="hc-bar-fill" style="width:100%;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
-        </div>
-        <div class="hc-progress">
-          <div class="hc-progress-top">
-            <span class="hc-progress-title">Batch 4</span>
-            <span class="hc-badge" style="background:rgba(217,119,6,.1);color:#b45309">Building</span>
+          <div class="mock-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Customers
+            <span class="mock-nav-badge">2</span>
           </div>
-          <div class="hc-bar"><div class="hc-bar-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
+          <div class="mock-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            Services
+          </div>
+          <div class="mock-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            Settings
+          </div>
         </div>
+        <div class="mock-cta">Order More Customers</div>
+        <div class="mock-powered">Powered by <span>Inicio Digital</span></div>
       </div>
-      <div style="padding:0 10%">
-        <div class="hc-lead" style="border-color:rgba(34,197,94,.4)">
-          <div class="hc-lead-dot" style="background:#22c55e"></div>
-          <div class="hc-lead-info"><div class="hc-lead-name">Sarah Mitchell <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, BS7 9RP</div></div>
-          <div class="hc-lead-price">&pound;28</div>
+      <!-- Main -->
+      <div class="mock-main">
+        <!-- Top bar -->
+        <div class="mock-topbar">
+          <div>
+            <div class="mock-biz">Super Clean</div>
+            <div class="mock-biz-sub">Dashboard</div>
+          </div>
+          <div class="mock-date">26 Mar 2026</div>
         </div>
-        <div class="hc-lead">
-          <div class="hc-lead-dot" style="background:#3b82f6"></div>
-          <div class="hc-lead-info"><div class="hc-lead-name">James Harper</div><div class="hc-lead-addr">5 Kingsway Crescent, BS9 2LN</div></div>
-          <div class="hc-lead-price">&pound;32</div>
+        <!-- Stats -->
+        <div class="mock-stats">
+          <div class="mock-stat">
+            <div class="mock-stat-label">Active Customers</div>
+            <div class="mock-stat-val" data-count="12">0</div>
+            <div class="mock-stat-sub">2 batches</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-label">Total Delivered</div>
+            <div class="mock-stat-val">&pound;<span data-count="482">0</span></div>
+            <div class="mock-stat-sub">All batches</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-label">Monthly Revenue</div>
+            <div class="mock-stat-val">&pound;<span data-count="482">0</span></div>
+            <div class="mock-stat-sub">Est. recurring</div>
+          </div>
+          <div class="mock-stat accent">
+            <div class="mock-stat-label">Annual Revenue</div>
+            <div class="mock-stat-val">&pound;<span data-count="5784">0</span></div>
+            <div class="mock-stat-sub">All active services</div>
+          </div>
         </div>
-        <div class="hc-lead">
-          <div class="hc-lead-dot" style="background:#22c55e"></div>
-          <div class="hc-lead-info"><div class="hc-lead-name">Tom Richardson</div><div class="hc-lead-addr">11 Riverside Walk, BS5 4QE</div></div>
-          <div class="hc-lead-price">&pound;30</div>
+        <!-- Toolbar -->
+        <div class="mock-toolbar">
+          <div class="mock-search">&#128269; Search leads...</div>
+          <div class="mock-filter-btn">&#128197; Filter date</div>
+          <div class="mock-export-btn">&#8595; Export</div>
+        </div>
+        <!-- Batch -->
+        <div class="mock-batch">
+          <div class="mock-batch-top">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="mock-batch-name">Batch 1</span>
+              <span class="mock-batch-badge" style="background:rgba(217,119,6,.1);color:#b45309">Building</span>
+            </div>
+            <div class="mock-batch-right">4 leads&ensp;<strong>&pound;68</strong>&ensp;/ &pound;300</div>
+          </div>
+          <div class="mock-batch-bar"><div class="mock-batch-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
+          <div class="mock-batch-meta">23% of paid amount &middot; 4 leads</div>
+        </div>
+        <!-- Customers -->
+        <div class="mock-customer">
+          <div class="mock-cust-check"></div>
+          <div class="mock-cust-info">
+            <div class="mock-cust-name">Ryan McCabe</div>
+            <div class="mock-cust-addr">10 Dukes Road</div>
+          </div>
+          <div class="mock-cust-tags"><span class="mock-cust-tag">Win</span></div>
+          <div class="mock-cust-date">15 Mar</div>
+          <div class="mock-cust-price">&pound;16</div>
+        </div>
+        <div class="mock-customer">
+          <div class="mock-cust-check"></div>
+          <div class="mock-cust-info">
+            <div class="mock-cust-name">John Smith</div>
+            <div class="mock-cust-addr">12 High Street, London</div>
+          </div>
+          <div class="mock-cust-tags"><span class="mock-cust-tag">Win</span><span class="mock-cust-tag" style="background:rgba(59,130,246,.08);color:#3b82f6">Gut</span></div>
+          <div class="mock-cust-date">16 Mar</div>
+          <div class="mock-cust-price">&pound;166</div>
         </div>
       </div>
     </div>
