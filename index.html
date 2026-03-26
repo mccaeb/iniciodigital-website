@@ -56,7 +56,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .nav-wa{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#999;text-decoration:none;padding:7px 14px;border-radius:9px;transition:all .3s}
 .nav-wa:hover{color:#25d366;background:rgba(37,211,102,.06)}
 .nav-wa-mark{width:30px;height:30px;border-radius:9px;background:#25d366;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-@media(max-width:768px){.nav{padding:0 20px;height:56px;justify-content:center}.nav-mid{display:none}.nav-wa span{display:none}.nav.scrolled{background:rgba(245,245,243,0.96)}.nav-right{position:absolute;right:20px}}
+@media(max-width:768px){.nav{padding:0 20px;height:56px;justify-content:center}.nav-mid{display:none}.nav-wa span{display:none}.nav-wa{padding:0}.nav.scrolled{background:rgba(245,245,243,0.96)}.nav-logo{position:absolute;left:20px}.nav-right{position:absolute;right:20px}}
 
 /* ════════════════════
    HERO
@@ -188,8 +188,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    PIPELINE / HOW IT WORKS
    ════════════════════ */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:44px}
-@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:44px}
 @media(max-width:600px){.steps{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:12px;padding:0 0 16px;scrollbar-width:none;-ms-overflow-style:none}.steps::-webkit-scrollbar{display:none}}
 .step{background:linear-gradient(150deg,#2a2a2a,#222222);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px 22px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
 .step:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
@@ -200,9 +199,6 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:600px){.step h3{font-size:16px;margin-bottom:10px}}
 .step p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.6;font-weight:500;position:relative}
 @media(max-width:600px){.step p{font-size:15px;line-height:1.55}}
-.step-wide{grid-column:2 / -1;background:linear-gradient(135deg,#2a2a2a 0%,#162019 50%,#222222 100%);border-color:rgba(26,107,74,.12)}
-@media(max-width:600px){.step-wide{grid-column:auto;min-width:75%;max-width:75%}}
-.step-wide::after{content:'';position:absolute;bottom:-30%;left:10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.08),transparent 60%);pointer-events:none;filter:blur(40px)}
 /* ── Swipe indicator dots ── */
 .swipe-hint{display:none;justify-content:center;gap:6px;margin-top:12px}
 @media(max-width:600px){.swipe-hint{display:flex}}
@@ -618,28 +614,22 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       </div>
       <div class="step rv rv-d2">
         <div class="step-num">02</div>
-        <h3>AI qualification</h3>
-        <p>Our AI closer handles all conversations — qualifying, quoting, and overcoming objections automatically.</p>
-      </div>
-      <div class="step rv rv-d3">
-        <div class="step-num">03</div>
         <h3>Customer closed</h3>
         <p>By the time you hear about it, the customer has already agreed to the price and frequency.</p>
       </div>
-      <div class="step rv rv-d4">
-        <div class="step-num">04</div>
+      <div class="step rv rv-d3">
+        <div class="step-num">03</div>
         <h3>Batch delivered</h3>
         <p>Your customers arrive grouped in a batch — dropped straight into your personal dashboard with name, address, quote value, and service details.</p>
       </div>
-      <div class="step step-wide rv rv-d5">
-        <div class="step-num">05</div>
+      <div class="step rv rv-d4">
+        <div class="step-num">04</div>
         <h3>You clean</h3>
         <p>Add them to your round and start earning. Export straight to Squeegee or CleanerPlanner.</p>
       </div>
     </div>
     <div class="swipe-hint" id="swipeDots">
       <div class="swipe-dot active"></div>
-      <div class="swipe-dot"></div>
       <div class="swipe-dot"></div>
       <div class="swipe-dot"></div>
       <div class="swipe-dot"></div>
