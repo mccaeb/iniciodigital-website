@@ -194,158 +194,81 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 <nav class="nav" id="nav">
   <a href="/" class="nav-logo">
     <div class="nav-logo-mark">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     </div>
-    Inicio
+    INICIO
   </a>
-  <div class="nav-links">
+  <div class="nav-mid">
     <a href="/">Home</a>
-    <a href="/dashboard/">Features</a>
-    <a href="/dashboard/" class="nav-cta">Get Early Access</a>
+    <a href="#impact">Results</a>
+    <a href="#problem">The Problem</a>
   </div>
 </nav>
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
-  <!-- Grid background -->
-  <div class="hero-grid"></div>
-  <!-- Glows -->
-  <div class="hero-glow hero-glow--primary"></div>
-  <div class="hero-glow hero-glow--secondary"></div>
+  <div class="hero-glow"></div>
 
-  <!-- Badge -->
-  <div class="hero-badge hs hs-1">
-    <span class="hero-badge-dot"></span>
-    Now in beta &mdash; <span>&nbsp;join the waitlist</span>
-  </div>
+  <h1 class="hs hs-1">Defining<br>Digital Delivery.</h1>
+  <p class="hero-sub hs hs-2">One dashboard to track every customer, every batch, every penny.<br>Built for window cleaners who want growth without the guesswork.</p>
 
-  <!-- Headline -->
-  <h1 class="hs hs-2">
-    Defining<br><span class="txt-gradient">Digital Delivery.</span>
-  </h1>
-
-  <!-- Subtitle -->
-  <p class="hero-sub hs hs-3">
-    One dashboard to track every customer, every batch, every penny.
-    Built for window cleaners who want growth without the guesswork.
-  </p>
-
-  <!-- CTAs -->
-  <div class="hero-actions hs hs-4">
-    <a href="#" class="btn-primary">
+  <div class="hero-actions hs hs-3">
+    <a href="#" class="btn btn-dark">
       Get Early Access
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
     </a>
-    <a href="#features" class="btn-secondary">See how it works</a>
+    <a href="#problem" class="btn btn-ghost">See How It Works</a>
   </div>
 
-  <!-- Dashboard Mockup -->
-  <div class="hero-mockup hs hs-5 rv" id="mockup">
-    <div class="hero-mockup-glow"></div>
+  <!-- Dashboard Mock Card -->
+  <div class="hero-mockup hs hs-4" id="mockup">
     <div class="mockup-window">
-      <!-- Titlebar -->
-      <div class="mockup-titlebar">
-        <span class="mockup-dot mockup-dot--red"></span>
-        <span class="mockup-dot mockup-dot--yellow"></span>
-        <span class="mockup-dot mockup-dot--green"></span>
-        <span class="mockup-titlebar-text">dashboard.iniciodigital.co.uk</span>
-      </div>
-      <!-- Body -->
-      <div class="mockup-body">
-        <!-- Sidebar -->
-        <div class="mockup-sidebar">
-          <div class="mockup-nav-label">Overview</div>
-          <div class="mockup-nav-item active">
-            <span class="mockup-nav-dot"></span>
-            Dashboard
-          </div>
-          <div class="mockup-nav-item">
-            <span class="mockup-nav-dot"></span>
-            Customers
-          </div>
-          <div class="mockup-nav-item">
-            <span class="mockup-nav-dot"></span>
-            Batches
-          </div>
-          <div class="mockup-nav-label">Management</div>
-          <div class="mockup-nav-item">
-            <span class="mockup-nav-dot"></span>
-            Invoices
-          </div>
-          <div class="mockup-nav-item">
-            <span class="mockup-nav-dot"></span>
-            Notifications
-          </div>
-          <div class="mockup-nav-item">
-            <span class="mockup-nav-dot"></span>
-            Settings
-          </div>
+      <div style="text-align:center;margin-bottom:14px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
+      <div class="hc-stats hc-stats-3">
+        <div class="hc-stat">
+          <div class="hc-stat-l">Customers</div>
+          <div class="hc-stat-v" data-count="47">0</div>
         </div>
-        <!-- Main -->
-        <div class="mockup-main">
-          <!-- Stats -->
-          <div class="mockup-stats">
-            <div class="mockup-stat accent">
-              <div class="mockup-stat-label">Customers Delivered</div>
-              <div class="mockup-stat-value" data-count="47">0</div>
-            </div>
-            <div class="mockup-stat">
-              <div class="mockup-stat-label">Monthly Revenue</div>
-              <div class="mockup-stat-value">&pound;<span data-count="2840">0</span></div>
-            </div>
-            <div class="mockup-stat">
-              <div class="mockup-stat-label">Acceptance Rate</div>
-              <div class="mockup-stat-value"><span data-count="94">0</span>%</div>
-            </div>
+        <div class="hc-stat">
+          <div class="hc-stat-l">Monthly</div>
+          <div class="hc-stat-v">&pound;<span data-count="2840">0</span></div>
+        </div>
+        <div class="hc-stat accent">
+          <div class="hc-stat-l">Annual</div>
+          <div class="hc-stat-v">&pound;<span data-count="34">0</span>k+</div>
+        </div>
+      </div>
+      <div style="padding:0 5%">
+        <div class="hc-progress">
+          <div class="hc-progress-top">
+            <span class="hc-progress-title">Batch 3</span>
+            <span class="hc-badge" style="background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
           </div>
-          <!-- Progress -->
-          <div class="mockup-progress">
-            <div class="mockup-progress-top">
-              <span class="mockup-progress-label">Batch #12 — Delivering</span>
-              <span class="mockup-progress-pct">78%</span>
-            </div>
-            <div class="mockup-progress-bar">
-              <div class="mockup-progress-fill" style="--w:78%"></div>
-            </div>
+          <div class="hc-bar"><div class="hc-bar-fill" style="width:100%;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
+        </div>
+        <div class="hc-progress">
+          <div class="hc-progress-top">
+            <span class="hc-progress-title">Batch 4</span>
+            <span class="hc-badge" style="background:rgba(217,119,6,.12);color:#fbbf24">Building</span>
           </div>
-          <!-- Table -->
-          <div class="mockup-table">
-            <div class="mockup-table-header">
-              <span></span>
-              <span>Customer</span>
-              <span>Area</span>
-              <span>Status</span>
-              <span>Value</span>
-            </div>
-            <div class="mockup-table-row">
-              <span class="mockup-row-dot" style="background:#4ade80"></span>
-              <span class="mockup-row-name">Sarah Mitchell</span>
-              <span class="mockup-row-addr">BS7, Bristol</span>
-              <span class="mockup-row-status" style="background:rgba(74,222,128,.1);color:#4ade80">Booked</span>
-              <span class="mockup-row-price">&pound;28/mo</span>
-            </div>
-            <div class="mockup-table-row">
-              <span class="mockup-row-dot" style="background:#4ade80"></span>
-              <span class="mockup-row-name">James Harper</span>
-              <span class="mockup-row-addr">BS9, Bristol</span>
-              <span class="mockup-row-status" style="background:rgba(74,222,128,.1);color:#4ade80">Booked</span>
-              <span class="mockup-row-price">&pound;32/mo</span>
-            </div>
-            <div class="mockup-table-row">
-              <span class="mockup-row-dot" style="background:#facc15"></span>
-              <span class="mockup-row-name">Emma Davies</span>
-              <span class="mockup-row-addr">BS6, Bristol</span>
-              <span class="mockup-row-status" style="background:rgba(250,204,21,.1);color:#facc15">Pending</span>
-              <span class="mockup-row-price">&pound;24/mo</span>
-            </div>
-            <div class="mockup-table-row">
-              <span class="mockup-row-dot" style="background:#4ade80"></span>
-              <span class="mockup-row-name">Tom Richardson</span>
-              <span class="mockup-row-addr">BS5, Bristol</span>
-              <span class="mockup-row-status" style="background:rgba(74,222,128,.1);color:#4ade80">Booked</span>
-              <span class="mockup-row-price">&pound;30/mo</span>
-            </div>
-          </div>
+          <div class="hc-bar"><div class="hc-bar-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
+        </div>
+      </div>
+      <div style="padding:0 10%">
+        <div class="hc-lead" style="border-color:rgba(34,197,94,.4)">
+          <div class="hc-lead-dot" style="background:#22c55e"></div>
+          <div class="hc-lead-info"><div class="hc-lead-name">Sarah Mitchell <span class="hc-new-badge">New</span></div><div class="hc-lead-addr">27 Ashfield Road, BS7 9RP</div></div>
+          <div class="hc-lead-price">&pound;28</div>
+        </div>
+        <div class="hc-lead">
+          <div class="hc-lead-dot" style="background:#3b82f6"></div>
+          <div class="hc-lead-info"><div class="hc-lead-name">James Harper</div><div class="hc-lead-addr">5 Kingsway Crescent, BS9 2LN</div></div>
+          <div class="hc-lead-price">&pound;32</div>
+        </div>
+        <div class="hc-lead">
+          <div class="hc-lead-dot" style="background:#22c55e"></div>
+          <div class="hc-lead-info"><div class="hc-lead-name">Tom Richardson</div><div class="hc-lead-addr">11 Riverside Walk, BS5 4QE</div></div>
+          <div class="hc-lead-price">&pound;30</div>
         </div>
       </div>
     </div>
