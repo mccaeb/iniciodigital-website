@@ -86,10 +86,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 @media(max-width:768px){.hero-mockup{max-width:100%}}
 
 .mock{background:#eceee9;border-radius:20px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.06),0 12px 32px rgba(0,0,0,0.1),0 48px 80px rgba(0,0,0,0.12);display:grid;grid-template-columns:180px 1fr;min-height:420px;color:#111;font-size:12px}
-@media(max-width:768px){.mock{grid-template-columns:1fr;min-height:auto;border-radius:16px}.mock-side{display:none}}
+@media(max-width:768px){.mock{grid-template-columns:1fr;min-height:auto;border-radius:16px}}
 
 /* Sidebar */
 .mock-side{background:#fff;border-right:1px solid rgba(0,0,0,.06);padding:20px 14px;display:flex;flex-direction:column}
+@media(max-width:768px){.mock-side{display:none}}
 .mock-greeting{font-size:13px;color:#888;font-weight:500;margin-bottom:2px}
 .mock-name{font-size:18px;font-weight:800;color:#111;letter-spacing:-.02em;margin-bottom:16px}
 .mock-nav-label{font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
