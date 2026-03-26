@@ -78,7 +78,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @media(max-width:768px){.mob-br{display:block}}
 
 /* ── Slot machine spinner ── */
-.slot-wrap{display:block;position:relative;overflow:hidden;vertical-align:bottom;width:100%;height:1.1em;margin-bottom:0}
+.slot-wrap{display:block;position:relative;overflow:hidden;vertical-align:bottom;width:100%;height:1.05em;margin-bottom:-.05em}
 .slot-track{display:flex;flex-direction:column;transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
 .slot-item{display:flex;align-items:center;justify-content:center;flex-shrink:0;white-space:nowrap}
 
@@ -166,8 +166,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .section-sub{font-size:clamp(17px,1.8vw,19px);color:#888;line-height:1.65;max-width:560px;margin:0 auto;font-weight:500}
 
 /* ── Divider ── */
-.divider{height:1px;background:linear-gradient(90deg,transparent 5%,rgba(0,0,0,.06) 20%,rgba(26,107,74,.18) 50%,rgba(0,0,0,.06) 80%,transparent 95%);margin:0 auto;max-width:800px;position:relative}
-.divider::after{content:'';position:absolute;top:1px;left:10%;right:10%;height:30px;background:radial-gradient(ellipse at center,rgba(26,107,74,.06),transparent 70%);pointer-events:none}
+.divider{height:1px;background:linear-gradient(90deg,transparent 5%,rgba(0,0,0,.06) 20%,rgba(26,107,74,.18) 50%,rgba(0,0,0,.06) 80%,transparent 95%);margin:0 auto;max-width:800px;position:relative;overflow:visible}
+.divider::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:40px;background:radial-gradient(ellipse at center top,rgba(26,107,74,.07),transparent 70%);pointer-events:none}
 
 /* ════════════════════
    IMPACT STATS
@@ -390,6 +390,12 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .dash-tip{padding:16px 20px;border-radius:14px;background:rgba(26,107,74,.06);border:1px solid #4ade80;color:rgba(255,255,255,.65);font-size:15px;font-weight:500;line-height:1.65;text-align:center;animation:tipIn .3s ease}
 .dash-tip-hint{display:block;font-size:13px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.03em;text-align:center}
 @keyframes tipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dash-pills-light{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
+.dash-pill-light{font-size:13px;font-weight:700;padding:9px 18px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:#666;cursor:pointer;transition:all .3s ease;-webkit-appearance:none;outline:none;font-family:inherit;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.dash-pill-light:hover{color:#111;border-color:rgba(0,0,0,.15);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.dash-pill-light--active{border-color:#1a6b4a!important;background:rgba(26,107,74,.06)!important;color:#1a6b4a!important}
+.dash-tip-light{padding:16px 20px;border-radius:14px;background:rgba(26,107,74,.04);border:1px solid rgba(26,107,74,.12);color:#666;font-size:15px;font-weight:500;line-height:1.65;text-align:center;animation:tipIn .3s ease}
+@media(max-width:768px){.dash-pill-light{padding:8px 15px;font-size:12px}.dash-tip-light{padding:14px 16px;font-size:14px}}
 @media(max-width:768px){.dash-pill{padding:7px 14px;font-size:12px}.dash-tip{padding:14px 16px;font-size:14px}.dash-tip-hint{font-size:13px;letter-spacing:0}.dash-toast{padding:8px 10px;gap:8px}.dash-toast-name{font-size:12px}.dash-toast-addr{font-size:10px}.dash-toast-price{font-size:10px;padding:3px 7px}}
 
 /* ── Dashboard card animations ── */
@@ -447,7 +453,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <div class="hero-glow"></div>
 
   <h1 class="hs hs-1"><span class="slot-wrap" id="slotWrap"><span class="slot-track" id="slotTrack"><span class="slot-item">Window Cleaning</span><span class="slot-item">Gutter Cleaning</span><span class="slot-item">Carpet Cleaning</span><span class="slot-item">More Soon&hellip;</span></span></span>Customers<br>On Tap</h1>
-  <p class="hero-sub hs hs-2">We handle everything.<br class="mob-br"> You just get customers.<br><span style="color:#111;font-weight:700">Book in. Clean. Get paid.</span></p>
+  <p class="hero-sub hs hs-2" style="line-height:1.3;margin-bottom:0">We handle everything.<br class="mob-br"> You just get customers.</p>
+  <p class="hs hs-2" style="color:#111;font-weight:700;font-size:clamp(15px,1.6vw,18px);text-align:center;margin:8px auto 36px;letter-spacing:-.01em">Book in. Clean. Get paid.</p>
 
   <div class="hero-btns hs hs-3">
     <a href="#start" class="btn btn-dark">
@@ -460,7 +467,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <!-- Hero mock card — shows what clients actually see -->
   <div class="hero-card-wrap hs hs-4">
     <div class="hero-card">
-      <div style="text-align:center;margin-bottom:6px;padding-top:2px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-left:.12em">Dashboard</span></div>
+      <div style="text-align:center;margin-bottom:14px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-left:.12em">Dashboard</span></div>
       <div class="hc-stats hc-stats-3">
         <div class="hc-stat">
           <div class="hc-stat-l">Customers</div>
@@ -597,7 +604,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   <div class="ctr">
     <div class="section-header rv">
       <div class="section-label">How It Works</div>
-      <div class="section-title">From ad to booked customer.<br>We handle everything.</div>
+      <div class="section-title">From advert to customer.</div>
       <div class="section-sub">You don't lift a finger until there's a customer ready to book into your round. Here's the full process.</div>
     </div>
     <div class="steps">
@@ -739,7 +746,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       <!-- Mini dark preview card -->
       <div class="hero-card rv rv-d3 dash-card" style="padding:28px 24px;text-align:left">
 
-        <div style="text-align:center;margin-bottom:6px;padding-top:2px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
+        <div style="text-align:center;margin-bottom:14px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
 
         <!-- Stat row -->
         <div class="hc-stats hc-stats-3 rv" style="margin-bottom:10px">
@@ -782,17 +789,17 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 
       </div>
 
-      <!-- Tools section — separate card -->
-      <div class="hero-card rv rv-d3" style="padding:28px 24px;text-align:center;margin-top:16px">
-        <div class="dash-tip-hint rv rv-d2" style="margin-bottom:16px;color:#fff">Built-in tools that make running your round effortless</div>
+      <!-- Tools section — light style -->
+      <div class="dash-tools rv rv-d3" style="margin-top:32px;text-align:center">
+        <div style="font-size:clamp(18px,2vw,22px);font-weight:800;color:#111;letter-spacing:-.02em;margin-bottom:16px">Built-in tools for your round</div>
 
-        <div class="dash-pills rv rv-d2">
-          <button class="dash-pill dash-pill--active" data-tip="A new customer lands and your phone buzzes instantly. No refreshing dashboards, no checking emails — you know the second it happens.">Live Notifications</button>
-          <button class="dash-pill" data-tip="One click and your full customer list downloads as a CSV. Drop it straight into Squeegee, CleanerPlanner, or any spreadsheet and your round is ready.">Easy Export</button>
-          <button class="dash-pill" data-tip="Sort and filter customers by status, batch, area, or value. Find exactly what you need in seconds without scrolling through your entire list.">Quick Filters</button>
-          <span style="font-size:12px;color:rgba(255,255,255,.3);font-weight:600;padding:8px 4px">+ more</span>
+        <div class="dash-pills-light rv rv-d2">
+          <button class="dash-pill-light dash-pill-light--active" data-tip="A new customer lands and your phone buzzes instantly. No refreshing dashboards, no checking emails — you know the second it happens.">Live Notifications</button>
+          <button class="dash-pill-light" data-tip="One click and your full customer list downloads as a CSV. Drop it straight into Squeegee, CleanerPlanner, or any spreadsheet and your round is ready.">Easy Export</button>
+          <button class="dash-pill-light" data-tip="Sort and filter customers by status, batch, area, or value. Find exactly what you need in seconds without scrolling through your entire list.">Quick Filters</button>
+          <span style="font-size:12px;color:#aaa;font-weight:600;padding:8px 4px">+ more</span>
         </div>
-        <div class="dash-tip" id="dashTip">A new customer lands and your phone buzzes instantly. No refreshing dashboards, no checking emails — you know the second it happens.</div>
+        <div class="dash-tip-light" id="dashTip">A new customer lands and your phone buzzes instantly. No refreshing dashboards, no checking emails — you know the second it happens.</div>
       </div>
 
       <a href="/dashboard" class="btn btn-dark rv rv-d3" style="margin-top:32px">
@@ -1125,14 +1132,14 @@ if (!matchMedia('(max-width:768px)').matches) {
 
 /* ── Dashboard feature pills ── */
 (function() {
-  var pills = document.querySelectorAll('.dash-pill');
+  var pills = document.querySelectorAll('.dash-pill-light');
   var tip = document.getElementById('dashTip');
   if (!pills.length || !tip) return;
   pills.forEach(function(pill) {
     pill.addEventListener('click', function() {
-      if (pill.classList.contains('dash-pill--active')) return;
-      pills.forEach(function(p) { p.classList.remove('dash-pill--active'); });
-      pill.classList.add('dash-pill--active');
+      if (pill.classList.contains('dash-pill-light--active')) return;
+      pills.forEach(function(p) { p.classList.remove('dash-pill-light--active'); });
+      pill.classList.add('dash-pill-light--active');
       tip.innerHTML = pill.getAttribute('data-tip');
       tip.style.animation = 'none';
       tip.offsetHeight;
