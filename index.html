@@ -334,15 +334,12 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    VALUE CARDS — What You Get
    ════════════════════ */
-.value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:44px}
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+@media(max-width:1024px){.value-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.value-grid{grid-template-columns:1fr;gap:10px}}
 .value-card{background:linear-gradient(150deg,#2a2a2a,#232323);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:32px 24px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
 .value-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
 @media(max-width:768px){.value-card{padding:26px 20px;border-radius:18px}.value-card:hover{transform:none;border-color:rgba(255,255,255,.05)}}
-.value-card.featured{grid-column:1/-1;background:linear-gradient(135deg,#2a2a2a 0%,#172019 50%,#222222 100%);border-color:rgba(26,107,74,.14)}
-.value-card.featured::after{content:'';position:absolute;bottom:-30%;left:10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(26,107,74,.1),transparent 60%);pointer-events:none;filter:blur(40px)}
-.value-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(26,107,74,.25),transparent)}
-@media(max-width:768px){.value-card.featured{grid-column:span 1}}
 .value-icon{width:44px;height:44px;border-radius:12px;background:rgba(26,107,74,.12);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
 .value-card h3{font-size:20px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px;color:#fff}
 .value-card p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:500}
@@ -652,7 +649,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
       <div class="section-sub">Every other marketing company sells you leads and wishes you luck. We deliver people who've already said yes.</div>
     </div>
     <div class="value-grid">
-      <div class="value-card featured rv rv-d1">
+      <div class="value-card rv rv-d1">
         <div class="value-icon">&#128273;</div>
         <h3>Pre-sold, exclusive, recurring customers</h3>
         <p>Every customer is exclusive to you, pre-agreed on price and frequency, and committed to a recurring clean. No cold calling, no chasing, no competing with other companies for the same lead. They're yours.</p>
