@@ -46,7 +46,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
 .nav.scrolled{background:rgba(245,245,243,0.92);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);box-shadow:0 1px 0 rgba(0,0,0,0.06)}
 @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.nav.scrolled{background:rgba(245,245,243,0.97)}}
-.nav-logo{font-size:19px;font-weight:900;color:#111;letter-spacing:-.03em;display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .3s}
+.nav-logo{font-size:19px;font-weight:900;color:#111;letter-spacing:.06em;display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .3s}
 .nav-logo:active{opacity:.6}
 .nav-logo-mark{width:30px;height:30px;border-radius:9px;background:#1a6b4a;display:flex;align-items:center;justify-content:center}
 .nav-mid{display:flex;align-items:center;gap:2px;background:rgba(0,0,0,0.04);border-radius:11px;padding:3px}
@@ -55,7 +55,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-wa{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#999;text-decoration:none;padding:7px 14px;border-radius:9px;transition:all .3s}
 .nav-wa:hover{color:#25d366;background:rgba(37,211,102,.06)}
-@media(max-width:768px){.nav{padding:0 20px;height:56px}.nav-mid{display:none}.nav-wa span{display:none}.nav.scrolled{background:rgba(245,245,243,0.96)}}
+@media(max-width:768px){.nav{padding:0 20px;height:56px;justify-content:center}.nav-mid{display:none}.nav-wa span{display:none}.nav.scrolled{background:rgba(245,245,243,0.96)}.nav-right{position:absolute;right:20px}}
 
 /* ════════════════════
    HERO
