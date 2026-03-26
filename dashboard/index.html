@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Inicio Dashboard — Customers Delivered, Not Just Leads</title>
 <meta name="description" content="The command center built for window cleaning businesses. Track every customer, every batch, every penny — in one beautiful dashboard.">
-<meta name="theme-color" content="#111113">
+<meta name="theme-color" content="#1a1a1f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
    ════════════════════════════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#111113;color:#fff;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1f;color:#fff;overflow-x:hidden;-webkit-text-size-adjust:100%}
 
 /* ── Film Grain ── */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");backface-visibility:hidden;transform:translateZ(0)}
@@ -32,8 +32,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
    NAV
    ════════════════════ */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
-.nav.scrolled{background:rgba(17,17,19,0.92);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
-@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.nav.scrolled{background:rgba(17,17,19,0.97)}}
+.nav.scrolled{background:rgba(26,26,31,0.92);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.nav.scrolled{background:rgba(26,26,31,0.97)}}
 .nav-logo{font-size:19px;font-weight:900;color:#fff;letter-spacing:.06em;display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .3s}
 .nav-logo:active{opacity:.6}
 .nav-logo-mark{width:30px;height:30px;border-radius:9px;background:#1a6b4a;display:flex;align-items:center;justify-content:center}
@@ -89,7 +89,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 /* Stat pills in mockup */
 .hc-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
 .hc-stats-3{grid-template-columns:1fr 1fr 1fr}
-.hc-stat{background:#f8f8f6;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:14px 12px;text-align:center;position:relative;overflow:hidden}
+.hc-stat{background:#f0f0ee;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:14px 12px;text-align:center;position:relative;overflow:hidden}
 .hc-stat.accent{background:linear-gradient(135deg,#1a6b4a,#15583d);border-color:transparent;box-shadow:0 4px 16px rgba(26,107,74,.15)}
 .hc-stat-l{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .hc-stat.accent .hc-stat-l{color:rgba(255,255,255,.6)}
@@ -98,15 +98,15 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 @media(max-width:768px){.hc-stat{padding:12px 10px}.hc-stat-v{font-size:22px}}
 
 /* Progress block */
-.hc-progress{background:#f8f8f6;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:13px 14px;margin-bottom:8px}
+.hc-progress{background:#f0f0ee;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:13px 14px;margin-bottom:8px}
 .hc-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .hc-progress-title{font-size:14px;font-weight:800;color:#111;letter-spacing:-.01em}
 .hc-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px}
-.hc-bar{height:7px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
+.hc-bar{height:7px;background:rgba(0,0,0,.08);border-radius:4px;overflow:hidden}
 .hc-bar-fill{height:100%;border-radius:4px;transition:width 2s cubic-bezier(.22,1,.36,1)}
 
 /* Lead rows */
-.hc-lead{display:flex;align-items:center;gap:10px;background:#f8f8f6;border:1px solid rgba(0,0,0,.06);border-radius:11px;padding:11px 12px;margin-top:7px}
+.hc-lead{display:flex;align-items:center;gap:10px;background:#f0f0ee;border:1px solid rgba(0,0,0,.08);border-radius:11px;padding:11px 12px;margin-top:7px}
 .hc-lead-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .hc-lead-info{flex:1;min-width:0}
 .hc-lead-name{font-size:14px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -224,7 +224,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
   <!-- Dashboard Mock Card -->
   <div class="hero-mockup hs hs-4" id="mockup">
     <div class="mockup-window">
-      <div style="text-align:center;margin-bottom:14px"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
+      <div style="text-align:center;margin-bottom:14px"><span style="font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.12em">Dashboard</span></div>
       <div class="hc-stats hc-stats-3">
         <div class="hc-stat">
           <div class="hc-stat-l">Customers</div>
@@ -243,14 +243,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
         <div class="hc-progress">
           <div class="hc-progress-top">
             <span class="hc-progress-title">Batch 3</span>
-            <span class="hc-badge" style="background:rgba(34,197,94,.12);color:#4ade80">Complete</span>
+            <span class="hc-badge" style="background:rgba(26,107,74,.1);color:#1a6b4a">Complete</span>
           </div>
           <div class="hc-bar"><div class="hc-bar-fill" style="width:100%;background:linear-gradient(90deg,#22c55e,#1a6b4a)"></div></div>
         </div>
         <div class="hc-progress">
           <div class="hc-progress-top">
             <span class="hc-progress-title">Batch 4</span>
-            <span class="hc-badge" style="background:rgba(217,119,6,.12);color:#fbbf24">Building</span>
+            <span class="hc-badge" style="background:rgba(217,119,6,.1);color:#b45309">Building</span>
           </div>
           <div class="hc-bar"><div class="hc-bar-fill" id="heroBar" style="width:0;background:linear-gradient(90deg,#fbbf24,#d97706)"></div></div>
         </div>
