@@ -21,7 +21,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.nav.scrolled{background:rgba(245,245,243,0.97)}}
 .nav-logo{font-size:19px;font-weight:900;color:#111;letter-spacing:.06em;display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .3s}
 .nav-logo:active{opacity:.6}
-.nav-logo-mark{width:30px;height:30px;border-radius:9px;background:#1a6b4a;display:flex;align-items:center;justify-content:center}
+.nav-logo-mark{width:30px;height:30px;border-radius:9px;background:#1a6b4a;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .nav-mid{display:flex;align-items:center;gap:2px;background:rgba(0,0,0,0.04);border-radius:11px;padding:3px}
 .nav-mid a{font-size:14px;font-weight:600;color:#999;padding:7px 16px;border-radius:9px;text-decoration:none;transition:all .3s cubic-bezier(.22,1,.36,1);-webkit-tap-highlight-color:transparent}
 .nav-mid a:hover{color:#444;background:rgba(0,0,0,0.03)}
