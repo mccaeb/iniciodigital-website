@@ -30,6 +30,85 @@ if ('IntersectionObserver' in window) {
   rvEls.forEach(function(el) { rvShow(el); });
 }
 
+/* ── Mobile menu toggle + logo/burger cycle ── */
+const menuBtn = document.getElementById('menuBtn');
+const mobMenu = document.getElementById('mobMenu');
+const markTrack = document.getElementById('markTrack');
+if (menuBtn && mobMenu && markTrack) {
+  let menuOpen = false;
+  let cycleTimer = null;
+  let showingBurger = false;
+
+  function slideTo(burger) {
+    showingBurger = burger;
+    markTrack.style.transform = burger ? 'translateY(-50%)' : 'translateY(0)';
+  }
+
+  function startCycle() {
+    stopCycle();
+    cycleTimer = setTimeout(function() {
+      if (menuOpen) return;
+      slideTo(true);
+      cycleTimer = setTimeout(function() {
+        if (menuOpen) return;
+        slideTo(false);
+        cycleTimer = setInterval(function() {
+          if (menuOpen) return;
+          slideTo(true);
+          setTimeout(function() {
+            if (menuOpen) return;
+            slideTo(false);
+          }, 1000);
+        }, 5000);
+      }, 1000);
+    }, 1000);
+  }
+
+  function stopCycle() {
+    clearTimeout(cycleTimer);
+    clearInterval(cycleTimer);
+    cycleTimer = null;
+  }
+
+  menuBtn.addEventListener('click', function(e) {
+    if (window.innerWidth > 768) return;
+    e.preventDefault();
+    e.stopPropagation();
+    menuOpen = !menuOpen;
+    mobMenu.classList.toggle('open', menuOpen);
+    menuBtn.classList.toggle('menu-open', menuOpen);
+    if (menuOpen) {
+      stopCycle();
+      slideTo(true);
+    } else {
+      slideTo(false);
+      startCycle();
+    }
+  });
+
+  mobMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      menuOpen = false;
+      mobMenu.classList.remove('open');
+      menuBtn.classList.remove('menu-open');
+      slideTo(false);
+      startCycle();
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (menuOpen && !mobMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+      menuOpen = false;
+      mobMenu.classList.remove('open');
+      menuBtn.classList.remove('menu-open');
+      slideTo(false);
+      startCycle();
+    }
+  });
+
+  if (window.innerWidth <= 768) startCycle();
+}
+
 /* ── Nav frost on scroll ── */
 const nav = document.getElementById('nav');
 let navScrolled = false;
