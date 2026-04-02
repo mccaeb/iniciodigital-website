@@ -374,6 +374,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 
 /* ── Dashboard card animations ── */
 .dash-card{animation:dashGlow 4s ease-in-out infinite alternate}
+@media(max-width:768px){.dash-card{animation:none!important}}
 @media(max-width:480px){.dash-card{padding:18px 14px!important}}
 @keyframes dashGlow{0%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 30px rgba(26,107,74,.05)}100%{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 40px 80px rgba(0,0,0,.1),0 0 60px rgba(26,107,74,.12)}}
 .dash-customer-wrap{position:relative;overflow:hidden}
@@ -389,6 +390,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .dash-toast-price{font-size:12px;font-weight:800;background:#1a6b4a;color:#fff;padding:4px 9px;border-radius:7px;flex-shrink:0}
 .dash-badge-anim{opacity:0;transition:opacity .4s ease}
 .dash-badge-anim.show{opacity:1}
+
+/* ── Kill expensive blur/glow on mobile for performance ── */
+@media(max-width:768px){.hero-glow,.section-glow,.cta-glow{display:none!important}.hero-card::after,.impact-card::after,.bc.glow::after,.bc.glow::before,.pc.feat::after,.pc.feat::before,.cta-form::after,.testimonial::after{display:none!important}}
 
 /* ── Touch ── */
 @media(hover:none){.bc:active{transform:scale(.98)!important;transition-duration:.15s}.impact-card:active{transform:scale(.98)!important}.step:active{transform:scale(.98)!important}.pc:active{transform:scale(.98)!important}}
