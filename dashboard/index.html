@@ -236,12 +236,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .feat-title{font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-.04em;line-height:1.12;margin-bottom:14px;color:#111}
 .feat-desc{font-size:clamp(15px,1.6vw,17px);color:#888;line-height:1.65;font-weight:500;max-width:420px}
 @media(max-width:768px){.feat-desc{max-width:none;margin:0 auto}}
-.feat-visual{flex:1;min-width:0;display:flex;justify-content:center;position:relative}
-.feat-mock{background:linear-gradient(150deg,#2a2a2a,#1e1e1e);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px;color:#fff;position:relative;width:100%;max-width:380px;transform:perspective(500px) rotateY(-12deg) rotateX(5deg);box-shadow:0 4px 12px rgba(0,0,0,.08),0 20px 50px rgba(0,0,0,.12);transition:transform .6s cubic-bezier(.22,1,.36,1)}
-.feat-row.reverse .feat-mock{transform:perspective(500px) rotateY(12deg) rotateX(5deg)}
-.feat-mock:hover{transform:perspective(500px) rotateY(-6deg) rotateX(2deg)}
-.feat-row.reverse .feat-mock:hover{transform:perspective(500px) rotateY(6deg) rotateX(2deg)}
-@media(max-width:768px){.feat-mock{max-width:300px;transform:perspective(500px) rotateY(-8deg) rotateX(3deg)}.feat-row.reverse .feat-mock{transform:perspective(500px) rotateY(8deg) rotateX(3deg)}}
+.feat-visual{flex:1;min-width:0;display:flex;justify-content:center;position:relative;perspective:500px}
+.feat-mock{background:linear-gradient(150deg,#2a2a2a,#1e1e1e);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px;color:#fff;position:relative;width:100%;max-width:380px;transform:rotateY(-12deg) rotateX(5deg);transform-style:preserve-3d;box-shadow:0 4px 12px rgba(0,0,0,.08),0 20px 50px rgba(0,0,0,.12);transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.feat-row.reverse .feat-mock{transform:rotateY(12deg) rotateX(5deg)}
+.feat-mock:hover{transform:rotateY(-6deg) rotateX(2deg)}
+.feat-row.reverse .feat-mock:hover{transform:rotateY(6deg) rotateX(2deg)}
+@media(max-width:768px){.feat-visual{perspective:400px}.feat-mock{max-width:300px;transform:rotateY(-8deg) rotateX(3deg)}.feat-row.reverse .feat-mock{transform:rotateY(8deg) rotateX(3deg)}}
 .feat-mock::before{content:'';position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(26,107,74,.12),transparent 70%);filter:blur(40px);pointer-events:none;z-index:-1}
 /* Green tracing border */
 .feat-highlight{position:relative;overflow:hidden;border-radius:12px}
