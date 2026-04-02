@@ -146,7 +146,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    IMPACT STATS
    ════════════════════ */
-.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media(max-width:900px){.impact-grid{grid-template-columns:1fr 1fr;gap:10px}}
 @media(max-width:480px){.impact-grid{grid-template-columns:1fr;gap:10px}}
 .impact-card{background:linear-gradient(150deg,#2a2a2a,#222222);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:36px 24px;color:#fff;text-align:center;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
@@ -161,7 +161,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    PIPELINE / HOW IT WORKS
    ════════════════════ */
-.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(max-width:600px){.steps{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:12px;padding:0 0 16px;scrollbar-width:none;-ms-overflow-style:none}.steps::-webkit-scrollbar{display:none}}
 .step{background:linear-gradient(150deg,#2a2a2a,#222222);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px 22px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
 .step:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
@@ -222,7 +222,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    PRICING
    ════════════════════ */
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:768px){.price-grid{grid-template-columns:1fr;gap:10px}}
 .pc{background:linear-gradient(150deg,#2a2a2a,#232323);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:32px 24px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
 .pc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.08)}
@@ -308,7 +308,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    VALUE CARDS — What You Get
    ════════════════════ */
-.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 @media(max-width:1024px){.value-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.value-grid{grid-template-columns:1fr;gap:10px}}
 .value-card{background:linear-gradient(150deg,#2a2a2a,#232323);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:32px 24px;color:#fff;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
@@ -327,7 +327,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    OBJECTIONS / FAQ
    ════════════════════ */
-.objection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:52px}
+.objection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media(max-width:900px){.objection-grid{grid-template-columns:1fr 1fr;gap:10px}}
 @media(max-width:600px){.objection-grid{grid-template-columns:1fr;gap:10px}}
 .objection-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:28px 22px;transition:transform .5s cubic-bezier(.22,1,.36,1)}
@@ -340,7 +340,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 /* ════════════════════
    PAIN / PROBLEM CARDS
    ════════════════════ */
-.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media(max-width:900px){.pain-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.pain-grid{grid-template-columns:1fr;gap:10px}}
 .pain-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:32px 24px;color:#111;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
