@@ -84,6 +84,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .hero-sub{font-size:clamp(15px,1.6vw,18px);color:#888;margin:0 auto 36px;line-height:1.65;font-weight:500;letter-spacing:-.01em;text-align:center;max-width:560px}
 @media(max-width:768px){.hero-sub{font-size:18px;margin-bottom:52px;max-width:340px;line-height:1.6}}
 
+/* ── Hero tagline ── */
+.hero-tagline{margin-top:36px}
+@media(max-width:768px){.hero-tagline{margin-top:4px}}
+.mob-br-tag{display:none}
+@media(max-width:768px){.mob-br-tag{display:block}}
+
 /* ── CTA Buttons ── */
 .hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
 @media(max-width:768px){.hero-actions{margin-bottom:36px;gap:8px}.hero-actions .btn{padding:13px 22px;font-size:14px}}
@@ -496,9 +502,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     </div>
   </div>
 
-  <div class="hero-tagline hs hs-5" style="text-align:center;margin-top:12px;max-width:480px">
-    <div class="section-title" style="font-size:clamp(28px,5vw,38px);margin-bottom:6px">Your Customers.</div>
-    <div class="section-title" style="font-size:clamp(28px,5vw,38px);margin-bottom:14px">Your Control.</div>
+  <div class="hero-tagline hs hs-5" style="text-align:center;max-width:560px">
+    <div class="section-title hero-tagline-title" style="font-size:clamp(28px,5vw,38px);margin-bottom:14px">Your Customers.<br class="mob-br-tag"> Your Control.</div>
     <p style="font-size:clamp(15px,1.6vw,17px);color:#888;line-height:1.6;font-weight:500">Every customer lands in your dashboard before it hits your round. Accept, decline, export — all in one place.</p>
   </div>
 
