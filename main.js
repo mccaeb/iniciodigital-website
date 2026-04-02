@@ -1,14 +1,11 @@
 /* ── Scroll Reveal (IntersectionObserver) ── */
 var isMobile = window.innerWidth <= 768;
 var rvEls = [].slice.call(document.querySelectorAll('.rv'));
+/* On mobile, instantly show anything above the fold */
 rvEls.forEach(function(el) {
-  /* On mobile, show above-fold content instantly */
-  if (isMobile && el.getBoundingClientRect().top < window.innerHeight) {
+  if (isMobile && el.getBoundingClientRect().top < window.innerHeight * 1.2) {
     el.classList.add('vis');
-    return;
   }
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(24px)';
 });
 function rvShow(el) {
   if (el.classList.contains('vis')) return;

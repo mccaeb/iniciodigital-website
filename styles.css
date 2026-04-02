@@ -297,6 +297,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .footer-copy a{color:#1a6b4a;text-decoration:none;font-weight:700;transition:color .3s}
 .footer-copy a:hover{color:#22804f}
 
+/* ── Scroll reveal initial state (prevents FOUC) ── */
+.rv{opacity:0;transform:translateY(24px)}
+.rv.vis{opacity:1;transform:translateY(0)}
+
 /* ── Animations ── */
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.9)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
