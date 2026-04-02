@@ -243,10 +243,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .feat-row.reverse .feat-mock:hover{transform:perspective(500px) rotateY(6deg) rotateX(2deg)}
 @media(max-width:768px){.feat-mock{max-width:300px;transform:perspective(500px) rotateY(-8deg) rotateX(3deg)}.feat-row.reverse .feat-mock{transform:perspective(500px) rotateY(8deg) rotateX(3deg)}}
 .feat-mock::before{content:'';position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(26,107,74,.12),transparent 70%);filter:blur(40px);pointer-events:none;z-index:-1}
-/* Green tracing line */
-.feat-mock::after{content:'';position:absolute;left:20px;right:60%;top:50%;height:3px;background:linear-gradient(90deg,transparent,#1a6b4a 30%,#22c55e 70%,transparent);border-radius:2px;opacity:.6;animation:traceLine 3s ease-in-out infinite alternate;z-index:5}
-.feat-row.reverse .feat-mock::after{left:60%;right:20px}
-@keyframes traceLine{0%{opacity:.3;transform:scaleX(.6) translateX(-10%)}50%{opacity:.7;transform:scaleX(1) translateX(0)}100%{opacity:.3;transform:scaleX(.6) translateX(10%)}}
+/* Green tracing border */
+.feat-highlight{position:relative;overflow:hidden;border-radius:12px}
+.feat-highlight::before{content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--trace-angle,0deg),transparent 0%,transparent 60%,#1a6b4a 75%,#22c55e 85%,#1a6b4a 95%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:traceOrbit 3s linear infinite;pointer-events:none;z-index:2}
+@property --trace-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes traceOrbit{to{--trace-angle:360deg}}
 .feat-mock-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
 .feat-mock-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
 .feat-mock-row:last-child{margin-bottom:0}
@@ -527,7 +528,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
             </div>
             <div class="feat-mock-btn accept">Accept</div>
           </div>
-          <div style="display:flex;gap:8px;margin-top:4px">
+          <div class="feat-highlight" style="display:flex;gap:8px;margin-top:4px">
             <div style="flex:1">
               <div class="feat-mock-row" style="margin-bottom:0">
                 <div class="feat-mock-row-info">
@@ -559,7 +560,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
       <div class="feat-visual">
         <div class="feat-mock">
           <div class="feat-mock-label">Notifications</div>
-          <div class="feat-mock-notif">
+          <div class="feat-mock-notif feat-highlight">
             <div class="feat-mock-notif-dot" style="background:#22c55e"></div>
             <div class="feat-mock-notif-text">
               <div class="feat-mock-notif-title">New customer accepted!</div>
@@ -595,7 +596,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
         <div class="feat-mock">
           <div class="feat-mock-label">Export customers</div>
           <div class="feat-mock-export">
-            <div class="feat-mock-export-btn active">&#9989; Squeegee</div>
+            <div class="feat-mock-export-btn active feat-highlight">&#9989; Squeegee</div>
             <div class="feat-mock-export-btn">CleanerPlanner</div>
             <div class="feat-mock-export-btn">CSV Download</div>
           </div>
@@ -622,7 +623,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
       <div class="feat-visual">
         <div class="feat-mock">
           <div class="feat-mock-label">Filter &amp; search</div>
-          <div class="feat-mock-filter">
+          <div class="feat-mock-filter feat-highlight">
             <div class="feat-mock-pill on">Active</div>
             <div class="feat-mock-pill">Pending</div>
             <div class="feat-mock-pill">Cancelled</div>
