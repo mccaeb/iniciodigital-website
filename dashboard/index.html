@@ -37,7 +37,9 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .nav-logo{font-size:19px;font-weight:900;color:#111;letter-spacing:.06em;display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .3s}
 .nav-logo:active{opacity:.6}
 .nav-logo-mark{width:30px;height:30px;border-radius:9px;background:#1a6b4a;display:flex;align-items:center;justify-content:center}
-.nav-mid{font-size:13px;font-weight:500;color:#999;line-height:1.55;text-align:center}
+.nav-mid{display:flex;align-items:center;gap:2px;background:rgba(0,0,0,0.04);border-radius:11px;padding:3px}
+.nav-mid a{font-size:14px;font-weight:600;color:#999;padding:7px 16px;border-radius:9px;text-decoration:none;transition:all .3s cubic-bezier(.22,1,.36,1);-webkit-tap-highlight-color:transparent}
+.nav-mid a:hover{color:#444;background:rgba(0,0,0,0.03)}
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-wa{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#999;text-decoration:none;padding:7px 14px;border-radius:9px;transition:all .3s}
 .nav-wa:hover{color:#25d366;background:rgba(37,211,102,.06)}
@@ -275,8 +277,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     <span class="nav-logo-text">INICIO</span>
   </a>
   <div class="nav-mid">
-    One dashboard to track every customer, every batch, every penny.<br>
-    Built for window cleaners who want growth without the guesswork.
+    <a href="/#problem">Why Us</a>
+    <a href="/#how">How It Works</a>
+    <a href="/#value">What You Get</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/dashboard/">Dashboard</a>
   </div>
   <div class="nav-right">
     <a href="https://wa.me/447822021004?text=Hi%2C%20I%27m%20interested%20in%20Inicio%20Digital" target="_blank" rel="noopener noreferrer" class="nav-wa">
