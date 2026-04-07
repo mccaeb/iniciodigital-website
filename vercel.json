@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    {
+      "source": "/onboarding",
+      "destination": "/api/onboarding"
+    }
+  ],
+  "functions": {
+    "api/onboarding.js": {
+      "includeFiles": "api/onboarding-content.html"
+    }
+  }
+}
