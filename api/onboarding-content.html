@@ -102,9 +102,16 @@
   .btn-add-step:hover { color: var(--green); }
   .edit-input { width: 100%; padding: 6px 8px; border: 1px solid var(--green); border-radius: 4px; font-size: 13px; font-family: inherit; line-height: 1.6; background: var(--surface); color: var(--text); outline: none; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); resize: vertical; min-height: 34px; }
   .who-select { font-size: 10.5px; font-weight: 600; padding: 2px 6px; border-radius: 99px; border: 1px solid var(--border-strong); cursor: pointer; font-family: inherit; background: var(--surface); }
+  .sync-bar { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 12px; font-size: 11.5px; font-weight: 500; z-index: 999; transition: transform 0.3s ease, opacity 0.3s ease; transform: translateY(-100%); opacity: 0; }
+  .sync-bar.show { transform: translateY(0); opacity: 1; }
+  .sync-bar.saving { background: #FEF3C7; color: #92400E; }
+  .sync-bar.saved { background: var(--green-light); color: var(--green-dark); }
+  .sync-bar.error { background: #FEE2E2; color: #991B1B; }
+  .sync-bar.loading { background: #EFF6FF; color: #1D4ED8; }
 </style>
 </head>
 <body>
+<div class="sync-bar" id="sync-bar"></div>
 <div class="wrap">
   <div class="brand"><div class="brand-dot"></div><span class="brand-label">Inicio Digital</span></div>
   <h1>Client onboarding</h1>
@@ -185,6 +192,7 @@ function startEdit(sec,itemIdx,li){
     txt.style.display="";
     input.remove();
     renderItems(sec);
+    if(typeof schedSave==="function")schedSave();
   };
   input.addEventListener("blur",save);
   input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();save();}if(e.key==="Escape"){input.value=item.t;save();}});
@@ -207,18 +215,94 @@ function cycleWho(sec,itemIdx){
   item.w=roles[(cur+1)%roles.length];
   renderItems(sec);
 }
-function renderItems(sec){const s=getState();const ul=document.querySelector(`#sec-${sec.id} ul`);if(!ul)return;ul.innerHTML="";state[mode].order[sec.id].forEach((itemIdx,posIdx)=>{const item=sec.items[itemIdx];const key=`${sec.id}-${itemIdx}`;const isChecked=s.checked[key];const li=document.createElement("li");li.className="item"+(isChecked?" checked":"");li.draggable=true;li.dataset.pos=posIdx;const safeText=item.t.replace(/</g,"&lt;").replace(/>/g,"&gt;");const codeText=safeText.replace(/`([^`]+)`/g,"<code>$1</code>");li.innerHTML=`<span class="drag-handle">\u2807</span><label class="custom-cb"><input type="checkbox" ${isChecked?"checked":""}/><div class="cb-box"><svg class="cb-check" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></label><span class="who-badge ${whoClass(item.w)}" title="Click to change role">${whoLabel(item.w)}</span><span class="item-text${isChecked?" checked":""}">${codeText}</span><span class="item-actions"><button class="btn-icon" title="Edit step">\u270E</button><button class="btn-icon btn-del" title="Delete step">\u2715</button></span>`;const cb=li.querySelector("input");const txt=li.querySelector(".item-text");const toggle=()=>{s.checked[key]=!s.checked[key];li.classList.toggle("checked",s.checked[key]);cb.checked=s.checked[key];txt.classList.toggle("checked",s.checked[key]);updateProgress();updateBadge(sec.id);};cb.addEventListener("change",toggle);
+function renderItems(sec){const s=getState();const ul=document.querySelector(`#sec-${sec.id} ul`);if(!ul)return;ul.innerHTML="";state[mode].order[sec.id].forEach((itemIdx,posIdx)=>{const item=sec.items[itemIdx];const key=`${sec.id}-${itemIdx}`;const isChecked=s.checked[key];const li=document.createElement("li");li.className="item"+(isChecked?" checked":"");li.draggable=true;li.dataset.pos=posIdx;const safeText=item.t.replace(/</g,"&lt;").replace(/>/g,"&gt;");const codeText=safeText.replace(/`([^`]+)`/g,"<code>$1</code>");li.innerHTML=`<span class="drag-handle">\u2807</span><label class="custom-cb"><input type="checkbox" ${isChecked?"checked":""}/><div class="cb-box"><svg class="cb-check" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></label><span class="who-badge ${whoClass(item.w)}" title="Click to change role">${whoLabel(item.w)}</span><span class="item-text${isChecked?" checked":""}">${codeText}</span><span class="item-actions"><button class="btn-icon" title="Edit step">\u270E</button><button class="btn-icon btn-del" title="Delete step">\u2715</button></span>`;const cb=li.querySelector("input");const txt=li.querySelector(".item-text");const toggle=()=>{s.checked[key]=!s.checked[key];li.classList.toggle("checked",s.checked[key]);cb.checked=s.checked[key];txt.classList.toggle("checked",s.checked[key]);updateProgress();updateBadge(sec.id);if(typeof schedSave==="function")schedSave();};cb.addEventListener("change",toggle);
   const whoBadge=li.querySelector(".who-badge");whoBadge.style.cursor="pointer";whoBadge.addEventListener("click",e=>{e.stopPropagation();cycleWho(sec,itemIdx);});
   const editBtn=li.querySelector(".btn-icon");editBtn.addEventListener("click",e=>{e.stopPropagation();startEdit(sec,itemIdx,li);});
   const delBtn=li.querySelector(".btn-del");delBtn.addEventListener("click",e=>{e.stopPropagation();deleteItem(sec,itemIdx);});
-  txt.addEventListener("click",toggle);li.addEventListener("dragstart",()=>{dragFrom=posIdx;dragFromSid=sec.id;li.style.opacity="0.5";});li.addEventListener("dragend",()=>{li.style.opacity="1";document.querySelectorAll(".drag-over").forEach(el=>el.classList.remove("drag-over"));});li.addEventListener("dragover",e=>{e.preventDefault();if(dragFromSid===sec.id)li.classList.add("drag-over");});li.addEventListener("dragleave",()=>li.classList.remove("drag-over"));li.addEventListener("drop",e=>{e.preventDefault();li.classList.remove("drag-over");if(dragFromSid!==sec.id||dragFrom===null||dragFrom===posIdx)return;const arr=state[mode].order[sec.id];const[moved]=arr.splice(dragFrom,1);arr.splice(posIdx,0,moved);renderItems(sec);updateBadge(sec.id);});ul.appendChild(li);});
+  txt.addEventListener("click",toggle);li.addEventListener("dragstart",()=>{dragFrom=posIdx;dragFromSid=sec.id;li.style.opacity="0.5";});li.addEventListener("dragend",()=>{li.style.opacity="1";document.querySelectorAll(".drag-over").forEach(el=>el.classList.remove("drag-over"));});li.addEventListener("dragover",e=>{e.preventDefault();if(dragFromSid===sec.id)li.classList.add("drag-over");});li.addEventListener("dragleave",()=>li.classList.remove("drag-over"));li.addEventListener("drop",e=>{e.preventDefault();li.classList.remove("drag-over");if(dragFromSid!==sec.id||dragFrom===null||dragFrom===posIdx)return;const arr=state[mode].order[sec.id];const[moved]=arr.splice(dragFrom,1);arr.splice(posIdx,0,moved);renderItems(sec);updateBadge(sec.id);if(typeof schedSave==="function")schedSave();});ul.appendChild(li);});
   const addBtn=document.createElement("button");addBtn.className="btn-add-step";addBtn.innerHTML="+ Add step";addBtn.addEventListener("click",()=>addItem(sec));ul.appendChild(addBtn);}
 function render(){const container=document.getElementById("sections");container.innerHTML="";getSections().forEach(sec=>{const s=getState();const done=state[mode].order[sec.id].filter(i=>s.checked[`${sec.id}-${i}`]).length;const total=sec.items.length;const isCollapsed=state.collapsed[sec.id];const allDone=done===total;const div=document.createElement("div");div.className="section"+(allDone?" all-done":"");div.id=`sec-${sec.id}`;const critBadge=sec.critical?`<span class="badge-tag tag-critical">critical</span>`:"";const skipBadge=sec.skip?`<span class="badge-tag tag-skip">skip</span>`:"";const noteHtml=(!isCollapsed&&sec.note)?`<div class="sec-note">${sec.note.replace(/`([^`]+)`/g,"<code>$1</code>")}</div>`:"";div.innerHTML=`<button class="sec-header${isCollapsed?"":" open"}" data-sid="${sec.id}"><div class="sec-header-left"><span class="chevron${isCollapsed?" closed":""}">\u25BC</span><span class="sec-title">${sec.label}${critBadge}${skipBadge}</span></div><span class="sec-badge${allDone?" done":""}" data-badge="${sec.id}">${done}/${total}</span></button>${noteHtml}<ul style="display:${isCollapsed?"none":"block"}"></ul>`;div.querySelector(".sec-header").addEventListener("click",()=>{state.collapsed[sec.id]=!state.collapsed[sec.id];render();updateProgress();});container.appendChild(div);if(!isCollapsed)renderItems(sec);});updateProgress();}
 function setMode(m){mode=m;document.getElementById("btn-new").classList.toggle("active",m==="new");document.getElementById("btn-old").classList.toggle("active",m==="old");render();}
 function expandAll(){getSections().forEach(s=>{state.collapsed[s.id]=false;});render();}
 function collapseAll(){getSections().forEach(s=>{state.collapsed[s.id]=true;});render();}
 function resetAll(){if(!confirm("Reset all checkboxes for this onboarding?"))return;const s=getState();Object.keys(s.checked).forEach(k=>{s.checked[k]=false;});render();}
-render();
+// --- Sync ---
+const syncBar=document.getElementById("sync-bar");
+let saveTimer=null;
+function showSync(msg,type,duration){
+  syncBar.textContent=msg;syncBar.className="sync-bar show "+type;
+  if(duration)setTimeout(()=>{syncBar.classList.remove("show");},duration);
+}
+function getFullState(){
+  return {newItems:NEW.map(s=>({id:s.id,label:s.label,note:s.note,critical:s.critical,skip:s.skip,items:s.items})),oldItems:OLD.map(s=>({id:s.id,label:s.label,note:s.note,critical:s.critical,skip:s.skip,items:s.items})),state:state,mode:mode,clientName:document.getElementById("clientName").value,clientDate:document.getElementById("clientDate").value};
+}
+function applyFullState(d){
+  if(!d)return;
+  if(d.newItems)d.newItems.forEach((saved,i)=>{if(NEW[i]){NEW[i].items=saved.items;}});
+  if(d.oldItems)d.oldItems.forEach((saved,i)=>{if(OLD[i]){OLD[i].items=saved.items;}});
+  if(d.state){
+    if(d.state.new){state.new.checked=d.state.new.checked||{};state.new.order=d.state.new.order||{};}
+    if(d.state.old){state.old.checked=d.state.old.checked||{};state.old.order=d.state.old.order||{};}
+    if(d.state.collapsed)state.collapsed=d.state.collapsed;
+  }
+  if(d.mode)mode=d.mode;
+  if(d.clientName)document.getElementById("clientName").value=d.clientName;
+  if(d.clientDate)document.getElementById("clientDate").value=d.clientDate;
+  document.getElementById("btn-new").classList.toggle("active",mode==="new");
+  document.getElementById("btn-old").classList.toggle("active",mode==="old");
+  render();
+}
+function schedSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    showSync("Saving...","saving");
+    try{
+      const r=await fetch("/api/onboarding-state",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(getFullState())});
+      if(r.ok){showSync("Saved","saved",1500);}
+      else{showSync("Save failed","error",3000);}
+    }catch(e){showSync("Save failed — offline?","error",3000);}
+  },800);
+}
+async function loadState(){
+  showSync("Loading...","loading");
+  try{
+    const r=await fetch("/api/onboarding-state");
+    if(r.ok){const d=await r.json();if(d){applyFullState(d);showSync("Loaded","saved",1200);}else{showSync("No saved data — starting fresh","saved",1500);render();}}
+    else{showSync("Load failed","error",3000);render();}
+  }catch(e){showSync("Could not connect","error",3000);render();}
+}
+// Wrap mutation fns to auto-save
+const _origToggle=null;
+const _origRender=render;
+["updateProgress","updateBadge"].forEach(()=>{});
+// Hook save into all mutating actions
+const _deleteItem=deleteItem;
+const _addItem=addItem;
+const _cycleWho=cycleWho;
+// Patch toggle in renderItems — we patch via a flag
+let _afterToggle=schedSave;
+let _afterEdit=schedSave;
+let _afterDrop=schedSave;
+// Override the mutating functions
+const origDeleteItem=window.deleteItem;
+window.deleteItem=function(sec,idx){origDeleteItem(sec,idx);schedSave();};
+const origAddItem=window.addItem;
+window.addItem=function(sec){origAddItem(sec);schedSave();};
+const origCycleWho=window.cycleWho;
+window.cycleWho=function(sec,idx){origCycleWho(sec,idx);schedSave();};
+const origSetMode=window.setMode;
+window.setMode=function(m){origSetMode(m);schedSave();};
+const origResetAll=window.resetAll;
+window.resetAll=function(){origResetAll();schedSave();};
+// Save on client name/date change
+document.getElementById("clientName").addEventListener("input",schedSave);
+document.getElementById("clientDate").addEventListener("change",schedSave);
+// Poll for updates every 30s
+setInterval(async()=>{
+  try{const r=await fetch("/api/onboarding-state");if(r.ok){const d=await r.json();if(d)applyFullState(d);}}catch(e){}
+},30000);
+// Initial load
+loadState();
 
 </script>
 </body>
