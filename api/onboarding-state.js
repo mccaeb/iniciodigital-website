@@ -1,6 +1,5 @@
-const { kv } = require('@vercel/kv');
-
 const crypto = require('crypto');
+
 const PASSWORD = 'musashi321';
 const COOKIE_NAME = 'onboarding_auth';
 const TOKEN = crypto.createHash('sha256').update(PASSWORD + '_inicio_onboarding').digest('hex');
@@ -18,6 +17,36 @@ function parseCookies(cookieHeader) {
 function isAuthenticated(req) {
   const cookies = parseCookies(req.headers.cookie);
   return cookies[COOKIE_NAME] === TOKEN;
+}
+
+// Parse KV_REDIS_URL (rediss://default:TOKEN@HOST:PORT) into Upstash REST API credentials
+function getRedisConfig() {
+  const url = process.env.KV_REDIS_URL || process.env.REDIS_URL || '';
+  const match = url.match(/:\/\/[^:]+:([^@]+)@([^:]+)/);
+  if (!match) return null;
+  return { restUrl: `https://${match[2]}`, restToken: match[1] };
+}
+
+async function redisGet(key) {
+  const cfg = getRedisConfig();
+  if (!cfg) throw new Error('Redis not configured');
+  const r = await fetch(`${cfg.restUrl}/get/${encodeURIComponent(key)}`, {
+    headers: { Authorization: `Bearer ${cfg.restToken}` }
+  });
+  const data = await r.json();
+  if (data.result === null) return null;
+  try { return JSON.parse(data.result); } catch { return data.result; }
+}
+
+async function redisSet(key, value) {
+  const cfg = getRedisConfig();
+  if (!cfg) throw new Error('Redis not configured');
+  const r = await fetch(`${cfg.restUrl}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${cfg.restToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(['SET', key, JSON.stringify(value)])
+  });
+  return r.json();
 }
 
 const STATE_KEY = 'onboarding:state';
@@ -38,8 +67,12 @@ module.exports = async (req, res) => {
   }
 
   if (req.method === 'GET') {
-    const data = await kv.get(STATE_KEY);
-    res.json(data || null);
+    try {
+      const data = await redisGet(STATE_KEY);
+      res.json(data || null);
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to load state', detail: e.message });
+    }
     return;
   }
 
@@ -49,10 +82,10 @@ module.exports = async (req, res) => {
     req.on('end', async () => {
       try {
         const data = JSON.parse(body);
-        await kv.set(STATE_KEY, data);
+        await redisSet(STATE_KEY, data);
         res.json({ ok: true });
       } catch (e) {
-        res.status(400).json({ error: 'Invalid JSON' });
+        res.status(400).json({ error: 'Save failed', detail: e.message });
       }
     });
     return;
