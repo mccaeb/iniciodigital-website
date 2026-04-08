@@ -150,6 +150,9 @@ let mode="new";
 const state={new:{checked:{},order:{}},old:{checked:{},order:{}},collapsed:{}};
 function initState(sections,key){sections.forEach(s=>{state[key].order[s.id]=s.items.map((_,i)=>i);s.items.forEach((_,i)=>{state[key].checked[`${s.id}-${i}`]=false;});});}
 initState(NEW,"new");initState(OLD,"old");
+const STORAGE_KEY="onboarding_state";
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({s:state,m:mode,cn:document.getElementById("clientName").value,cd:document.getElementById("clientDate").value,ni:NEW,oi:OLD}));}catch(e){}}
+function loadState(){try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!d)return;if(d.s){if(d.s.new)state.new=d.s.new;if(d.s.old)state.old=d.s.old;if(d.s.collapsed)state.collapsed=d.s.collapsed;}if(d.m)mode=d.m;if(d.cn!=null)document.getElementById("clientName").value=d.cn;if(d.cd!=null)document.getElementById("clientDate").value=d.cd;if(d.ni){NEW.length=0;d.ni.forEach(x=>NEW.push(x));}if(d.oi){OLD.length=0;d.oi.forEach(x=>OLD.push(x));}}catch(e){}}
 document.getElementById("clientDate").value=new Date().toISOString().slice(0,10);
 function getSections(){return mode==="new"?NEW:OLD;}
 function getState(){return state[mode];}
@@ -165,7 +168,7 @@ function deleteItem(sec,itemIdx){
   if(pos===-1)return;
   order.splice(pos,1);
   delete s.checked[`${sec.id}-${itemIdx}`];
-  renderItems(sec);updateBadge(sec.id);updateProgress();
+  renderItems(sec);updateBadge(sec.id);updateProgress();saveState();
 }
 function startEdit(sec,itemIdx,li){
   const item=sec.items[itemIdx];
@@ -184,7 +187,7 @@ function startEdit(sec,itemIdx,li){
     if(v){item.t=v;}
     txt.style.display="";
     input.remove();
-    renderItems(sec);
+    renderItems(sec);saveState();
   };
   input.addEventListener("blur",save);
   input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();save();}if(e.key==="Escape"){input.value=item.t;save();}});
@@ -195,7 +198,7 @@ function addItem(sec){
   sec.items.push({w:"agent",t:"New step"});
   s.order[sec.id].push(newIdx);
   s.checked[`${sec.id}-${newIdx}`]=false;
-  renderItems(sec);updateBadge(sec.id);updateProgress();
+  renderItems(sec);updateBadge(sec.id);updateProgress();saveState();
   const ul=document.querySelector(`#sec-${sec.id} ul`);
   const lastLi=ul?ul.lastElementChild:null;
   if(lastLi){startEdit(sec,newIdx,lastLi);}
@@ -205,19 +208,24 @@ function cycleWho(sec,itemIdx){
   const item=sec.items[itemIdx];
   const cur=roles.indexOf(item.w);
   item.w=roles[(cur+1)%roles.length];
-  renderItems(sec);
+  renderItems(sec);saveState();
 }
-function renderItems(sec){const s=getState();const ul=document.querySelector(`#sec-${sec.id} ul`);if(!ul)return;ul.innerHTML="";state[mode].order[sec.id].forEach((itemIdx,posIdx)=>{const item=sec.items[itemIdx];const key=`${sec.id}-${itemIdx}`;const isChecked=s.checked[key];const li=document.createElement("li");li.className="item"+(isChecked?" checked":"");li.draggable=true;li.dataset.pos=posIdx;const safeText=item.t.replace(/</g,"&lt;").replace(/>/g,"&gt;");const codeText=safeText.replace(/`([^`]+)`/g,"<code>$1</code>");li.innerHTML=`<span class="drag-handle">\u2807</span><label class="custom-cb"><input type="checkbox" ${isChecked?"checked":""}/><div class="cb-box"><svg class="cb-check" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></label><span class="who-badge ${whoClass(item.w)}" title="Click to change role">${whoLabel(item.w)}</span><span class="item-text${isChecked?" checked":""}">${codeText}</span><span class="item-actions"><button class="btn-icon" title="Edit step">\u270E</button><button class="btn-icon btn-del" title="Delete step">\u2715</button></span>`;const cb=li.querySelector("input");const txt=li.querySelector(".item-text");const toggle=()=>{s.checked[key]=!s.checked[key];li.classList.toggle("checked",s.checked[key]);cb.checked=s.checked[key];txt.classList.toggle("checked",s.checked[key]);updateProgress();updateBadge(sec.id);};cb.addEventListener("change",toggle);
+function renderItems(sec){const s=getState();const ul=document.querySelector(`#sec-${sec.id} ul`);if(!ul)return;ul.innerHTML="";state[mode].order[sec.id].forEach((itemIdx,posIdx)=>{const item=sec.items[itemIdx];const key=`${sec.id}-${itemIdx}`;const isChecked=s.checked[key];const li=document.createElement("li");li.className="item"+(isChecked?" checked":"");li.draggable=true;li.dataset.pos=posIdx;const safeText=item.t.replace(/</g,"&lt;").replace(/>/g,"&gt;");const codeText=safeText.replace(/`([^`]+)`/g,"<code>$1</code>");li.innerHTML=`<span class="drag-handle">\u2807</span><label class="custom-cb"><input type="checkbox" ${isChecked?"checked":""}/><div class="cb-box"><svg class="cb-check" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></label><span class="who-badge ${whoClass(item.w)}" title="Click to change role">${whoLabel(item.w)}</span><span class="item-text${isChecked?" checked":""}">${codeText}</span><span class="item-actions"><button class="btn-icon" title="Edit step">\u270E</button><button class="btn-icon btn-del" title="Delete step">\u2715</button></span>`;const cb=li.querySelector("input");const txt=li.querySelector(".item-text");const toggle=()=>{s.checked[key]=!s.checked[key];li.classList.toggle("checked",s.checked[key]);cb.checked=s.checked[key];txt.classList.toggle("checked",s.checked[key]);updateProgress();updateBadge(sec.id);saveState();};cb.addEventListener("change",toggle);
   const whoBadge=li.querySelector(".who-badge");whoBadge.style.cursor="pointer";whoBadge.addEventListener("click",e=>{e.stopPropagation();cycleWho(sec,itemIdx);});
   const editBtn=li.querySelector(".btn-icon");editBtn.addEventListener("click",e=>{e.stopPropagation();startEdit(sec,itemIdx,li);});
   const delBtn=li.querySelector(".btn-del");delBtn.addEventListener("click",e=>{e.stopPropagation();deleteItem(sec,itemIdx);});
-  txt.addEventListener("click",toggle);li.addEventListener("dragstart",()=>{dragFrom=posIdx;dragFromSid=sec.id;li.style.opacity="0.5";});li.addEventListener("dragend",()=>{li.style.opacity="1";document.querySelectorAll(".drag-over").forEach(el=>el.classList.remove("drag-over"));});li.addEventListener("dragover",e=>{e.preventDefault();if(dragFromSid===sec.id)li.classList.add("drag-over");});li.addEventListener("dragleave",()=>li.classList.remove("drag-over"));li.addEventListener("drop",e=>{e.preventDefault();li.classList.remove("drag-over");if(dragFromSid!==sec.id||dragFrom===null||dragFrom===posIdx)return;const arr=state[mode].order[sec.id];const[moved]=arr.splice(dragFrom,1);arr.splice(posIdx,0,moved);renderItems(sec);updateBadge(sec.id);});ul.appendChild(li);});
+  txt.addEventListener("click",toggle);li.addEventListener("dragstart",()=>{dragFrom=posIdx;dragFromSid=sec.id;li.style.opacity="0.5";});li.addEventListener("dragend",()=>{li.style.opacity="1";document.querySelectorAll(".drag-over").forEach(el=>el.classList.remove("drag-over"));});li.addEventListener("dragover",e=>{e.preventDefault();if(dragFromSid===sec.id)li.classList.add("drag-over");});li.addEventListener("dragleave",()=>li.classList.remove("drag-over"));li.addEventListener("drop",e=>{e.preventDefault();li.classList.remove("drag-over");if(dragFromSid!==sec.id||dragFrom===null||dragFrom===posIdx)return;const arr=state[mode].order[sec.id];const[moved]=arr.splice(dragFrom,1);arr.splice(posIdx,0,moved);renderItems(sec);updateBadge(sec.id);saveState();});ul.appendChild(li);});
   const addBtn=document.createElement("button");addBtn.className="btn-add-step";addBtn.innerHTML="+ Add step";addBtn.addEventListener("click",()=>addItem(sec));ul.appendChild(addBtn);}
 function render(){const container=document.getElementById("sections");container.innerHTML="";getSections().forEach(sec=>{const s=getState();const done=state[mode].order[sec.id].filter(i=>s.checked[`${sec.id}-${i}`]).length;const total=sec.items.length;const isCollapsed=state.collapsed[sec.id];const allDone=done===total;const div=document.createElement("div");div.className="section"+(allDone?" all-done":"");div.id=`sec-${sec.id}`;const critBadge=sec.critical?`<span class="badge-tag tag-critical">critical</span>`:"";const skipBadge=sec.skip?`<span class="badge-tag tag-skip">skip</span>`:"";const noteHtml=(!isCollapsed&&sec.note)?`<div class="sec-note">${sec.note.replace(/`([^`]+)`/g,"<code>$1</code>")}</div>`:"";div.innerHTML=`<button class="sec-header${isCollapsed?"":" open"}" data-sid="${sec.id}"><div class="sec-header-left"><span class="chevron${isCollapsed?" closed":""}">\u25BC</span><span class="sec-title">${sec.label}${critBadge}${skipBadge}</span></div><span class="sec-badge${allDone?" done":""}" data-badge="${sec.id}">${done}/${total}</span></button>${noteHtml}<ul style="display:${isCollapsed?"none":"block"}"></ul>`;div.querySelector(".sec-header").addEventListener("click",()=>{state.collapsed[sec.id]=!state.collapsed[sec.id];render();updateProgress();});container.appendChild(div);if(!isCollapsed)renderItems(sec);});updateProgress();}
-function setMode(m){mode=m;document.getElementById("btn-new").classList.toggle("active",m==="new");document.getElementById("btn-old").classList.toggle("active",m==="old");render();}
-function expandAll(){getSections().forEach(s=>{state.collapsed[s.id]=false;});render();}
-function collapseAll(){getSections().forEach(s=>{state.collapsed[s.id]=true;});render();}
-function resetAll(){if(!confirm("Reset all checkboxes for this onboarding?"))return;const s=getState();Object.keys(s.checked).forEach(k=>{s.checked[k]=false;});render();}
+function setMode(m){mode=m;document.getElementById("btn-new").classList.toggle("active",m==="new");document.getElementById("btn-old").classList.toggle("active",m==="old");render();saveState();}
+function expandAll(){getSections().forEach(s=>{state.collapsed[s.id]=false;});render();saveState();}
+function collapseAll(){getSections().forEach(s=>{state.collapsed[s.id]=true;});render();saveState();}
+function resetAll(){if(!confirm("Reset all checkboxes for this onboarding?"))return;const s=getState();Object.keys(s.checked).forEach(k=>{s.checked[k]=false;});render();saveState();}
+loadState();
+document.getElementById("btn-new").classList.toggle("active",mode==="new");
+document.getElementById("btn-old").classList.toggle("active",mode==="old");
+document.getElementById("clientName").addEventListener("input",saveState);
+document.getElementById("clientDate").addEventListener("input",saveState);
 render();
 
 </script>
