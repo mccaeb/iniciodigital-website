@@ -329,8 +329,10 @@ function load(){
   }catch(e){}
   if(!templates.length)templates=initDefaultTemplates();
   /* Ensure built-in templates always present */
-  if(!templates.find(function(t){return t.builtin==="NEW";}))templates.unshift({id:"new",name:"New client (sub-account)",builtin:"NEW"});
-  if(!templates.find(function(t){return t.builtin==="OLD";}))templates.splice(1,0,{id:"old",name:"Existing client (sub-account)",builtin:"OLD"});
+  if(!templates.find(function(t){return t.builtin==="NEW"||t.id==="new";}))templates.unshift({id:"new",name:"New client (sub-account)",builtin:"NEW"});
+  else templates.forEach(function(t){if(t.id==="new")t.builtin="NEW";});
+  if(!templates.find(function(t){return t.builtin==="OLD"||t.id==="old";}))templates.splice(1,0,{id:"old",name:"Existing client (sub-account)",builtin:"OLD"});
+  else templates.forEach(function(t){if(t.id==="old")t.builtin="OLD";});
   /* Migrate v2 (had newSections/oldSections/mode) */
   try{var v2=JSON.parse(localStorage.getItem("onboarding_v2"));
     if(v2&&v2.instances&&v2.instances.length){
