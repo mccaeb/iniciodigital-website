@@ -324,10 +324,13 @@ function whoLabel(w){return{agent:"Agent",human:"Ryan",review:"Review",skip:"Ski
 function save(){try{localStorage.setItem(STORE,JSON.stringify({instances:instances,activeId:activeId,templates:templates}));}catch(e){}}
 function load(){
   try{var d=JSON.parse(localStorage.getItem(STORE));
-    if(d&&d.templates){templates=d.templates;}
+    if(d&&d.templates&&d.templates.length)templates=d.templates;
     if(d&&d.instances){instances=d.instances;activeId=d.activeId;}
   }catch(e){}
   if(!templates.length)templates=initDefaultTemplates();
+  /* Ensure built-in templates always present */
+  if(!templates.find(function(t){return t.builtin==="NEW";}))templates.unshift({id:"new",name:"New client (sub-account)",builtin:"NEW"});
+  if(!templates.find(function(t){return t.builtin==="OLD";}))templates.splice(1,0,{id:"old",name:"Existing client (sub-account)",builtin:"OLD"});
   /* Migrate v2 (had newSections/oldSections/mode) */
   try{var v2=JSON.parse(localStorage.getItem("onboarding_v2"));
     if(v2&&v2.instances&&v2.instances.length){
