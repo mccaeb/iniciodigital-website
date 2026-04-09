@@ -719,20 +719,12 @@ function renderItems(sec){
   order.forEach(function(itemIdx,posIdx){
     var item=sec.items[itemIdx];if(!item)return;
     var key=sec.id+"-"+itemIdx;var isChecked=s.checked[key];
-    var lines=item.t.split("\n");var mainLine=lines[0];
-    var detailLines=lines.slice(1).filter(function(l){return l.trim();});
-    var hasDetails=detailLines.length>0;var isExpanded=inst.state.expanded[key];
+    var fullText=fmtCode(item.t).replace(/\n/g,"<br>");
     var notes=inst.notes[key]||[];var videos=inst.videos[key]||[];var images=(inst.images&&inst.images[key])||[];
 
     var li=document.createElement("li");li.className="item"+(isChecked?" checked":"");li.draggable=true;li.dataset.pos=posIdx;
 
-    var html='<div class="item-row"><span class="drag-handle">&#x2807;</span><label class="custom-cb"><input type="checkbox" '+(isChecked?"checked":"")+'/><div class="cb-box"><svg class="cb-check" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></label><span class="who-badge '+whoClass(item.w)+'" title="Click to change role">'+whoLabel(item.w)+'</span><div class="item-body"><span class="item-text'+(isChecked?" checked":"")+'">'+fmtCode(mainLine)+'</span>';
-    if(hasDetails){
-      html+='<button class="detail-toggle" id="detbtn-'+key+'"><span class="detail-chev'+(isExpanded?" open":"")+'">&#x25B6;</span> '+detailLines.length+' detail'+(detailLines.length>1?"s":"")+'</button>';
-      html+='<ul class="item-details" id="detail-'+key+'" style="display:'+(isExpanded?"":"none")+'">';
-      detailLines.forEach(function(l){html+='<li>'+fmtCode(l)+'</li>';});
-      html+='</ul>';
-    }
+    var html='<div class="item-row"><span class="drag-handle">&#x2807;</span><label class="custom-cb"><input type="checkbox" '+(isChecked?"checked":"")+'/><div class="cb-box"><svg class="cb-check" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></label><span class="who-badge '+whoClass(item.w)+'" title="Click to change role">'+whoLabel(item.w)+'</span><div class="item-body"><span class="item-text'+(isChecked?" checked":"")+'">'+fullText+'</span>';
     html+='</div><span class="item-actions"><button class="btn-icon btn-edit" title="Edit step">&#x270E;</button><button class="btn-icon btn-del" title="Delete step">&#x2715;</button></span></div>';
 
     html+='<div class="item-extras">';
@@ -755,8 +747,6 @@ function renderItems(sec){
     li.querySelector(".who-badge").addEventListener("click",function(e){e.stopPropagation();cycleWho(sec,itemIdx);});
     li.querySelector(".btn-edit").addEventListener("click",function(e){e.stopPropagation();startEdit(sec,itemIdx,li);});
     li.querySelector(".btn-del").addEventListener("click",function(e){e.stopPropagation();deleteItem(sec,itemIdx);});
-
-    if(hasDetails){li.querySelector("#detbtn-"+key).addEventListener("click",function(){toggleDetail(key);});}
 
     var extraBtns=li.querySelectorAll(".extra-toggle");
     extraBtns[0].addEventListener("click",function(){toggleNotes(sec.id,itemIdx);});
