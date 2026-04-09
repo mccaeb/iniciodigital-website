@@ -321,18 +321,25 @@ function getEmbedUrl(url){var m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\
 function whoClass(w){return{agent:"who-agent",human:"who-human",review:"who-review",skip:"who-skip"}[w]||"who-agent";}
 function whoLabel(w){return{agent:"Agent",human:"Ryan",review:"Review",skip:"Skip"}[w]||"Agent";}
 
-function save(){try{localStorage.setItem(STORE,JSON.stringify({instances:instances,activeId:activeId,templates:templates}));}catch(e){}}
+function save(){
+  /* Strip sections from built-in templates before saving (reconstructed from JS on load) */
+  var saveTpls=templates.map(function(t){if(t.builtin)return{id:t.id,name:t.name,builtin:t.builtin};return t;});
+  try{localStorage.setItem(STORE,JSON.stringify({instances:instances,activeId:activeId,templates:saveTpls}));}catch(e){}
+}
 function load(){
+  /* Always start with built-in templates */
+  templates=initDefaultTemplates();
   try{var d=JSON.parse(localStorage.getItem(STORE));
-    if(d&&d.templates&&d.templates.length)templates=d.templates;
     if(d&&d.instances){instances=d.instances;activeId=d.activeId;}
+    /* Merge saved template names and custom templates */
+    if(d&&d.templates&&d.templates.length){
+      d.templates.forEach(function(st){
+        if(st.id==="new"||st.builtin==="NEW"){var t=templates.find(function(x){return x.id==="new";});if(t&&st.name)t.name=st.name;}
+        else if(st.id==="old"||st.builtin==="OLD"){var t=templates.find(function(x){return x.id==="old";});if(t&&st.name)t.name=st.name;}
+        else{templates.push(st);}
+      });
+    }
   }catch(e){}
-  if(!templates.length)templates=initDefaultTemplates();
-  /* Ensure built-in templates always present */
-  if(!templates.find(function(t){return t.builtin==="NEW"||t.id==="new";}))templates.unshift({id:"new",name:"New client (sub-account)",builtin:"NEW"});
-  else templates.forEach(function(t){if(t.id==="new")t.builtin="NEW";});
-  if(!templates.find(function(t){return t.builtin==="OLD"||t.id==="old";}))templates.splice(1,0,{id:"old",name:"Existing client (sub-account)",builtin:"OLD"});
-  else templates.forEach(function(t){if(t.id==="old")t.builtin="OLD";});
   /* Migrate v2 (had newSections/oldSections/mode) */
   try{var v2=JSON.parse(localStorage.getItem("onboarding_v2"));
     if(v2&&v2.instances&&v2.instances.length){
