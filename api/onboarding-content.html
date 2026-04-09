@@ -99,6 +99,8 @@
   .sec-badge.done { background: var(--green-light); color: var(--green-dark); border-color: var(--green-mid); }
   .sec-note { padding: 12px 20px; font-size: 12.5px; color: var(--text-2); line-height: 1.7; background: #FAFAF8; border-bottom: 1px solid var(--border); border-left: 3px solid var(--green-mid); }
   .sec-note code { font-family: "SF Mono","Fira Code","Courier New",monospace; font-size: 11px; background: #EEEEED; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border-strong); color: var(--text); word-break: break-all; }
+  .sec-note[contenteditable="true"] { outline: 2px solid var(--green); border-radius: 4px; box-shadow: 0 0 0 4px rgba(26,107,74,0.08); cursor: text; }
+  .sec-title-edit { width: 100%; padding: 4px 8px; border: 2px solid var(--green); border-radius: 6px; font-size: 14px; font-weight: 700; font-family: inherit; background: var(--surface); color: var(--text); outline: none; box-shadow: 0 0 0 4px rgba(26,107,74,0.08); }
   .section.all-done .sec-header { background: var(--green-light); }
   .section.all-done .sec-title { color: var(--green-dark); }
 
@@ -451,6 +453,24 @@ function renderVideos(secId,itemIdx){
   if(countEl){countEl.textContent=vids.length;countEl.style.display=vids.length?"":"none";}
 }
 
+function editSectionLabel(sec,titleEl){
+  if(titleEl.querySelector(".sec-title-edit"))return;
+  var input=document.createElement("input");input.className="sec-title-edit";input.value=sec.label;
+  var original=titleEl.innerHTML;titleEl.innerHTML="";titleEl.appendChild(input);input.focus();input.select();
+  var doSave=function(){var v=input.value.trim();if(v)sec.label=v;render();save();};
+  input.addEventListener("blur",doSave);
+  input.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();doSave();}if(e.key==="Escape"){sec.label=sec.label;render();}});
+}
+function editSectionNote(sec,noteEl){
+  if(noteEl.contentEditable==="true")return;
+  noteEl.textContent=sec.note||"";noteEl.contentEditable="true";noteEl.focus();
+  var range=document.createRange();range.selectNodeContents(noteEl);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);
+  var doSave=function(){noteEl.contentEditable="false";var v=noteEl.textContent.trim();sec.note=v||"";render();save();};
+  noteEl.addEventListener("blur",doSave,{once:true});
+  noteEl.addEventListener("keydown",function handler(e){if(e.key==="Escape"){noteEl.removeEventListener("blur",doSave);noteEl.contentEditable="false";render();}if(e.key==="Enter"&&e.ctrlKey){e.preventDefault();doSave();}});
+}
+function addSectionNote(sec){sec.note=sec.note||"New note";render();save();var noteEl=document.querySelector("#sec-"+sec.id+" .sec-note");if(noteEl)editSectionNote(sec,noteEl);}
+
 function renderAll(){renderInstanceBar();renderMain();}
 
 function renderInstanceBar(){
@@ -489,9 +509,18 @@ function render(){
     var div=document.createElement("div");div.className="section"+(allDone?" all-done":"");div.id="sec-"+sec.id;
     var critBadge=sec.critical?'<span class="badge-tag tag-critical">critical</span>':"";
     var skipBadge=sec.skip?'<span class="badge-tag tag-skip">skip</span>':"";
-    var noteHtml=(!isCollapsed&&sec.note)?'<div class="sec-note">'+sec.note.replace(/`([^`]+)`/g,"<code>$1</code>")+'</div>':"";
+    var noteHtml="";
+    if(!isCollapsed&&sec.note){noteHtml='<div class="sec-note">'+sec.note.replace(/`([^`]+)`/g,"<code>$1</code>")+'</div>';}
+    else if(!isCollapsed&&!sec.note){noteHtml='<button class="btn-add-step" style="padding:6px 20px;font-size:11.5px;">+ Add section note</button>';}
     div.innerHTML='<button class="sec-header'+(isCollapsed?"":" open")+'" data-sid="'+sec.id+'"><div class="sec-header-left"><span class="chevron'+(isCollapsed?" closed":"")+'">&#x25BC;</span><span class="sec-title">'+sec.label+critBadge+skipBadge+'</span></div><span class="sec-badge'+(allDone?" done":"")+'" data-badge="'+sec.id+'">'+done+'/'+total+'</span></button>'+noteHtml+'<ul class="items" style="display:'+(isCollapsed?"none":"block")+'"></ul>';
-    div.querySelector(".sec-header").addEventListener("click",function(){inst.state.collapsed[sec.id]=!inst.state.collapsed[sec.id];render();updateProgress();save();});
+    div.querySelector(".sec-header").addEventListener("click",function(e){if(e.target.closest(".sec-title-edit"))return;inst.state.collapsed[sec.id]=!inst.state.collapsed[sec.id];render();updateProgress();save();});
+    var titleEl=div.querySelector(".sec-title");
+    titleEl.addEventListener("dblclick",function(e){e.stopPropagation();editSectionLabel(sec,titleEl);});
+    titleEl.title="Double-click to edit";titleEl.style.cursor="pointer";
+    var noteEl=div.querySelector(".sec-note");
+    if(noteEl){noteEl.addEventListener("dblclick",function(e){e.stopPropagation();editSectionNote(sec,noteEl);});noteEl.title="Double-click to edit";noteEl.style.cursor="pointer";}
+    var addNoteBtn=div.querySelector(".btn-add-step");
+    if(addNoteBtn){addNoteBtn.addEventListener("click",function(e){e.stopPropagation();addSectionNote(sec);});}
     container.appendChild(div);
     if(!isCollapsed)renderItems(sec);
   });
