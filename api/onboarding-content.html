@@ -356,15 +356,20 @@ function load(){
 
 function initDefaultTemplates(){
   return[
-    {id:"new",name:"New client (sub-account)",sections:deepClone(NEW)},
-    {id:"old",name:"Existing client (sub-account)",sections:deepClone(OLD)}
+    {id:"new",name:"New client (sub-account)",builtin:"NEW"},
+    {id:"old",name:"Existing client (sub-account)",builtin:"OLD"}
   ];
+}
+function getTemplateSections(tpl){
+  if(tpl.builtin==="NEW")return NEW;
+  if(tpl.builtin==="OLD")return OLD;
+  return tpl.sections||[];
 }
 function getTemplateById(id){return templates.find(function(t){return t.id===id;})||templates[0];}
 function createInstanceObj(name,date,templateId){
   var tpl=getTemplateById(templateId);
   var inst={id:uid(),name:name||"Untitled",date:date||new Date().toISOString().slice(0,10),
-    templateName:tpl.name,sections:deepClone(tpl.sections),
+    templateName:tpl.name,sections:deepClone(getTemplateSections(tpl)),
     state:{checked:{},order:{},collapsed:{},expanded:{}},notes:{},videos:{}};
   initSectionState(inst.sections,inst.state);
   return inst;
@@ -546,9 +551,9 @@ function hideSettings(){document.getElementById("settingsModal").style.display="
 function renderTemplateList(){
   var list=document.getElementById("templateList");list.innerHTML="";
   templates.forEach(function(tpl,ti){
-    var stepCount=0;tpl.sections.forEach(function(s){stepCount+=s.items.length;});
+    var secs=getTemplateSections(tpl);var stepCount=0;secs.forEach(function(s){stepCount+=s.items.length;});
     var div=document.createElement("div");div.className="tpl-item";
-    div.innerHTML='<div class="tpl-item-info"><span class="tpl-item-name">'+esc(tpl.name)+'</span><span class="tpl-item-meta">'+tpl.sections.length+' sections &middot; '+stepCount+' steps</span></div><button class="btn-icon" title="Rename">&#x270E;</button><button class="btn-icon btn-del" title="Delete">&#x2715;</button>';
+    div.innerHTML='<div class="tpl-item-info"><span class="tpl-item-name">'+esc(tpl.name)+'</span><span class="tpl-item-meta">'+secs.length+' sections &middot; '+stepCount+' steps</span></div><button class="btn-icon" title="Rename">&#x270E;</button><button class="btn-icon btn-del" title="Delete">&#x2715;</button>';
     div.querySelector(".btn-icon").addEventListener("click",function(){editTemplateName(tpl,div.querySelector(".tpl-item-name"));});
     div.querySelector(".btn-del").addEventListener("click",function(){deleteTemplate(ti);});
     list.appendChild(div);
@@ -566,6 +571,7 @@ function addTemplate(){
   templates.push(tpl);save();renderTemplateList();
 }
 function deleteTemplate(idx){
+  if(templates[idx].builtin){alert("Built-in templates cannot be deleted, only renamed.");return;}
   if(templates.length<=1){alert("You need at least one template.");return;}
   if(!confirm("Delete template \""+templates[idx].name+"\"? Existing onboardings are not affected."))return;
   templates.splice(idx,1);save();renderTemplateList();
