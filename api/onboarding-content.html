@@ -278,6 +278,7 @@
       <button class="tb-btn" onclick="expandAll()">Expand all</button>
       <button class="tb-btn" onclick="collapseAll()">Collapse all</button>
       <button class="tb-btn danger" onclick="resetAll()">Reset checkboxes</button>
+      <button class="tb-btn" onclick="saveAsTemplate()" style="margin-left:auto">Save as template</button>
     </div>
     <div class="sections" id="sections"></div>
     <button class="btn-add-section" onclick="addSection()">+ Add section</button>
@@ -641,6 +642,14 @@ function editTemplateName(tpl,nameEl){
 function addTemplate(){
   var tpl={id:"tpl-"+uid(),name:"New template",sections:[{id:"sec-"+uid(),label:"Phase 1",note:"",items:[]}]};
   templates.push(tpl);save();renderTemplateList();
+}
+function saveAsTemplate(){
+  var inst=getActive();if(!inst)return;
+  var name=prompt("Template name:","Template from "+inst.name);
+  if(!name)return;
+  var tpl={id:"tpl-"+uid(),name:name,sections:deepClone(inst.sections)};
+  templates.push(tpl);save();
+  alert("Template \""+name+"\" created with "+tpl.sections.length+" sections. You can find it in Settings.");
 }
 function deleteTemplate(idx){
   if(templates[idx].builtin){alert("Built-in templates cannot be deleted, only renamed.");return;}
