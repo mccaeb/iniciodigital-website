@@ -207,17 +207,29 @@
 
   .footer { font-size: 12px; color: var(--text-3); text-align: center; margin-top: 3rem; font-weight: 500; }
 
+  /* Settings cog */
+  .settings-btn { position: absolute; top: 8px; right: 0; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; font-size: 18px; color: var(--text-3); display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .settings-btn:hover { color: var(--text); background: var(--surface2); transform: rotate(30deg); }
+
+  /* Template items in settings */
+  .tpl-item { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; background: var(--surface); }
+  .tpl-item-info { flex: 1; min-width: 0; }
+  .tpl-item-name { font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px; }
+  .tpl-item-meta { font-size: 11px; color: var(--text-3); font-weight: 500; }
+  .tpl-name-input { width: 100%; padding: 4px 8px; border: 2px solid var(--green); border-radius: 6px; font-size: 14px; font-weight: 700; font-family: inherit; outline: none; box-shadow: 0 0 0 3px rgba(26,107,74,0.08); }
+
+  /* Add section button */
+  .btn-add-section { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 14px 20px; border: 2px dashed var(--border-strong); border-radius: var(--radius); background: none; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; color: var(--text-3); transition: all 0.15s; width: 100%; margin-top: 12px; }
+  .btn-add-section:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+
 </style>
 </head>
 <body>
 <div class="page-wrap">
-  <div class="brand-header">
+  <div class="brand-header" style="position:relative">
     <span class="brand-wordmark">I N I C I O</span>
     <div class="brand-sub">Onboarding</div>
-    <div class="mode-toggle" style="margin: 1.25rem auto 0;">
-      <button class="mode-btn active" id="btn-new" onclick="setMode('new')">New client<span class="sub">New sub-account</span></button>
-      <button class="mode-btn" id="btn-old" onclick="setMode('old')">Existing client<span class="sub">Existing sub-account</span></button>
-    </div>
+    <button class="settings-btn" onclick="showSettings()" title="Templates &amp; settings">&#x2699;</button>
   </div>
   <div class="instance-bar">
     <div style="position:relative">
@@ -256,6 +268,7 @@
       <button class="tb-btn danger" onclick="resetAll()">Reset checkboxes</button>
     </div>
     <div class="sections" id="sections"></div>
+    <button class="btn-add-section" onclick="addSection()">+ Add section</button>
     <p class="footer">Drag to reorder &middot; Add notes &amp; videos per step &middot; Use Enter for detail lines</p>
   </div>
 </div>
@@ -263,10 +276,21 @@
   <div class="modal">
     <div class="modal-title">New client onboarding</div>
     <input class="modal-field" id="modalName" placeholder="Client name"/>
-    <input class="modal-field" id="modalDate" type="date"/>
+    <select class="modal-field" id="modalTemplate"></select>
     <div class="modal-actions">
       <button class="tb-btn" onclick="hideModal()">Cancel</button>
       <button class="tb-btn primary" onclick="confirmCreate()">Create</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="settingsModal" style="display:none" onclick="if(event.target===this)hideSettings()">
+  <div class="modal" style="width:500px">
+    <div class="modal-title">Templates</div>
+    <p style="font-size:12.5px;color:var(--text-3);margin-bottom:16px;font-weight:500">Templates define the starting sections and steps for new onboardings.</p>
+    <div id="templateList"></div>
+    <button class="tb-btn" style="margin-top:4px;width:100%;justify-content:center;display:flex" onclick="addTemplate()">+ New blank template</button>
+    <div class="modal-actions">
+      <button class="tb-btn" onclick="hideSettings()">Close</button>
     </div>
   </div>
 </div>
@@ -285,7 +309,8 @@ OLD.push({id:"o-p2sh",label:"Phase 2 \u2014 Google Sheets connections",note:"The
 
 let instances=[];
 let activeId=null;
-const STORE="onboarding_v2";
+var templates=[];
+const STORE="onboarding_v3";
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 function deepClone(o){return JSON.parse(JSON.stringify(o));}
@@ -296,26 +321,52 @@ function getEmbedUrl(url){var m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\
 function whoClass(w){return{agent:"who-agent",human:"who-human",review:"who-review",skip:"who-skip"}[w]||"who-agent";}
 function whoLabel(w){return{agent:"Agent",human:"Ryan",review:"Review",skip:"Skip"}[w]||"Agent";}
 
-function save(){try{localStorage.setItem(STORE,JSON.stringify({instances:instances,activeId:activeId}));}catch(e){}}
+function save(){try{localStorage.setItem(STORE,JSON.stringify({instances:instances,activeId:activeId,templates:templates}));}catch(e){}}
 function load(){
-  try{var d=JSON.parse(localStorage.getItem(STORE));if(d&&d.instances){instances=d.instances;activeId=d.activeId;}}catch(e){}
+  try{var d=JSON.parse(localStorage.getItem(STORE));
+    if(d&&d.templates){templates=d.templates;}
+    if(d&&d.instances){instances=d.instances;activeId=d.activeId;}
+  }catch(e){}
+  if(!templates.length)templates=initDefaultTemplates();
+  /* Migrate v2 (had newSections/oldSections/mode) */
+  try{var v2=JSON.parse(localStorage.getItem("onboarding_v2"));
+    if(v2&&v2.instances&&v2.instances.length){
+      v2.instances.forEach(function(old){
+        var m=old.mode||"new";
+        var inst={id:old.id,name:old.name,date:old.date,templateName:m==="new"?"New client":"Existing client",
+          sections:m==="new"?(old.newSections||[]):(old.oldSections||[]),
+          state:{checked:(old.state[m]||{}).checked||{},order:(old.state[m]||{}).order||{},collapsed:old.state.collapsed||{},expanded:old.state.expanded||{}},
+          notes:old.notes||{},videos:old.videos||{}};
+        instances.push(inst);
+      });
+      if(v2.activeId)activeId=v2.activeId;
+      save();localStorage.removeItem("onboarding_v2");
+    }
+  }catch(e){}
+  /* Migrate v1 */
   try{var v1=JSON.parse(localStorage.getItem("onboarding_state"));
     if(v1&&!instances.length){
-      var inst=createInstanceObj(v1.cn||"Migrated","");
-      if(v1.s){if(v1.s.new)inst.state.new=v1.s.new;if(v1.s.old)inst.state.old=v1.s.old;if(v1.s.collapsed)inst.state.collapsed=v1.s.collapsed;}
-      if(v1.m)inst.mode=v1.m;if(v1.cd)inst.date=v1.cd;
-      if(v1.ni)inst.newSections=v1.ni;if(v1.oi)inst.oldSections=v1.oi;
+      var m=v1.m||"new";var secs=m==="new"?(v1.ni||deepClone(NEW)):(v1.oi||deepClone(OLD));
+      var inst={id:uid(),name:v1.cn||"Migrated",date:v1.cd||"",templateName:m==="new"?"New client":"Existing client",
+        sections:secs,state:{checked:(v1.s&&v1.s[m]?v1.s[m].checked:{})||{},order:(v1.s&&v1.s[m]?v1.s[m].order:{})||{},collapsed:(v1.s?v1.s.collapsed:{})||{},expanded:{}},notes:{},videos:{}};
       instances.push(inst);activeId=inst.id;save();localStorage.removeItem("onboarding_state");
     }
   }catch(e){}
 }
 
-function createInstanceObj(name,date){
-  var inst={id:uid(),name:name||"Untitled",date:date||new Date().toISOString().slice(0,10),mode:"new",
-    newSections:deepClone(NEW),oldSections:deepClone(OLD),
-    state:{new:{checked:{},order:{}},old:{checked:{},order:{}},collapsed:{},expanded:{}},notes:{},videos:{}};
-  initSectionState(inst.newSections,inst.state.new);
-  initSectionState(inst.oldSections,inst.state.old);
+function initDefaultTemplates(){
+  return[
+    {id:"new",name:"New client (sub-account)",sections:deepClone(NEW)},
+    {id:"old",name:"Existing client (sub-account)",sections:deepClone(OLD)}
+  ];
+}
+function getTemplateById(id){return templates.find(function(t){return t.id===id;})||templates[0];}
+function createInstanceObj(name,date,templateId){
+  var tpl=getTemplateById(templateId);
+  var inst={id:uid(),name:name||"Untitled",date:date||new Date().toISOString().slice(0,10),
+    templateName:tpl.name,sections:deepClone(tpl.sections),
+    state:{checked:{},order:{},collapsed:{},expanded:{}},notes:{},videos:{}};
+  initSectionState(inst.sections,inst.state);
   return inst;
 }
 function initSectionState(sections,stateObj){
@@ -325,16 +376,21 @@ function initSectionState(sections,stateObj){
   });
 }
 function getActive(){return instances.find(function(i){return i.id===activeId;})||null;}
-function getSections(){var inst=getActive();if(!inst)return[];return inst.mode==="new"?inst.newSections:inst.oldSections;}
-function getState(){var inst=getActive();if(!inst)return{checked:{},order:{}};return inst.state[inst.mode];}
+function getSections(){var inst=getActive();if(!inst)return[];return inst.sections;}
+function getState(){var inst=getActive();if(!inst)return{checked:{},order:{}};return inst.state;}
 
-function showModal(){document.getElementById("modal").style.display="";document.getElementById("modalName").value="";document.getElementById("modalDate").value=new Date().toISOString().slice(0,10);setTimeout(function(){document.getElementById("modalName").focus();},50);}
+function showModal(){
+  document.getElementById("modal").style.display="";document.getElementById("modalName").value="";
+  var sel=document.getElementById("modalTemplate");sel.innerHTML="";
+  templates.forEach(function(t){var o=document.createElement("option");o.value=t.id;o.textContent=t.name;sel.appendChild(o);});
+  setTimeout(function(){document.getElementById("modalName").focus();},50);
+}
 function hideModal(){document.getElementById("modal").style.display="none";}
 function confirmCreate(){
   var name=document.getElementById("modalName").value.trim();
-  var date=document.getElementById("modalDate").value;
+  var tplId=document.getElementById("modalTemplate").value;
   if(!name){document.getElementById("modalName").focus();return;}
-  var inst=createInstanceObj(name,date);
+  var inst=createInstanceObj(name,new Date().toISOString().slice(0,10),tplId);
   instances.push(inst);activeId=inst.id;save();hideModal();renderAll();
 }
 function switchInstance(id){activeId=id;save();closeDropdown();renderAll();}
@@ -351,7 +407,6 @@ document.addEventListener("click",function(e){if(dropdownOpen&&!e.target.closest
 
 function updateName(){}
 function updateDate(){}
-function setMode(m){var inst=getActive();if(!inst)return;inst.mode=m;document.getElementById("btn-new").classList.toggle("active",m==="new");document.getElementById("btn-old").classList.toggle("active",m==="old");render();save();}
 
 function updateProgress(){var s=getState();var keys=Object.keys(s.checked);var done=keys.filter(function(k){return s.checked[k];}).length;var total=keys.length;var pct=total?Math.round(done/total*100):0;document.getElementById("prog-done").textContent=done;document.getElementById("prog-total").textContent=total;document.getElementById("prog-fill").style.width=pct+"%";}
 function updateBadge(sId){var sec=getSections().find(function(x){return x.id===sId;});if(!sec)return;var s=getState();var order=s.order[sId]||[];var done=order.filter(function(i){return s.checked[sId+"-"+i];}).length;var total=sec.items.length;var badge=document.querySelector('[data-badge="'+sId+'"]');var secEl=document.getElementById("sec-"+sId);if(badge){badge.textContent=done+"/"+total;badge.className="sec-badge"+(done===total?" done":"");}if(secEl){secEl.classList.toggle("all-done",done===total);}}
@@ -475,12 +530,53 @@ function editSectionNote(sec,noteEl){
 }
 function addSectionNote(sec){sec.note=sec.note||"New note";render();save();var noteEl=document.querySelector("#sec-"+sec.id+" .sec-note");if(noteEl)editSectionNote(sec,noteEl);}
 
+function addSection(){
+  var inst=getActive();if(!inst)return;
+  var num=inst.sections.length+1;
+  var sec={id:"sec-"+uid(),label:"New section "+num,note:"",items:[]};
+  inst.sections.push(sec);
+  inst.state.order[sec.id]=[];
+  render();save();
+}
+
+function showSettings(){
+  document.getElementById("settingsModal").style.display="";renderTemplateList();
+}
+function hideSettings(){document.getElementById("settingsModal").style.display="none";}
+function renderTemplateList(){
+  var list=document.getElementById("templateList");list.innerHTML="";
+  templates.forEach(function(tpl,ti){
+    var stepCount=0;tpl.sections.forEach(function(s){stepCount+=s.items.length;});
+    var div=document.createElement("div");div.className="tpl-item";
+    div.innerHTML='<div class="tpl-item-info"><span class="tpl-item-name">'+esc(tpl.name)+'</span><span class="tpl-item-meta">'+tpl.sections.length+' sections &middot; '+stepCount+' steps</span></div><button class="btn-icon" title="Rename">&#x270E;</button><button class="btn-icon btn-del" title="Delete">&#x2715;</button>';
+    div.querySelector(".btn-icon").addEventListener("click",function(){editTemplateName(tpl,div.querySelector(".tpl-item-name"));});
+    div.querySelector(".btn-del").addEventListener("click",function(){deleteTemplate(ti);});
+    list.appendChild(div);
+  });
+}
+function editTemplateName(tpl,nameEl){
+  var input=document.createElement("input");input.className="tpl-name-input";input.value=tpl.name;
+  nameEl.innerHTML="";nameEl.appendChild(input);input.focus();input.select();
+  var doSave=function(){var v=input.value.trim();if(v)tpl.name=v;save();renderTemplateList();};
+  input.addEventListener("blur",doSave);
+  input.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();doSave();}if(e.key==="Escape")renderTemplateList();});
+}
+function addTemplate(){
+  var tpl={id:"tpl-"+uid(),name:"New template",sections:[{id:"sec-"+uid(),label:"Phase 1",note:"",items:[]}]};
+  templates.push(tpl);save();renderTemplateList();
+}
+function deleteTemplate(idx){
+  if(templates.length<=1){alert("You need at least one template.");return;}
+  if(!confirm("Delete template \""+templates[idx].name+"\"? Existing onboardings are not affected."))return;
+  templates.splice(idx,1);save();renderTemplateList();
+}
+
 function renderAll(){renderInstanceBar();renderMain();}
 
 function renderInstanceBar(){
   var list=document.getElementById("instanceList");list.innerHTML="";
   instances.forEach(function(inst){
-    var s=inst.state[inst.mode];var keys=Object.keys(s.checked);
+    var s=inst.state;var keys=Object.keys(s.checked);
     var done=keys.filter(function(k){return s.checked[k];}).length;
     var total=keys.length;var pct=total?Math.round(done/total*100):0;
     var div=document.createElement("div");div.className="instance-item"+(inst.id===activeId?" active":"");
@@ -490,16 +586,14 @@ function renderInstanceBar(){
     list.appendChild(div);
   });
   var inst=getActive();var trigger=document.getElementById("triggerName");var meta=document.getElementById("triggerMeta");
-  if(inst){trigger.textContent=inst.name;var s=inst.state[inst.mode];var keys=Object.keys(s.checked);var done=keys.filter(function(k){return s.checked[k];}).length;var total=keys.length;var pct=total?Math.round(done/total*100):0;meta.textContent=inst.date+" \u00B7 "+pct+"% complete";}
+  if(inst){trigger.textContent=inst.name;var s=inst.state;var keys=Object.keys(s.checked);var done=keys.filter(function(k){return s.checked[k];}).length;var total=keys.length;var pct=total?Math.round(done/total*100):0;meta.textContent=inst.date+" \u00B7 "+pct+"% complete";}
   else{trigger.textContent="Select onboarding...";meta.textContent="";}
 }
 
 function renderMain(){
-  var inst=getActive();var main=document.getElementById("mainContent");var empty=document.getElementById("emptyState");var modeToggle=document.querySelector(".mode-toggle");
-  if(!inst){main.style.display="none";empty.style.display="";if(modeToggle)modeToggle.style.display="none";return;}
-  main.style.display="";empty.style.display="none";if(modeToggle)modeToggle.style.display="";
-  document.getElementById("btn-new").classList.toggle("active",inst.mode==="new");
-  document.getElementById("btn-old").classList.toggle("active",inst.mode==="old");
+  var inst=getActive();var main=document.getElementById("mainContent");var empty=document.getElementById("emptyState");
+  if(!inst){main.style.display="none";empty.style.display="";return;}
+  main.style.display="";empty.style.display="none";
   render();
 }
 
