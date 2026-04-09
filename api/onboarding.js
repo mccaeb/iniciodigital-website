@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const PASSWORD = 'musashi321';
+const PASSWORD = 'InicioDig1tal!';
 const COOKIE_NAME = 'onboarding_auth';
 const TOKEN = crypto.createHash('sha256').update(PASSWORD + '_inicio_onboarding').digest('hex');
 
