@@ -179,6 +179,18 @@
 
   /* Video panel */
   .video-panel { padding: 10px 20px 14px 56px; border-top: 1px solid var(--border); background: #FAFAF8; }
+
+  /* Image panel */
+  .image-panel { padding: 10px 20px 14px 56px; border-top: 1px solid var(--border); background: #FAFAF8; }
+  .image-item { position: relative; margin-bottom: 10px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
+  .image-item img { display: block; width: 100%; border-radius: var(--radius-sm); cursor: pointer; }
+  .image-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.7); color: white; border: none; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.15s; }
+  .image-item:hover .image-del { opacity: 1; }
+  .image-input-row { display: flex; gap: 6px; align-items: center; }
+  .image-upload-btn { padding: 7px 14px; border: 1px dashed var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text-2); font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; flex: 1; text-align: center; }
+  .image-upload-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+  .image-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 2000; cursor: pointer; }
+  .image-lightbox img { max-width: 90vw; max-height: 90vh; border-radius: var(--radius); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
   .video-item { position: relative; margin-bottom: 10px; border-radius: var(--radius-sm); overflow: hidden; }
   .video-item iframe { display: block; width: 100%; aspect-ratio: 16/9; border: none; border-radius: var(--radius-sm); }
   .video-item-link { display: block; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; color: #2563EB; text-decoration: none; word-break: break-all; transition: background 0.12s; }
@@ -503,6 +515,51 @@ function renderNotes(secId,itemIdx){
 }
 
 function toggleVideo(secId,itemIdx){var key=secId+"-"+itemIdx;var panel=document.getElementById("video-"+key);if(panel)panel.style.display=panel.style.display==="none"?"":"none";}
+
+function toggleImages(secId,itemIdx){var key=secId+"-"+itemIdx;var panel=document.getElementById("images-"+key);if(panel)panel.style.display=panel.style.display==="none"?"":"none";}
+function addImage(secId,itemIdx){
+  var inst=getActive();if(!inst)return;var key=secId+"-"+itemIdx;
+  var input=document.createElement("input");input.type="file";input.accept="image/*";input.multiple=true;
+  input.addEventListener("change",function(){
+    if(!input.files||!input.files.length)return;
+    if(!inst.images)inst.images={};if(!inst.images[key])inst.images[key]=[];
+    Array.from(input.files).forEach(function(file){
+      var reader=new FileReader();
+      reader.onload=function(e){
+        inst.images[key].push({data:e.target.result,name:file.name,ts:Date.now()});
+        save();renderImages(secId,itemIdx);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+  input.click();
+}
+function removeImage(secId,itemIdx,imgIdx){
+  var inst=getActive();if(!inst||!inst.images)return;var key=secId+"-"+itemIdx;
+  if(!inst.images[key])return;inst.images[key].splice(imgIdx,1);
+  if(!inst.images[key].length)delete inst.images[key];
+  save();renderImages(secId,itemIdx);
+}
+function renderImages(secId,itemIdx){
+  var inst=getActive();if(!inst)return;var key=secId+"-"+itemIdx;
+  var list=document.getElementById("imglist-"+key);if(!list)return;
+  var imgs=(inst.images&&inst.images[key])||[];list.innerHTML="";
+  imgs.forEach(function(img,ii){
+    var div=document.createElement("div");div.className="image-item";
+    div.innerHTML='<img src="'+img.data+'" alt="'+esc(img.name||"image")+'" title="'+esc(img.name||"image")+'"/><button class="image-del" title="Remove">&times;</button>';
+    div.querySelector("img").addEventListener("click",function(){openLightbox(img.data);});
+    div.querySelector(".image-del").addEventListener("click",function(){removeImage(secId,itemIdx,ii);});
+    list.appendChild(div);
+  });
+  var countEl=document.getElementById("imgcnt-"+key);
+  if(countEl){countEl.textContent=imgs.length;countEl.style.display=imgs.length?"":"none";}
+}
+function openLightbox(src){
+  var lb=document.createElement("div");lb.className="image-lightbox";
+  lb.innerHTML='<img src="'+src+'"/>';
+  lb.addEventListener("click",function(){lb.remove();});
+  document.body.appendChild(lb);
+}
 function addVideo(secId,itemIdx){
   var inst=getActive();if(!inst)return;var key=secId+"-"+itemIdx;
   var input=document.getElementById("vidurl-"+key);if(!input||!input.value.trim())return;
@@ -653,7 +710,7 @@ function renderItems(sec){
     var lines=item.t.split("\n");var mainLine=lines[0];
     var detailLines=lines.slice(1).filter(function(l){return l.trim();});
     var hasDetails=detailLines.length>0;var isExpanded=inst.state.expanded[key];
-    var notes=inst.notes[key]||[];var videos=inst.videos[key]||[];
+    var notes=inst.notes[key]||[];var videos=inst.videos[key]||[];var images=(inst.images&&inst.images[key])||[];
 
     var li=document.createElement("li");li.className="item"+(isChecked?" checked":"");li.draggable=true;li.dataset.pos=posIdx;
 
@@ -669,10 +726,12 @@ function renderItems(sec){
     html+='<div class="item-extras">';
     html+='<button class="extra-toggle'+(notes.length?" has-content":"")+'">Notes <span class="extra-count" id="notecnt-'+key+'" style="display:'+(notes.length?"":"none")+'">'+notes.length+'</span></button>';
     html+='<button class="extra-toggle'+(videos.length?" has-content":"")+'">Video <span class="extra-count" id="vidcnt-'+key+'" style="display:'+(videos.length?"":"none")+'">'+videos.length+'</span></button>';
+    html+='<button class="extra-toggle'+(images.length?" has-content":"")+'">Images <span class="extra-count" id="imgcnt-'+key+'" style="display:'+(images.length?"":"none")+'">'+images.length+'</span></button>';
     html+='</div>';
 
     html+='<div class="notes-panel" id="notes-'+key+'" style="display:none"><div id="notelist-'+key+'"></div><div class="note-input-row"><input class="note-input" id="notein-'+key+'" placeholder="Add a note..."/><select class="note-author-sel" id="noteauth-'+key+'"><option>Ryan</option><option>VA</option></select><button class="note-add-btn">Add</button></div></div>';
     html+='<div class="video-panel" id="video-'+key+'" style="display:none"><div id="vidlist-'+key+'"></div><div class="video-input-row"><input class="video-url-input" id="vidurl-'+key+'" placeholder="Paste YouTube or Loom URL..."/><button class="video-add-btn">Add</button></div></div>';
+    html+='<div class="image-panel" id="images-'+key+'" style="display:none"><div id="imglist-'+key+'"></div><div class="image-input-row"><button class="image-upload-btn">Upload image</button></div></div>';
 
     li.innerHTML=html;
 
@@ -690,6 +749,7 @@ function renderItems(sec){
     var extraBtns=li.querySelectorAll(".extra-toggle");
     extraBtns[0].addEventListener("click",function(){toggleNotes(sec.id,itemIdx);});
     extraBtns[1].addEventListener("click",function(){toggleVideo(sec.id,itemIdx);});
+    extraBtns[2].addEventListener("click",function(){toggleImages(sec.id,itemIdx);});
 
     var noteAddBtn=li.querySelector(".note-add-btn");
     noteAddBtn.addEventListener("click",function(){addNote(sec.id,itemIdx);});
@@ -698,6 +758,9 @@ function renderItems(sec){
 
     var vidAddBtn=li.querySelector(".video-add-btn");
     vidAddBtn.addEventListener("click",function(){addVideo(sec.id,itemIdx);});
+
+    var imgUpBtn=li.querySelector(".image-upload-btn");
+    imgUpBtn.addEventListener("click",function(){addImage(sec.id,itemIdx);});
     var vidInput=li.querySelector("#vidurl-"+key);
     vidInput.addEventListener("keydown",function(e){if(e.key==="Enter")addVideo(sec.id,itemIdx);});
 
@@ -710,6 +773,7 @@ function renderItems(sec){
     ul.appendChild(li);
     renderNotes(sec.id,itemIdx);
     renderVideos(sec.id,itemIdx);
+    renderImages(sec.id,itemIdx);
   });
 
   var addBtn=document.createElement("button");addBtn.className="btn-add-step";addBtn.innerHTML="+ Add step";
