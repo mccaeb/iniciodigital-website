@@ -95,6 +95,9 @@
   .badge-tag { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; margin-left: 8px; letter-spacing: .03em; text-transform: uppercase; }
   .tag-critical { background: #FEE2E2; color: #991B1B; }
   .tag-skip { background: var(--surface2); color: #6B6B65; }
+  .sec-edit-btn { opacity: 0; border: none; background: none; cursor: pointer; font-size: 12px; color: var(--text-3); padding: 2px 4px; border-radius: 4px; transition: all 0.12s; flex-shrink: 0; }
+  .sec-header:hover .sec-edit-btn { opacity: 1; }
+  .sec-edit-btn:hover { color: var(--text); background: var(--surface2); }
   .sec-badge { font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 99px; flex-shrink: 0; background: var(--surface2); color: var(--text-3); transition: all 0.2s; min-width: 48px; text-align: center; border: 1px solid var(--border); }
   .sec-badge.done { background: var(--green-light); color: var(--green-dark); border-color: var(--green-mid); }
   .sec-note { padding: 12px 20px; font-size: 12.5px; color: var(--text-2); line-height: 1.7; background: #FAFAF8; border-bottom: 1px solid var(--border); border-left: 3px solid var(--green-mid); }
@@ -361,6 +364,7 @@ function resetAll(){if(!confirm("Reset all checkboxes for this onboarding?"))ret
 var dragFrom=null,dragFromSid=null;
 
 function deleteItem(sec,itemIdx){
+  if(!confirm("Delete this step?"))return;
   var s=getState();var order=s.order[sec.id];var pos=order.indexOf(itemIdx);if(pos===-1)return;
   order.splice(pos,1);delete s.checked[sec.id+"-"+itemIdx];
   renderItems(sec);updateBadge(sec.id);updateProgress();save();
@@ -512,11 +516,11 @@ function render(){
     var noteHtml="";
     if(!isCollapsed&&sec.note){noteHtml='<div class="sec-note">'+sec.note.replace(/`([^`]+)`/g,"<code>$1</code>")+'</div>';}
     else if(!isCollapsed&&!sec.note){noteHtml='<button class="btn-add-step" style="padding:6px 20px;font-size:11.5px;">+ Add section note</button>';}
-    div.innerHTML='<button class="sec-header'+(isCollapsed?"":" open")+'" data-sid="'+sec.id+'"><div class="sec-header-left"><span class="chevron'+(isCollapsed?" closed":"")+'">&#x25BC;</span><span class="sec-title">'+sec.label+critBadge+skipBadge+'</span></div><span class="sec-badge'+(allDone?" done":"")+'" data-badge="'+sec.id+'">'+done+'/'+total+'</span></button>'+noteHtml+'<ul class="items" style="display:'+(isCollapsed?"none":"block")+'"></ul>';
-    div.querySelector(".sec-header").addEventListener("click",function(e){if(e.target.closest(".sec-title-edit"))return;inst.state.collapsed[sec.id]=!inst.state.collapsed[sec.id];render();updateProgress();save();});
+    div.innerHTML='<button class="sec-header'+(isCollapsed?"":" open")+'" data-sid="'+sec.id+'"><div class="sec-header-left"><span class="chevron'+(isCollapsed?" closed":"")+'">&#x25BC;</span><span class="sec-title">'+sec.label+critBadge+skipBadge+'</span></div><span class="sec-edit-btn" title="Rename section">&#x270E;</span><span class="sec-badge'+(allDone?" done":"")+'" data-badge="'+sec.id+'">'+done+'/'+total+'</span></button>'+noteHtml+'<ul class="items" style="display:'+(isCollapsed?"none":"block")+'"></ul>';
+    div.querySelector(".sec-header").addEventListener("click",function(e){if(e.target.closest(".sec-title-edit")||e.target.closest(".sec-edit-btn"))return;inst.state.collapsed[sec.id]=!inst.state.collapsed[sec.id];render();updateProgress();save();});
     var titleEl=div.querySelector(".sec-title");
     titleEl.addEventListener("dblclick",function(e){e.stopPropagation();editSectionLabel(sec,titleEl);});
-    titleEl.title="Double-click to edit";titleEl.style.cursor="pointer";
+    div.querySelector(".sec-edit-btn").addEventListener("click",function(e){e.stopPropagation();editSectionLabel(sec,titleEl);});
     var noteEl=div.querySelector(".sec-note");
     if(noteEl){noteEl.addEventListener("dblclick",function(e){e.stopPropagation();editSectionNote(sec,noteEl);});noteEl.title="Double-click to edit";noteEl.style.cursor="pointer";}
     var addNoteBtn=div.querySelector(".btn-add-step");
