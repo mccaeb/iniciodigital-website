@@ -536,6 +536,7 @@ function addImage(secId,itemIdx){
   input.click();
 }
 function removeImage(secId,itemIdx,imgIdx){
+  if(!confirm("Delete this image?"))return;
   var inst=getActive();if(!inst||!inst.images)return;var key=secId+"-"+itemIdx;
   if(!inst.images[key])return;inst.images[key].splice(imgIdx,1);
   if(!inst.images[key].length)delete inst.images[key];
