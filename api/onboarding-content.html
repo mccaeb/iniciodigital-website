@@ -103,7 +103,7 @@
   .sec-note { padding: 12px 20px; font-size: 13.5px; color: var(--text-2); line-height: 1.7; background: #FAFAF8; border-bottom: 1px solid var(--border); border-left: 3px solid var(--green-mid); }
   .sec-note code { font-family: "SF Mono","Fira Code","Courier New",monospace; font-size: 12px; background: #EEEEED; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border-strong); color: var(--text); word-break: break-all; }
   .sec-note[contenteditable="true"] { outline: 2px solid var(--green); border-radius: 4px; box-shadow: 0 0 0 4px rgba(26,107,74,0.08); cursor: text; }
-  .sec-title-edit { width: 100%; padding: 4px 8px; border: 2px solid var(--green); border-radius: 6px; font-size: 15px; font-weight: 700; font-family: inherit; background: var(--surface); color: var(--text); outline: none; box-shadow: 0 0 0 4px rgba(26,107,74,0.08); }
+  .sec-title-edit { width: 500px; max-width: 100%; min-width: 280px; padding: 8px 12px; border: 2px solid var(--green); border-radius: 8px; font-size: 15px; font-weight: 700; font-family: inherit; background: var(--surface); color: var(--text); outline: none; box-shadow: 0 0 0 4px rgba(26,107,74,0.08); }
   .section.all-done .sec-header { background: var(--green-light); }
   .section.all-done .sec-title { color: var(--green-dark); }
 
@@ -439,7 +439,7 @@ function updateName(){}
 function updateDate(){}
 
 function updateProgress(){var s=getState();var keys=Object.keys(s.checked);var done=keys.filter(function(k){return s.checked[k];}).length;var total=keys.length;var pct=total?Math.round(done/total*100):0;document.getElementById("prog-done").textContent=done;document.getElementById("prog-total").textContent=total;document.getElementById("prog-fill").style.width=pct+"%";}
-function updateBadge(sId){var sec=getSections().find(function(x){return x.id===sId;});if(!sec)return;var s=getState();var order=s.order[sId]||[];var done=order.filter(function(i){return s.checked[sId+"-"+i];}).length;var total=sec.items.length;var badge=document.querySelector('[data-badge="'+sId+'"]');var secEl=document.getElementById("sec-"+sId);if(badge){badge.textContent=done+"/"+total;badge.className="sec-badge"+(done===total?" done":"");}if(secEl){secEl.classList.toggle("all-done",done===total);}}
+function updateBadge(sId){var sec=getSections().find(function(x){return x.id===sId;});if(!sec)return;var s=getState();var order=s.order[sId]||[];var done=order.filter(function(i){return s.checked[sId+"-"+i];}).length;var total=order.length;var badge=document.querySelector('[data-badge="'+sId+'"]');var secEl=document.getElementById("sec-"+sId);if(badge){badge.textContent=done+"/"+total;badge.className="sec-badge"+(done===total?" done":"");}if(secEl){secEl.classList.toggle("all-done",done===total);}}
 
 function expandAll(){var inst=getActive();if(!inst)return;getSections().forEach(function(s){inst.state.collapsed[s.id]=false;});render();save();}
 function collapseAll(){var inst=getActive();if(!inst)return;getSections().forEach(function(s){inst.state.collapsed[s.id]=true;});render();save();}
@@ -690,7 +690,7 @@ function render(){
   getSections().forEach(function(sec){
     var s=getState();var order=s.order[sec.id]||[];
     var done=order.filter(function(i){return s.checked[sec.id+"-"+i];}).length;
-    var total=sec.items.length;var isCollapsed=inst.state.collapsed[sec.id];var allDone=done===total;
+    var total=order.length;var isCollapsed=inst.state.collapsed[sec.id];var allDone=done===total;
     var div=document.createElement("div");div.className="section"+(allDone?" all-done":"");div.id="sec-"+sec.id;
     var critBadge=sec.critical?'<span class="badge-tag tag-critical">critical</span>':"";
     var skipBadge=sec.skip?'<span class="badge-tag tag-skip">skip</span>':"";
