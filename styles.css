@@ -54,6 +54,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
 .nav-wa{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#999;text-decoration:none;padding:7px 14px;border-radius:9px;transition:all .3s}
 .nav-wa:hover{color:var(--wa);background:rgba(37,211,102,.06)}
 .nav-wa-mark{width:30px;height:30px;border-radius:9px;background:var(--wa);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-wa-line{display:none}
 @media(max-width:768px){
   .nav{padding:0 20px;height:56px;justify-content:center}
   .nav-mid{display:none}
@@ -61,9 +62,21 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI'
   .nav-wa{padding:0}
   .nav.scrolled{background:rgba(245,245,243,0.96)}
   .nav-logo{display:contents}
-  .nav-logo-mark{position:absolute;left:20px}
   .nav-logo-text{position:absolute;left:50%;transform:translateX(-50%)}
-  .nav-right{position:absolute;right:20px}
+  /* Burger right, WhatsApp left — both plain black line icons */
+  .nav-logo-mark{position:absolute;right:20px;left:auto;background:none;border-radius:0;overflow:visible;width:24px;height:24px}
+  .nav-logo-mark .mark-track{transform:none!important}
+  .nav-logo-mark .mark-item:first-child{display:none}
+  .nav-logo-mark .mark-item{width:24px;height:24px}
+  .mark-burger{gap:4px}
+  .nav-logo-mark .mark-burger span{width:18px;height:2px;background:var(--ink)}
+  .nav-logo-mark.menu-open .mark-burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .nav-logo-mark.menu-open .mark-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .nav-right{position:absolute;left:20px;right:auto}
+  .nav-wa-mark{width:24px;height:24px;background:none;border-radius:0;color:var(--ink)}
+  .nav-wa:hover .nav-wa-mark,.nav-wa:active .nav-wa-mark{color:var(--ink)}
+  .nav-wa-solid{display:none}
+  .nav-wa-line{display:block}
 }
 
 /* ── Mark track / burger (nav logo) ── */
