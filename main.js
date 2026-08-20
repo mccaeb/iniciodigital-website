@@ -46,14 +46,37 @@
 
     if (reduceMotion || !('IntersectionObserver' in window)) { showAll(); return; }
 
-    /* Reveal anything already in view on the next frame so the
-       initial viewport never waits on scroll events. */
-    var vh = window.innerHeight || root.clientHeight;
-    requestAnimationFrame(function () {
+    function revealInView() {
+      var vh = window.innerHeight || root.clientHeight;
       each(rvEls, function (el) {
         if (el.getBoundingClientRect().top < vh * 1.1) rvShow(el);
       });
-    });
+    }
+
+    /* Reveal anything already in view straight away, then again on the
+       next frame. A tab that loads hidden, throttled or stalled gets no
+       frames and no observer callbacks, and hiding is already stamped on
+       html.js by this point — so nothing here may be the only thing
+       standing between the visitor and a blank page. */
+    revealInView();
+    requestAnimationFrame(revealInView);
+
+    /* Safety nets for that same case: re-check whenever the page comes
+       back to the front, is restored from the back/forward cache, or is
+       scrolled. Scrolling covers a dead observer; the listener detaches
+       once everything is out. */
+    function recheck() {
+      revealInView();
+      for (var i = 0; i < rvEls.length; i++) {
+        if (rvEls[i].className.indexOf('vis') === -1) return;
+      }
+      doc.removeEventListener('visibilitychange', recheck);
+      window.removeEventListener('pageshow', recheck);
+      window.removeEventListener('scroll', recheck);
+    }
+    doc.addEventListener('visibilitychange', recheck);
+    window.addEventListener('pageshow', recheck);
+    window.addEventListener('scroll', recheck, { passive: true });
 
     var rvObs = new IntersectionObserver(function (entries) {
       each(entries, function (entry) {
