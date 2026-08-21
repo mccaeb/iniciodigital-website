@@ -108,10 +108,12 @@
   .section.all-done .sec-title { color: var(--green-dark); }
 
   /* Items */
-  .items { list-style: none; padding: 4px 0 6px; }
-  .item { border-bottom: 1px solid var(--border); }
-  .item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .item-row { display: flex; align-items: flex-start; gap: 10px; padding: 11px 20px 9px; cursor: grab; transition: background 0.12s; position: relative; }
+  .items { list-style: none; padding: 8px 10px 10px; flex-direction: column; gap: 7px; }
+  .item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: box-shadow 0.15s var(--ease); }
+  .item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .item.up-next { border-color: var(--green-mid); box-shadow: 0 2px 10px rgba(26,107,74,0.13); }
+  .item-row { display: flex; align-items: flex-start; gap: 10px; padding: 11px 14px 9px; cursor: grab; transition: background 0.12s; position: relative; }
   .item-row:hover { background: #FAFAF8; }
   .item.checked .item-row { background: #f0faf5; }
   .item.drag-over { background: var(--green-light); outline: 2px dashed var(--green-mid); outline-offset: -2px; }
@@ -207,7 +209,7 @@
   .item-details li::before { content: ""; display: inline-block; width: 4px; height: 4px; background: var(--green-mid); border-radius: 50%; margin-right: 8px; vertical-align: middle; }
 
   /* Extras bar */
-  .item-extras { display: flex; gap: 6px; padding: 0 20px 0 56px; }
+  .item-extras { display: flex; gap: 6px; padding: 0 14px 0 50px; }
   .extra-toggle { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-3); cursor: pointer; padding: 3px 10px; border-radius: 99px; background: none; border: 1px solid transparent; font-family: inherit; transition: all 0.15s; font-weight: 600; }
   .extra-toggle:hover { color: var(--text-2); background: var(--surface2); border-color: var(--border); }
   .extra-toggle.has-content { color: var(--text-2); background: var(--surface2); border-color: var(--border); }
@@ -890,7 +892,7 @@ function render(){
     var noteHtml="";
     if(!isCollapsed&&sec.note){noteHtml='<div class="sec-note">'+sec.note.replace(/`([^`]+)`/g,"<code>$1</code>")+'</div>';}
     else if(!isCollapsed&&!sec.note){noteHtml='<button class="btn-add-step" style="padding:6px 20px;font-size:11.5px;">+ Add section note</button>';}
-    div.innerHTML='<button class="sec-header'+(isCollapsed?"":" open")+'" data-sid="'+sec.id+'"><div class="sec-header-left"><span class="chevron'+(isCollapsed?" closed":"")+'">&#x25BC;</span><span class="sec-title">'+sec.label+critBadge+skipBadge+(allDone?'<span class="sec-done-tick">\u2713</span>':"")+'</span></div><span class="sec-edit-btn" title="Rename section">&#x270E;</span><span class="sec-badge'+(allDone?" done":"")+'" data-badge="'+sec.id+'">'+done+'/'+total+'</span></button>'+noteHtml+'<ul class="items" style="display:'+(isCollapsed?"none":"block")+'"></ul>';
+    div.innerHTML='<button class="sec-header'+(isCollapsed?"":" open")+'" data-sid="'+sec.id+'"><div class="sec-header-left"><span class="chevron'+(isCollapsed?" closed":"")+'">&#x25BC;</span><span class="sec-title">'+sec.label+critBadge+skipBadge+(allDone?'<span class="sec-done-tick">\u2713</span>':"")+'</span></div><span class="sec-edit-btn" title="Rename section">&#x270E;</span><span class="sec-badge'+(allDone?" done":"")+'" data-badge="'+sec.id+'">'+done+'/'+total+'</span></button>'+noteHtml+'<ul class="items" style="display:'+(isCollapsed?"none":"flex")+'"></ul>';
     div.querySelector(".sec-header").addEventListener("click",function(e){if(e.target.closest(".sec-title-edit")||e.target.closest(".sec-edit-btn"))return;inst.state.collapsed[sec.id]=!inst.state.collapsed[sec.id];render();updateProgress();save();});
     var titleEl=div.querySelector(".sec-title");
     titleEl.addEventListener("dblclick",function(e){e.stopPropagation();editSectionLabel(sec,titleEl);});
