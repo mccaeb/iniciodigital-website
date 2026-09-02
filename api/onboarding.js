@@ -34,8 +34,8 @@ const LOGIN_HTML = `<!DOCTYPE html>
   .login { background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04); width: 320px; }
   h2 { font-size: 18px; margin: 0 0 1rem; color: #1A1A18; }
   input { width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.13); border-radius: 8px; font-size: 14px; font-family: inherit; box-sizing: border-box; outline: none; }
-  input:focus { border-color: #1D9E75; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); }
-  button { width: 100%; margin-top: 12px; padding: 10px; background: #1D9E75; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-family: inherit; font-weight: 500; cursor: pointer; }
+  input:focus { border-color: #2b3154; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); }
+  button { width: 100%; margin-top: 12px; padding: 10px; background: #2b3154; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-family: inherit; font-weight: 500; cursor: pointer; }
   button:hover { background: #0F6E56; }
   .error { color: #B91C1C; font-size: 13px; margin-top: 8px; }
 </style>
