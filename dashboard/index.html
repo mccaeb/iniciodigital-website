@@ -162,12 +162,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 @media(max-width:768px){.mock-stats{grid-template-columns:repeat(2,1fr);gap:6px}}
 .mock-stat{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
 @media(max-width:768px){.mock-stat{padding:8px;border-radius:8px}.mock-stat-label{font-size:7px;margin-bottom:2px}.mock-stat-sub{font-size:7px}}
-.mock-stat.accent{background:linear-gradient(135deg,#2b3154,#1e2340);border:1px solid #edd8ab;color:#fff;box-shadow:0 2px 6px rgba(43,49,84,.2),0 8px 20px rgba(43,49,84,.12)}
+.mock-stat.accent{background:linear-gradient(135deg,#2b3154,#1e2340);border:1px solid rgba(255,255,255,.25);color:#fff;box-shadow:0 2px 6px rgba(43,49,84,.2),0 8px 20px rgba(43,49,84,.12)}
 .mock-stat-label{font-size:9px;font-weight:700;color:#b2b5c3;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 .mock-stat.accent .mock-stat-label{color:rgba(255,255,255,.6)}
 .mock-stat-val{font-size:20px;font-weight:900;color:#1b1f36;letter-spacing:-.03em}
 @media(max-width:768px){.mock-stat-val{font-size:14px}}
-.mock-stat.accent .mock-stat-val{color:#edd8ab}
+.mock-stat.accent .mock-stat-val{background:linear-gradient(150deg,#fff 20%,#cdd3e6 95%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent}
 .mock-stat-sub{font-size:9px;color:#b2b5c3;margin-top:2px;font-weight:500}
 .mock-stat.accent .mock-stat-sub{color:rgba(255,255,255,.5)}
 
@@ -263,7 +263,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .feat-mock::before{content:'';position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(43,49,84,.12),transparent 70%);filter:blur(40px);pointer-events:none;z-index:-1}
 /* Brand tracing border */
 .feat-highlight{position:relative;overflow:hidden;border-radius:12px}
-.feat-highlight::before{content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--trace-angle,0deg),transparent 0%,transparent 60%,#2b3154 75%,#edd8ab 85%,#2b3154 95%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:traceOrbit 3s linear infinite;pointer-events:none;z-index:2}
+.feat-highlight::before{content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--trace-angle,0deg),transparent 0%,transparent 60%,#2b3154 75%,#fff 85%,#2b3154 95%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:traceOrbit 3s linear infinite;pointer-events:none;z-index:2}
 @property --trace-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes traceOrbit{to{--trace-angle:360deg}}
 .feat-mock-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
@@ -287,7 +287,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .feat-mock-export-btn.active{border-color:rgba(43,49,84,.4);color:#fff;background:rgba(43,49,84,.15)}
 .feat-mock-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .feat-mock-pill{font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.08)}
-.feat-mock-pill.on{background:rgba(43,49,84,.15);color:#edd8ab;border-color:rgba(43,49,84,.3)}
+.feat-mock-pill.on{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.3)}
 .feat-mock-mini{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:11px;color:rgba(255,255,255,.5);font-weight:600}
 .feat-mock-mini:last-child{margin-bottom:0}
 .feat-mock-mini span{color:#fff;font-weight:700}
