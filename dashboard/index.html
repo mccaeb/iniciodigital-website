@@ -162,12 +162,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 @media(max-width:768px){.mock-stats{grid-template-columns:repeat(2,1fr);gap:6px}}
 .mock-stat{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
 @media(max-width:768px){.mock-stat{padding:8px;border-radius:8px}.mock-stat-label{font-size:7px;margin-bottom:2px}.mock-stat-sub{font-size:7px}}
-.mock-stat.accent{background:linear-gradient(135deg,#2b3154,#1e2340);border-color:transparent;color:#fff;box-shadow:0 2px 6px rgba(43,49,84,.2),0 8px 20px rgba(43,49,84,.12)}
+.mock-stat.accent{background:linear-gradient(135deg,#2b3154,#1e2340);border:1px solid #e2c78d;color:#fff;box-shadow:0 2px 6px rgba(43,49,84,.2),0 8px 20px rgba(43,49,84,.12)}
 .mock-stat-label{font-size:9px;font-weight:700;color:#b2b5c3;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 .mock-stat.accent .mock-stat-label{color:rgba(255,255,255,.6)}
 .mock-stat-val{font-size:20px;font-weight:900;color:#1b1f36;letter-spacing:-.03em}
 @media(max-width:768px){.mock-stat-val{font-size:14px}}
-.mock-stat.accent .mock-stat-val{color:#fff}
+.mock-stat.accent .mock-stat-val{color:#e2c78d}
 .mock-stat-sub{font-size:9px;color:#b2b5c3;margin-top:2px;font-weight:500}
 .mock-stat.accent .mock-stat-sub{color:rgba(255,255,255,.5)}
 
@@ -199,7 +199,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .mock-cust-name{font-size:12px;font-weight:700;color:#1b1f36}
 .mock-cust-addr{font-size:10px;color:#8d91a6;margin-top:1px}
 .mock-cust-tags{display:flex;gap:4px;align-items:center}
-.mock-cust-tag{font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(43,49,84,.08);color:#2b3154}
+.mock-cust-tag{font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,.12);color:#15803d}
 .mock-cust-date{font-size:10px;color:#b2b5c3;font-weight:500;white-space:nowrap}
 .mock-cust-price{font-size:11px;font-weight:800;background:#2b3154;color:#fff;padding:4px 10px;border-radius:8px;flex-shrink:0}
 
@@ -255,7 +255,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .feat-desc{font-size:clamp(15px,1.6vw,17px);color:#7e8299;line-height:1.65;font-weight:500;max-width:420px}
 @media(max-width:768px){.feat-desc{max-width:none;margin:0 auto}}
 .feat-visual{flex:1;min-width:0;display:flex;justify-content:center;position:relative;perspective:500px}
-.feat-mock{background:linear-gradient(150deg,#262b45,#1e1e1e);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px;color:#fff;position:relative;width:100%;max-width:380px;transform:rotateY(-12deg) rotateX(5deg);transform-style:preserve-3d;box-shadow:0 4px 12px rgba(0,0,0,.08),0 20px 50px rgba(0,0,0,.12);transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.feat-mock{background:linear-gradient(150deg,#262b45,#1d2138);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px;color:#fff;position:relative;width:100%;max-width:380px;transform:rotateY(-12deg) rotateX(5deg);transform-style:preserve-3d;box-shadow:0 4px 12px rgba(0,0,0,.08),0 20px 50px rgba(0,0,0,.12);transition:transform .6s cubic-bezier(.22,1,.36,1)}
 .feat-row.reverse .feat-mock{transform:rotateY(12deg) rotateX(5deg)}
 .feat-mock:hover{transform:rotateY(-6deg) rotateX(2deg)}
 .feat-row.reverse .feat-mock:hover{transform:rotateY(6deg) rotateX(2deg)}
@@ -275,7 +275,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .feat-mock-btn{font-size:10px;font-weight:700;padding:6px 14px;border-radius:8px;white-space:nowrap;letter-spacing:.01em}
 .feat-mock-btn.decline{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
 .feat-mock-btn.cancel{background:rgba(249,115,22,.12);color:#f97316;border:1px solid rgba(249,115,22,.2)}
-.feat-mock-btn.accept{background:rgba(43,49,84,.15);color:#e2c78d;border:1px solid rgba(43,49,84,.25)}
+.feat-mock-btn.accept{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25)}
 .feat-mock-notif{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
 .feat-mock-notif:last-child{margin-bottom:0}
 .feat-mock-notif-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -584,14 +584,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
         <div class="feat-mock">
           <div class="feat-mock-label">Notifications</div>
           <div class="feat-mock-notif feat-highlight">
-            <div class="feat-mock-notif-dot" style="background:#e2c78d"></div>
+            <div class="feat-mock-notif-dot" style="background:#22c55e"></div>
             <div class="feat-mock-notif-text">
               <div class="feat-mock-notif-title">New customer!</div>
               <div class="feat-mock-notif-time">Claire W. &middot; Window Cleaning &middot; &pound;18/visit</div>
             </div>
           </div>
           <div class="feat-mock-notif">
-            <div class="feat-mock-notif-dot" style="background:#e2c78d"></div>
+            <div class="feat-mock-notif-dot" style="background:#22c55e"></div>
             <div class="feat-mock-notif-text">
               <div class="feat-mock-notif-title">New customer!</div>
               <div class="feat-mock-notif-time">Mark H. &middot; Window Cleaning &middot; &pound;22/visit</div>

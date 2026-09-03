@@ -200,15 +200,15 @@
     var runCust = 380, runMonthly = 6200, runAnnual = 75000, runBatch = 68;
     var newLeads = [
       { name: 'Sarah Mitchell', addr: '14 Park Lane, EH6 4QJ', price: 18, dot: '#8b96cf' },
-      { name: 'David Kerr', addr: '33 Broomhill Avenue, G11 7AB', price: 21, dot: '#e2c78d' },
+      { name: 'David Kerr', addr: '33 Broomhill Avenue, G11 7AB', price: 21, dot: '#22c55e' },
       { name: 'Kirsty Wallace', addr: '7 Harbour Street, KY1 1BN', price: 15, dot: '#8b96cf' },
-      { name: 'Graeme Murray', addr: '52 Elm Row, EH7 4AH', price: 20, dot: '#e2c78d' },
+      { name: 'Graeme Murray', addr: '52 Elm Row, EH7 4AH', price: 20, dot: '#22c55e' },
       { name: 'Nicola Fraser', addr: '19 Loch Road, FK3 8QP', price: 17, dot: '#8b96cf' },
-      { name: 'Alan Sinclair', addr: '8 Cramond Road, EH4 6NS', price: 22, dot: '#e2c78d' },
+      { name: 'Alan Sinclair', addr: '8 Cramond Road, EH4 6NS', price: 22, dot: '#22c55e' },
       { name: 'Morag Chalmers', addr: '15 Union Terrace, AB10 1QE', price: 19, dot: '#8b96cf' },
-      { name: 'Stuart Paterson', addr: '4 Lochside View, FK2 9DL', price: 16, dot: '#e2c78d' },
+      { name: 'Stuart Paterson', addr: '4 Lochside View, FK2 9DL', price: 16, dot: '#22c55e' },
       { name: 'Helen Ramsay', addr: '31 Thistle Lane, DD2 1PH', price: 24, dot: '#8b96cf' },
-      { name: 'Craig Buchanan', addr: '12 Inverleith Place, EH3 5NS', price: 18, dot: '#e2c78d' }
+      { name: 'Craig Buchanan', addr: '12 Inverleith Place, EH3 5NS', price: 18, dot: '#22c55e' }
     ];
     function heroBump(el, from, to, prefix, suffix, divide) {
       var dur = 800, start = performance.now();
@@ -484,9 +484,9 @@
       /* Customer cards — show new arrivals then stop */
       var newCustomers = [
         { name: 'Jamie Crawford', addr: '3 Birchwood Drive, G61 4SL', price: 20, dot: '#8b96cf' },
-        { name: 'Fiona Baxter', addr: '41 Queens Road, EH9 2BX', price: 24, dot: '#e2c78d' },
+        { name: 'Fiona Baxter', addr: '41 Queens Road, EH9 2BX', price: 24, dot: '#22c55e' },
         { name: 'Ewan Brodie', addr: '17 Harbour View, KY11 2ND', price: 16, dot: '#8b96cf' },
-        { name: 'Isla Drummond', addr: '9 Castle Terrace, FK8 1RS', price: 22, dot: '#e2c78d' },
+        { name: 'Isla Drummond', addr: '9 Castle Terrace, FK8 1RS', price: 22, dot: '#22c55e' },
         { name: 'Ross Campbell', addr: '26 Glenburn Road, PA2 7LQ', price: 18, dot: '#8b96cf' }
       ];
       var custWrap = doc.querySelector('.dash-customer-wrap');

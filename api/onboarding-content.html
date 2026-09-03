@@ -12,6 +12,12 @@
     --dark: #232a4a; --dark-2: #333b63; --dark-3: #262b45;
     --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.1);
     --text: #1b1f36; --text-2: #4c5067; --text-3: #8d91a6;
+    /* Status colours — fixed hex, never derived from the brand tokens.
+       -deep variants are the same hue tuned for light grounds. */
+    --status-done: #22c55e; --status-done-deep: #15803d;
+    --status-progress: #fbbf24; --status-progress-deep: #b45309;
+    --status-error: #ef4444;
+    /* --green-bright is the sand-gold accent: DARK SURFACES ONLY. */
     --radius: 14px; --radius-sm: 10px; --radius-lg: 22px;
     --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
     --shadow-lg: 0 2px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.1);
@@ -48,7 +54,7 @@
   .instance-item-date { font-size: 12px; color: var(--text-3); font-weight: 500; }
   .instance-item-progress { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .instance-item-bar { width: 48px; height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
-  .instance-item-bar div { height: 100%; background: linear-gradient(90deg, var(--green-bright), var(--green)); border-radius: 99px; }
+  .instance-item-bar div { height: 100%; background: linear-gradient(90deg, var(--status-done), var(--status-done-deep)); border-radius: 99px; }
   .instance-item-pct { font-size: 12px; font-weight: 700; color: var(--text-3); min-width: 32px; text-align: right; }
   .instance-new-btn { display: block; width: 100%; padding: 12px 20px; background: none; border: none; border-top: 1px solid var(--border); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--green); text-align: left; transition: background 0.12s; }
   .instance-new-btn:hover { background: var(--green-light); }
@@ -115,7 +121,7 @@
   .item.up-next { border-color: var(--green); box-shadow: 0 2px 4px rgba(0,0,0,0.10), 0 8px 22px rgba(43,49,84,0.28); }
   .item-row { display: flex; align-items: flex-start; gap: 10px; padding: 11px 14px 9px; cursor: grab; transition: background 0.12s; position: relative; }
   .item-row:hover { background: #FAF9F3; }
-  .item.checked .item-row { background: #f0faf5; }
+  .item.checked .item-row { background: rgba(34,197,94,.07); }
   .item.drag-over { background: var(--green-light); outline: 2px dashed var(--green-mid); outline-offset: -2px; }
   .drag-handle { color: #c4c7d3; font-size: 16px; margin-top: 2px; flex-shrink: 0; user-select: none; line-height: 1; }
   .item-row:hover .drag-handle { color: #a2a5b8; }
@@ -153,7 +159,7 @@
     border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 6px 20px rgba(0,0,0,0.06); }
   .sb-name { font-size: 13.5px; font-weight: 800; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
   .sb-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 99px; overflow: hidden; min-width: 60px; }
-  .sb-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--green-bright), var(--green)); border-radius: 99px; transition: width 0.5s var(--ease); }
+  .sb-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--status-done), var(--status-done-deep)); border-radius: 99px; transition: width 0.5s var(--ease); }
   .sb-count { font-size: 12.5px; font-weight: 700; color: var(--text-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .sb-next { font-size: 12.5px; font-weight: 700; font-family: inherit; padding: 7px 14px; border-radius: 99px; border: none; cursor: pointer; white-space: nowrap;
     background: var(--green); color: #fff; transition: all 0.15s; }
@@ -177,7 +183,7 @@
   .view-count { font-size: 12.5px; font-weight: 600; color: var(--text-3); white-space: nowrap; }
 
   /* ── Up next ── */
-  .item.up-next .item-row { background: linear-gradient(90deg, rgba(226,199,141,0.09), transparent 65%); box-shadow: inset 3px 0 0 var(--green-bright); }
+  .item.up-next .item-row { background: linear-gradient(90deg, rgba(180,83,9,0.07), transparent 65%); box-shadow: inset 3px 0 0 var(--status-progress-deep); }
   .up-next-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--green-dark); background: var(--green-light); padding: 2px 7px; border-radius: 99px; margin-left: 8px; vertical-align: 2px; }
   @keyframes stepFlash { 0%,100% { background: transparent; } 30% { background: var(--green-light); } }

@@ -15,8 +15,23 @@
   --brand-hover:#3a4270;
   --brand-deep:#1e2340;
   --brand-soft:#8b96cf;   /* light navy, for on-dark detail */
+  /* Sand-gold is DARK-SURFACE ONLY. Against --bg it lands at ~1.5:1 —
+     unreadable. Use it on the navy cards, never on the cream ground. */
   --brand-accent:#e2c78d; /* warm sand-gold, from the logo backdrop */
   --cream:#f1ecdd;        /* warm tint used in backgrounds/glows */
+
+  /* ── Status colours ──────────────────────────────────────────────
+     Fixed hex. Never derived from --brand-*, never re-themed: green
+     means done, amber means in flight, red means problem, and those
+     meanings have to survive any future rebrand. The -soft / -deep
+     variants are the same hue tuned for legibility on dark and light
+     grounds respectively — not different states. */
+  --status-done:#22c55e;
+  --status-done-soft:#4ade80;    /* on dark surfaces */
+  --status-done-deep:#15803d;    /* on light surfaces */
+  --status-progress:#fbbf24;     /* on dark surfaces */
+  --status-progress-deep:#b45309;/* on light surfaces */
+  --status-error:#ef4444;
   --wa:#25d366;
   --card-radius:22px;
   --card-radius-m:18px;
@@ -160,14 +175,15 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .hc-stat{background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 12px;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);position:relative;overflow:hidden}
 .hc-stat::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);animation:cardShimmer 4s ease-in-out infinite}
 @keyframes cardShimmer{0%{left:-100%}50%,100%{left:150%}}
-.hc-stat.accent{background:linear-gradient(135deg,#4a5490,#333c6b);border-color:transparent;box-shadow:0 4px 16px rgba(43,49,84,.35),inset 0 1px 0 rgba(255,255,255,.12)}
+.hc-stat.accent{background:#1d2138;border:1px solid var(--brand-accent);box-shadow:0 4px 18px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.06)}
+.hc-stat.accent .hc-stat-v{color:var(--brand-accent)}
 .hc-stat-l{font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .hc-stat.accent .hc-stat-l{color:rgba(255,255,255,.55)}
 .hc-stat.accent::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);animation:accentShimmer 3s ease-in-out infinite}
 @keyframes accentShimmer{0%{left:-100%}50%,100%{left:150%}}
-.hc-new-badge{font-size:10px;font-weight:800;color:#e2c78d;background:rgba(226,199,141,.15);padding:2px 7px;border-radius:5px;margin-left:6px;letter-spacing:.02em;animation:newPulse 2s ease-in-out infinite}
+.hc-new-badge{font-size:10px;font-weight:800;color:var(--status-done-soft);background:rgba(34,197,94,.15);padding:2px 7px;border-radius:5px;margin-left:6px;letter-spacing:.02em;animation:newPulse 2s ease-in-out infinite}
 @keyframes newPulse{0%,100%{opacity:1}50%{opacity:.5}}
-.hc-lead-new{border-color:rgba(226,199,141,.25)}
+.hc-lead-new{border-color:rgba(34,197,94,.25)}
 .hc-stat-v{font-size:24px;font-weight:900;letter-spacing:-.03em;color:#fff}
 @media(max-width:768px){.hc-stat{padding:12px 10px}.hc-stat-v{font-size:22px}.hc-stat-l{font-size:11px}}
 
@@ -176,19 +192,19 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .hc-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .hc-progress-title{font-size:14px;font-weight:800;color:#fff;letter-spacing:-.01em}
 .hc-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px}
-.hc-badge--done{background:rgba(226,199,141,.12);color:#e2c78d}
-.hc-badge--building{background:rgba(217,119,6,.12);color:#fbbf24}
+.hc-badge--done{background:rgba(34,197,94,.12);color:var(--status-done-soft)}
+.hc-badge--building{background:rgba(217,119,6,.12);color:var(--status-progress)}
 .hc-bar{height:7px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden}
 .hc-bar-fill{height:100%;border-radius:4px;transition:width 2s var(--ease)}
-.hc-bar-fill--done{background:linear-gradient(90deg,#e2c78d,#8b96cf)}
-.hc-bar-fill--building{background:linear-gradient(90deg,#fbbf24,#d97706)}
+.hc-bar-fill--done{background:linear-gradient(90deg,var(--status-done-soft),var(--status-done))}
+.hc-bar-fill--building{background:linear-gradient(90deg,var(--status-progress),#d97706)}
 @media(max-width:768px){.hc-progress{padding:11px 12px}.hc-progress-title{font-size:13px}.hc-badge{font-size:10px;padding:2px 7px}}
 
 .hero-leads{overflow:hidden;position:relative}
 .hero-leads-inner{transition:transform .5s var(--ease)}
 .hc-lead{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 12px;margin:7px 10% 0}
 @media(max-width:768px){.hc-lead{margin:5px 8% 0;padding:8px 10px;gap:8px}.hc-lead-name{font-size:12px}.hc-lead-addr{font-size:10px}.hc-lead-price{font-size:10px;padding:3px 7px}}
-.hc-lead-top{border-color:rgba(226,199,141,.4)}
+.hc-lead-top{border-color:rgba(34,197,94,.4)}
 .hc-lead-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .hc-lead-info{flex:1;min-width:0}
 .hc-lead-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
@@ -233,7 +249,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .pain-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--card-radius);padding:32px 24px;color:var(--ink);position:relative;overflow:hidden;transition:transform .5s var(--ease),border-color .5s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .pain-card:hover{transform:translateY(-2px);border-color:rgba(0,0,0,.1)}
 @media(max-width:768px){.pain-card{padding:24px 20px;border-radius:18px}.pain-card:hover{transform:none;border-color:rgba(0,0,0,.06)}}
-.pain-x{position:absolute;top:16px;right:18px;font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.1em}
+.pain-x{position:absolute;top:16px;right:18px;font-size:11px;font-weight:700;color:var(--status-error);text-transform:uppercase;letter-spacing:.1em}
 .pain-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
 .pain-icon--red{background:rgba(239,68,68,.08)}
 .pain-icon--orange{background:rgba(249,115,22,.08)}
@@ -357,11 +373,11 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .dash-bar{transition:width 1.2s var(--ease)}
 .dash-customer-wrap{position:relative;overflow:hidden;padding:0 12%;margin-bottom:10px}
 @media(max-width:480px){.dash-customer-wrap{padding:0 3%}}
-.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(226,199,141,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:opacity .4s ease,transform .4s var(--ease);will-change:transform,opacity}
+.dash-toast{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(34,197,94,.25);border-radius:11px;padding:11px 12px;opacity:1;transform:translateX(0);transition:opacity .4s ease,transform .4s var(--ease);will-change:transform,opacity}
 .dash-toast.out{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(100%)}
 .dash-toast.entering{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateX(-100%)}
 .dash-toast.enter{position:relative;opacity:1;transform:translateX(0)}
-.dash-toast-dot{width:7px;height:7px;border-radius:50%;background:#e2c78d;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
+.dash-toast-dot{width:7px;height:7px;border-radius:50%;background:var(--status-done);flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .dash-toast-info{flex:1;min-width:0}
 .dash-toast-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
 .dash-toast-addr{font-size:12px;color:rgba(255,255,255,.4);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
